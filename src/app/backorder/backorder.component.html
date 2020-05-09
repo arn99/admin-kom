@@ -1,0 +1,63 @@
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group" >
+      <input type="text" id="searchInput" style="text-align:center" class="form-control text-center" [(ngModel)]="searchInput" placeholder="Search for names..">
+    </div>
+    <table class ="table">
+      <thead>
+        <tr>
+                
+          <th data-field="id" data-filter-control="input" data-sortable="true">Code compte</th>
+          <th data-field="name" data-filter-control="input" data-sortable="true">Nom</th>
+          <th data-field="adresse" data-filter-control="input" data-sortable="true">Adresse</th>
+          <th>Actions</th>
+         </tr>
+      </thead>
+      <tbody id="table1">
+      <tr *ngFor="let order of orders | filter: searchInput | paginate: config; let i = index">
+        <td>
+          {{i}}
+        </td>
+        <td>
+          {{order.clientName}}
+        </td>
+        <td>
+          {{order.clientLocation}}
+        </td>
+        <td>
+          <button class= 'btn btn-info'  (click)="onViewOrder(order,i)"> Voir </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+  </div>
+  <div class="col-md-6" *ngIf="order.clientName">
+    <div class="card" style="width: 28rem;">
+      <div class="card-body">
+        <h5 class="card-title">Commande <button class= 'btn btn-info'  (click)="finish(order)"> Traiter </button></h5>
+        <div>
+          <h5>Nom: <span> {{order.clientName}}</span></h5>
+          <h5>Adresse: <span> {{order.clientLocation}}</span></h5>
+          <h5>Numsero: <span> {{order.clientNumber}}</span></h5>
+          <table class ="table">
+            <thead>
+              <tr>
+                      
+                <th data-field="id" data-filter-control="input" data-sortable="true">Menu</th>
+                <th data-field="name" data-filter-control="input" data-sortable="true">Nombre</th>
+               </tr>
+            </thead>
+            <tr *ngFor="let food of order.foodList" > 
+              <td>{{food.name}}</td>
+              <td>{{food.numberOfItem}}</td>
+            </tr>
+          </table>
+          
+          <h5>Total: <span> {{order.total}}</span></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
