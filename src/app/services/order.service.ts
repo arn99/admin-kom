@@ -19,7 +19,8 @@ export class OrderService {
   }
   getOrders() {
     firebase.database().ref('/orders')
-     
+      .orderByChild('state')
+      .equalTo('waiting')
       .on('value', (data: DataSnapshot) => {
           this.orders = data.val() ? data.val() : [];
           this.emitOrders();
