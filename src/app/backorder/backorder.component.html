@@ -4,11 +4,11 @@
     <div class="form-group" >
       <input type="text" id="searchInput" style="text-align:center" class="form-control text-center" [(ngModel)]="searchInput" placeholder="Search for names..">
     </div>
-    <table class ="table">
+    <table mat-table class ="table">
       <thead>
-        <tr>
+        <tr color="warn">
                 
-          <th data-field="id" data-filter-control="input" data-sortable="true">Code compte</th>
+          <th data-field="id" data-filter-control="input" data-sortable="true">Numero</th>
           <th data-field="name" data-filter-control="input" data-sortable="true">Nom</th>
           <th data-field="adresse" data-filter-control="input" data-sortable="true">Adresse</th>
           <th>Actions</th>
@@ -26,7 +26,12 @@
           {{order.clientLocation}}
         </td>
         <td>
-          <button class= 'btn btn-info'  (click)="onViewOrder(order,i)"> Voir </button>
+          
+          <button class= 'btn'  (click)="onViewOrder(order,i)">
+            <mat-icon class="material-icons" color="warn">
+            visibility
+            </mat-icon> 
+          </button>
         </td>
       </tr>
       </tbody>
@@ -34,13 +39,25 @@
     <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
   </div>
   <div class="col-md-6" *ngIf="order.clientName">
-    <div class="card" style="width: 28rem;">
+    <div class="card shadow-lg p-3 mb-5 bg-black rounded" style="width: 28rem;">
       <div class="card-body">
-        <h5 class="card-title">Commande <button class= 'btn btn-info'  (click)="finish(order)"> Traiter </button></h5>
         <div>
-          <h5>Nom: <span> {{order.clientName}}</span></h5>
-          <h5>Adresse: <span> {{order.clientLocation}}</span></h5>
-          <h5>Numsero: <span> {{order.clientNumber}}</span></h5>
+          <div class="contact-info">
+            <h2><mat-icon class="material-icons contact" color="warn">
+              account_circle
+              </mat-icon>Nom:
+               <span>{{order.clientName}}</span>
+              </h2>
+            <h2>
+              <mat-icon class="material-icons contact" color="warn">
+              location_on
+              </mat-icon>Adresse: <span> {{order.clientLocation}}</span>
+            </h2>
+            <h2><mat-icon class="material-icons contact" color="warn">
+              phone
+              </mat-icon>Numero: <span> {{order.clientNumber}}</span>
+            </h2>
+          </div>
           <table class ="table">
             <thead>
               <tr>
@@ -50,13 +67,14 @@
                </tr>
             </thead>
             <tr *ngFor="let food of order.foodList" > 
-              <td>{{food.name}}</td>
-              <td>{{food.numberOfItem}}</td>
+              <td><strong>{{food.name}}</strong></td>
+              <td><strong>{{food.numberOfItem}}</strong></td>
             </tr>
           </table>
           
-          <h5>Total: <span> {{order.total}}</span></h5>
+          <h2>Total: <span> {{order.total}}</span></h2>
         </div>
+        <h5 class="card-title text-center"> <button mat-raised-button color="warn"   (click)="finish(order)"> Traiter </button></h5>
       </div>
     </div>
   </div>

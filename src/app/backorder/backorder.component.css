@@ -1,3 +1,16 @@
 ol{
     list-style-type: decimal;
 }
+.row{
+    margin-top: 5%;
+}
+th {
+    background-color: #f44336;
+    color: white;
+} 
+mat-icon.material-icons {
+    vertical-align: middle;
+}
+.contact-info{
+    padding-left: 0%;
+}
