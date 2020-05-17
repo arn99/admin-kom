@@ -1,0 +1,4 @@
+<agm-map [latitude]="lat" [longitude]="lng">
+    <agm-direction [origin]="origin" [destination]="destination" (dragEnd)="markerDragEnd(origin, $event)">
+    </agm-direction>
+</agm-map>

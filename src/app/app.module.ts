@@ -16,6 +16,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
+import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
+import { MapsComponent } from './maps/maps.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import {MatButtonModule} from '@angular/material/button';
     BackorderComponent,
     OrderDeliverComponent,
     HeaderComponent,
-    FoodComponent
+    FoodComponent,
+    MapsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,11 @@ import {MatButtonModule} from '@angular/material/button';
     HttpClientModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAvw8F1-PrDmQbMm6yzGOteQwM-4w80V5c',
+    }),
+    AgmDirectionModule,
   ],
   providers: [OrderService, FoodService],
   bootstrap: [AppComponent]

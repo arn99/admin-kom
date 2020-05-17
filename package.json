@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^1.1.0",
     "@angular/animations": "~9.1.6",
     "@angular/cdk": "^9.2.3",
     "@angular/common": "~9.1.6",
@@ -21,7 +22,9 @@
     "@angular/platform-browser": "~9.1.6",
     "@angular/platform-browser-dynamic": "~9.1.6",
     "@angular/router": "~9.1.6",
+    "@netlify-builder/deploy": "^3.1.0",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
+    "agm-direction": "^0.7.9",
     "bootstrap": "^4.4.1",
     "core-js": "^3.6.5",
     "firebase": "^7.14.3",
