@@ -1,4 +1,18 @@
-<agm-map [latitude]="lat" [longitude]="lng">
-    <agm-direction [origin]="origin" [destination]="destination" (dragEnd)="markerDragEnd(origin, $event)">
-    </agm-direction>
-</agm-map>
+
+
+<h1 mat-dialog-title>Localisation </h1>
+<mat-dialog-content class="mat-typography">
+    <agm-map [latitude]="lat" [longitude]="lng">
+        <agm-direction 
+                        [origin]="origin" 
+                        [destination]="destination"
+                        [markerOptions]="markerOptions"
+                        [renderOptions]="renderOptions"
+                        (dragEnd)="markerDragEnd(origin, $event)">
+        </agm-direction>
+    </agm-map>
+</mat-dialog-content>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Retour</button>
+  <button mat-button [mat-dialog-close]="" cdkFocusInitial>Ok</button>
+</div>

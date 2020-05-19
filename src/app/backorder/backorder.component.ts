@@ -1,7 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MapsComponent } from './../maps/maps.component';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Order } from '../models/order.model';
 import { Subscription } from 'rxjs';
 import { OrderService } from '../services/order.service';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-backorder',
@@ -18,7 +21,7 @@ export class BackorderComponent implements OnInit, OnDestroy {
   page: number;
   pageSize: number;
   config: any;
-  constructor(private ordersService: OrderService) { }
+  constructor(private ordersService: OrderService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.ordersSubscription = this.ordersService.ordersSubject.subscribe(
@@ -52,5 +55,14 @@ export class BackorderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.ordersSubscription.unsubscribe();
   }
+  openDialog(location): void {
+    const dialogRef = this.dialog.open(MapsComponent, {
+      width: '75%',
+      data: {latitude: location.latitude, longitude: location.longitude}
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }

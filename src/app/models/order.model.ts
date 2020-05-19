@@ -5,6 +5,7 @@ export class Order {
     clientNumber: string;
     total: string;
     foodList: any;
+    location: any;
     constructor() {
 
     }

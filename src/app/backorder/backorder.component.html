@@ -24,15 +24,24 @@
         <td>
           {{order.clientName}}
         </td>
-        <td>
-          {{order.clientLocation}}
+        <td *ngIf="order.clientLocation.district" >
+          {{order.clientLocation.district}}
         </td>
+        <td *ngIf="!order.clientLocation.district" >
+          Non disponible
+        </td>
+        
         <td>
           
-          <button class= 'btn'  (click)="onViewOrder(order,i)">
+          <button mat-raised-button (click)="onViewOrder(order,i)">
             <mat-icon class="material-icons" color="warn">
             visibility
             </mat-icon> 
+          </button>
+          <button mat-raised-button (click)="openDialog(order.clientLocation)">
+            <mat-icon class="material-icons contact" color="warn">
+              location_on
+            </mat-icon>
           </button>
         </td>
       </tr>
@@ -53,7 +62,8 @@
             <h2>
               <mat-icon class="material-icons contact" color="warn">
               location_on
-              </mat-icon>Adresse: <span> {{order.clientLocation}}</span>
+              </mat-icon>
+              Adresse: <span> {{order.clientLocation}}</span>
             </h2>
             <h2><mat-icon class="material-icons contact" color="warn">
               phone

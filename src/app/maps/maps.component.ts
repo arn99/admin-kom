@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
+import { LocationData } from './../models/location-data';
+import { Component, Inject, OnInit } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 @Component({
   selector: 'app-maps',
   templateUrl: './maps.component.html',
@@ -7,13 +8,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MapsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<MapsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: LocationData) {
+      console.log(data);
+    }
 
   public lat = 24.799448;
   public lng = 120.979021;
   public origin: any;
   public destination: any;
-
+  public markerOptions = {
+    origin: {
+      infoWindow: 'Moi.',
+      label: 'Moi',
+    },
+    waypoints: [
+    ],
+    destination: {
+      infoWindow: 'Client',
+      label: 'Client',
+    },
+  };
+  public renderOptions = {
+    suppressMarkers: false,
+  };
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
   ngOnInit() {
     this.getDirection();
   }
@@ -23,21 +45,19 @@ export class MapsComponent implements OnInit {
     console.log(event);
   }
   getDirection() {
-    this.destination = { lat: 14.713359, lng: -17.4455387 };
-    this.origin = { lat: 14.713434,  lng: -17.444956 };
+    this.destination = { lat: this.data.latitude, lng: this.data.longitude };
+    this.origin = { lat: 14.711955,  lng: -17.476596 };
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: Position) => {
           if (position) {
-              console.log(position);
           }
       });
     }
     // this.origin = 'Taipei Main Station';
     // this.destination = 'Taiwan Presidential Office';
   }
+  // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
     this.watchPosition();
   }
   async watchPosition() {
