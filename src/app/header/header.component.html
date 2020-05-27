@@ -1,16 +1,11 @@
-<nav>
-  <ul class="nav justify-content-center">
-    <li class="nav-item"> <a class="nav-link" [routerLink]="['order/waiting']"> Commande  <span class="sr-only">(current)</span> </a> </li>
-    <li class="nav-item"> <a class="nav-link"[routerLink]="['order/delivered']" > Livrer </a> </li>
-    <li class="nav-item"> 
-      <a class="nav-link"[routerLink]="['food']"> 
-      Menu 
-      </a> 
-    </li>
-    <li class="nav-item"> 
-      <a class="nav-link"[routerLink]="['location']"> 
-      Localisation
-      </a> 
-    </li>
-  </ul>
-</nav>
+
+<mat-toolbar color="primary" >
+  <mat-toolbar-row>
+    <div>
+      <a  mat-button  [routerLink]="['order/waiting']"> Commande  <span class="sr-only">(current)</span> </a>
+      <a  mat-button [routerLink]="['order/delivered']" > Livrer </a>
+      <a  mat-button [routerLink]="['food']"> Mes plats </a> 
+      <a  mat-button [routerLink]="['location']"> Localisation </a> 
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

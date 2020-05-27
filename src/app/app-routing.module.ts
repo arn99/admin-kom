@@ -10,7 +10,7 @@ const routes: Routes = [
   {path: 'order/delivered', component: OrderDeliverComponent},
   {path: 'food', component: FoodComponent},
   {path: 'location', component: MapsComponent},
-  {path: '', component: BackorderComponent},
+  {path: '', component: FoodComponent},
 
 ];
 

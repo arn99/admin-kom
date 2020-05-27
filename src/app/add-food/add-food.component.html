@@ -1,0 +1,47 @@
+<div class="example-container">
+    <mat-form-field appearance="fill">
+        <mat-label>Nom du plat</mat-label>
+        <input matInput>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Prix</mat-label>
+      <input matInput type="number" class="example-right-align">
+      <span matSuffix>.00 CFA</span>
+    </mat-form-field>
+    <br>
+    <mat-form-field style="width: 100%;" appearance="fill">
+        <mat-label>Description du plat</mat-label>
+        <textarea matInput rows="2" cols="40"></textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+        <mat-label>Photo</mat-label>
+        <input matInput type="number" class="example-right-align">
+        <span matSuffix>.00 CFA</span>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Categorie</mat-label>
+        <mat-select>
+          <mat-option value="option">Plat local</mat-option>
+          <mat-option value="option">Poulet</mat-option>
+          <mat-option value="option">Dessert</mat-option>
+          <mat-option value="option">Autre</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <section class="example-section">
+        <mat-slide-toggle
+            class="example-margin"
+            [color]="color"
+            [checked]="checked"
+            [disabled]="disabled">
+          Disponibilté du plat
+        </mat-slide-toggle>
+      </section>
+   <div class="text-center">
+    <button mat-raised-button color="primary">Ajouter</button>
+   </div>
+      
+  </div>

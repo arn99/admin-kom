@@ -1,0 +1,52 @@
+{
+    "restaurants" : [
+       {
+        "uid" : "testuid",
+        "location" : {"latitude": 211, "longitude": 1212},
+        "photo" : "resto1.png",
+        "numero" : 122335,
+        "reservation" : "oui",
+        "foods" : [ {
+                "id":"ddsfdfd",
+                "title" : "Poulet",
+                "discount" : 3,
+                "price" : 2500,
+                "description":"specialité kfc",
+                "category":"local",
+                "imagePath" : "https://2.bp.blogspot.com/-ZbUGZEIImQk/Uxhp3r9wfvI/AAAAAAAAArg/ztlgbYkYCyo/s1600/kfcccc.jpg"
+            }, {
+                "id":"ddsfdfd",
+                "title" : "PopCorn",
+                "discount" : 3,
+                "price" : 5000,
+                "description":"specialité sénégalaise",
+                "category":"local",
+                "imagePath" : "https://w7.pngwing.com/pngs/81/810/png-transparent-kfc-bucket-of-fried-chicken-kfc-crispy-fried-chicken-chicken-fingers-kentucky-fried-chicken-popcorn-chicken-vegetarian-cuisine-kfc-food-chicken-meat-cuisine.png"
+            }]
+        },
+        {
+        "uid" : "testuid2",
+        "location" : {"latitude": 211, "longitude": 1212},
+        "photo" : "resto1.png",
+        "numero" : 122335,
+        "reservation" : "oui",
+        "foods" : [ {
+                "id":"ddsfdfd",
+                "title" : "Poulet frites",
+                "discount" : 3,
+                "price" : 7000,
+                "description":"specialité kfc",
+                "category":"local",
+                "imagePath" : "https://www.joc.com/sites/default/files/field_feature_image/KFC_0.png"
+            }, {
+                "id":"ddsfdfd",
+                "title" : "Poulet pané",
+                "discount" : 3,
+                "price" : 2500,
+                "description":"specialité sénégalaise",
+                "category":"local",
+                "imagePath" : "https://s3-media0.fl.yelpcdn.com/bphoto/IX4c5ROm1obfu0NZePan3g/o.jpg"
+            } ]
+        }
+    ]
+}
