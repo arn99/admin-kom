@@ -22,7 +22,7 @@
           {{i}}
         </td>
         <td>
-          {{order.clientName}}
+          {{order.customer.name}}
         </td>
         <td *ngIf="order.clientLocation.district" >
           {{order.clientLocation.district}}
@@ -49,7 +49,7 @@
     </table>
     <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
   </div>
-  <div class="col-md-6" *ngIf="order.clientName">
+  <div class="col-md-6" *ngIf="order.customer">
     <div class="card shadow-lg p-3 mb-5 bg-black rounded" style="width: 28rem;">
       <div class="card-body">
         <div>
@@ -57,7 +57,7 @@
             <h2><mat-icon class="material-icons contact" color="warn">
               account_circle
               </mat-icon>Nom:
-               <span>{{order.clientName}}</span>
+               <span>{{order.customer.name}}</span>
               </h2>
             <h2>
               <mat-icon class="material-icons contact" color="warn">
@@ -67,7 +67,7 @@
             </h2>
             <h2><mat-icon class="material-icons contact" color="warn">
               phone
-              </mat-icon>Numero: <span> {{order.clientNumber}}</span>
+              </mat-icon>Numero: <span> {{order.customer.number}}</span>
             </h2>
           </div>
           <table class ="table">
@@ -78,9 +78,9 @@
                 <th data-field="name" data-filter-control="input" data-sortable="true">Nombre</th>
                </tr>
             </thead>
-            <tr *ngFor="let food of order.foodList" > 
-              <td><strong>{{food.name}}</strong></td>
-              <td><strong>{{food.numberOfItem}}</strong></td>
+            <tr  > 
+              <td><strong>{{order.food.name}}</strong></td>
+              <td><strong>{{order.food.numberOfItem}}</strong></td>
             </tr>
           </table>
           

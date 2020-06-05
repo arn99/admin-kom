@@ -39,7 +39,8 @@ export class BackorderComponent implements OnInit, OnDestroy {
     // console.log(uid.uid);
     this.ordersService.getOrders('J0g4w7MqxkRhaEA81QnwXey23s02').subscribe((data) => {
       data.forEach((element) => {
-        console.log(element.payload.doc.data());
+        console.log(element.payload.doc.data()['customer']);
+        this.orders.push(element.payload.doc.data());
       });
     });
   }

@@ -1,8 +1,7 @@
 
 export class Order {
     clientLocation: string;
-    clientName: string;
-    clientNumber: string;
+    customer: any;
     total: string;
     foodList: any;
     location: any;
