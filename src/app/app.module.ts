@@ -5,10 +5,10 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BackorderComponent } from './backorder/backorder.component';
-import { OrderDeliverComponent } from './order-deliver/order-deliver.component';
-import { HeaderComponent } from './header/header.component';
-import { FoodComponent } from './food/food.component';
+import { BackorderComponent } from './components/backorder/backorder.component';
+import { OrderDeliverComponent } from './components/order-deliver/order-deliver.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FoodComponent } from './components/food/food.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderService } from './services/order.service';
@@ -19,7 +19,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
-import { MapsComponent } from './maps/maps.component';
+import { MapsComponent } from './components/maps/maps.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { firebaseConfig } from './config/firebase-config';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +37,11 @@ import { MapsComponent } from './maps/maps.component';
     OrderDeliverComponent,
     HeaderComponent,
     FoodComponent,
-    MapsComponent
+    MapsComponent,
+    SignInComponent,
+    SignUpComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -46,8 +59,11 @@ import { MapsComponent } from './maps/maps.component';
       apiKey: 'AIzaSyAvw8F1-PrDmQbMm6yzGOteQwM-4w80V5c',
     }),
     AgmDirectionModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
   ],
-  providers: [OrderService, FoodService],
+  providers: [OrderService, FoodService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

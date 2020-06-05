@@ -1,10 +1,12 @@
-import { MapsComponent } from './../maps/maps.component';
+import { MapsComponent } from '../maps/maps.component';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { Order } from '../models/order.model';
+import { Order } from '../../models/order.model';
 import { Subscription } from 'rxjs';
-import { OrderService } from '../services/order.service';
+import { OrderService } from '../../services/order.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AuthService } from 'src/app/services/auth.service';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-backorder',
@@ -21,7 +23,7 @@ export class BackorderComponent implements OnInit, OnDestroy {
   page: number;
   pageSize: number;
   config: any;
-  constructor(private ordersService: OrderService, public dialog: MatDialog) { }
+  constructor(private ordersService: OrderService, public dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit() {
     this.ordersSubscription = this.ordersService.ordersSubject.subscribe(
@@ -33,6 +35,8 @@ export class BackorderComponent implements OnInit, OnDestroy {
     this.ordersService.emitOrders();
     this.page = 1;
     this.table();
+    const uid = firebase.auth().currentUser;
+    console.log(uid.uid);
   }
   table() {
     this.config = {
