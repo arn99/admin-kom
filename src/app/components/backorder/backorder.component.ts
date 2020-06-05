@@ -28,15 +28,20 @@ export class BackorderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.ordersSubscription = this.ordersService.ordersSubject.subscribe(
       (orders) => {
-        this.orders = Object.values(orders);
-        console.log(Object.keys(orders));
+        this.orders = orders;
+        console.log(orders);
       }
     );
     this.ordersService.emitOrders();
     this.page = 1;
     this.table();
     const uid = firebase.auth().currentUser;
-    console.log(uid.uid);
+    // console.log(uid.uid);
+    this.ordersService.getOrders('J0g4w7MqxkRhaEA81QnwXey23s02').subscribe((data) => {
+      data.forEach((element) => {
+        console.log(element.payload.doc.data());
+      });
+    });
   }
   table() {
     this.config = {

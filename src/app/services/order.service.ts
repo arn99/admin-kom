@@ -2,35 +2,31 @@ import { Order } from './../models/order.model';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { Subject } from 'rxjs';
-import DataSnapshot = firebase.database.DataSnapshot;
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
+  [x: string]: any;
   orders: Order[] = [];
   ordersSubject = new Subject<Order[]>();
 
-  constructor() {
-    this.getOrders();
+  constructor(private firestore: AngularFirestore) {
+    this.getOrders('J0g4w7MqxkRhaEA81QnwXey23s02');
   }
   emitOrders() {
     this.ordersSubject.next(this.orders);
   }
-  getOrders() {
-    firebase.database().ref('/orders')
-      .orderByChild('state')
-      .equalTo('waiting')
-      .on('value', (data: DataSnapshot) => {
-          this.orders = data.val() ? data.val() : [];
-          this.emitOrders();
-          /* data.forEach(function(childSnapshot) {
-            var childKey = childSnapshot.key;
-           self.orders.push(childSnapshot);
-            // ...
-          }); */
+  getOrders(restoId) {
+    return this.firestore.collection(
+      'orders', ref => {
+        let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+        if (restoId) {
+          query = query.where('restaurant', '==', restoId);
         }
-      );
+        return query;
+    }).snapshotChanges();
   }
 
   saveOrders() {
@@ -40,7 +36,7 @@ export class OrderService {
     return new Promise(
       (resolve, reject) => {
         firebase.database().ref('/orders/' + id).once('value').then(
-          (data: DataSnapshot) => {
+          (data) => {
             resolve(data.val());
           }, (error) => {
             reject(error);

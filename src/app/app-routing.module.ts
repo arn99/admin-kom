@@ -12,11 +12,11 @@ import { AuthGuard } from './shared/guard/auth.guard';
 
 
 const routes: Routes = [
-  { path: 'order/waiting', component: BackorderComponent, canActivate: [AuthGuard]},
-  { path: 'order/delivered', component: OrderDeliverComponent , canActivate: [AuthGuard]},
-  { path: 'food', component: FoodComponent , canActivate: [AuthGuard]},
-  { path: 'back-order', component: BackorderComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
+  { path: 'order/waiting', component: BackorderComponent},
+  { path: 'order/delivered', component: OrderDeliverComponent },
+  { path: 'food', component: FoodComponent },
+  { path: '', component: BackorderComponent },
+  // { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register-user', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
