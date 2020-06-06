@@ -38,8 +38,9 @@ export class BackorderComponent implements OnInit, OnDestroy {
     const uid = firebase.auth().currentUser;
     // console.log(uid.uid);
     this.ordersService.getOrders('J0g4w7MqxkRhaEA81QnwXey23s02').subscribe((data) => {
+      this.orders = [];
       data.forEach((element) => {
-        console.log(element.payload.doc.data()['customer']);
+        console.log(data);
         this.orders.push(element.payload.doc.data());
       });
     });
