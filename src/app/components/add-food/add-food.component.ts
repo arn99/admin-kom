@@ -1,8 +1,11 @@
+import { DataService } from './../../services/data.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Food } from 'src/app/models/food.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FoodService } from 'src/app/services/food.service';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-add-food',
@@ -15,10 +18,12 @@ export class AddFoodComponent implements OnInit {
   checked = false;
   disabled = false;
   foodForm: FormGroup;
-  constructor(private formBuilder: FormBuilder,
+  food: Food;
+  file: any;
+  storage = firebase.storage();
+  constructor(private formBuilder: FormBuilder, private foodService: FoodService, public dataService: DataService,
     public dialogRef: MatDialogRef<AddFoodComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Food) {
-
       this.prepareForm();
     }
 
@@ -42,7 +47,32 @@ export class AddFoodComponent implements OnInit {
   }
   onSubmit(customerData) {
     this.foodForm.reset();
-    console.warn('Your order has been submitted', customerData);
+    this.file = (<HTMLInputElement>document.getElementById('file')).files[0];
+    const thisRef = this.storage.ref('foods/images/' + this.file.name);
+    thisRef.put(this.file).then(snapshot => {
+          return snapshot.ref.getDownloadURL();   // Will return a promise with the download link
+      })
+      .then(downloadURL => {
+        const food = {
+          category : customerData['category'],
+          name : customerData['name'],
+          description : customerData['description'],
+          price : customerData['price'],
+          id : this.dataService.Genkey(8),
+          imagePath: downloadURL
+        };
+        const foodId = this.foodService.createFood(food);
+          console.log(foodId);
+      });
+    }
+  onFileSelected() {
+    const inputNode: any = document.querySelector('#file');
+    if (typeof (FileReader) !== 'undefined') {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+      };
+      reader.readAsArrayBuffer(inputNode.files[0]);
+    }
   }
 
 }

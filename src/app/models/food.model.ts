@@ -1,8 +1,8 @@
 export interface Food {
     id?: string;
-    email: string;
-    phoneNumber: number;
-    password: string;
-    displayName: string;
-    token: string;
+    name: string;
+    price: number;
+    imagePath: string;
+    category: string;
+    description: string;
 }

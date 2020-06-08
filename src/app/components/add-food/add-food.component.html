@@ -24,24 +24,19 @@
     <mat-form-field appearance="fill">
         <mat-label>Categorie</mat-label>
         <mat-select formControlName="category">
-          <mat-option value="option">Plat local</mat-option>
-          <mat-option value="option">Poulet</mat-option>
-          <mat-option value="option">Dessert</mat-option>
-          <mat-option value="option">Autre</mat-option>
+          <mat-option value="Plat burlinabé">Plat burlinabé</mat-option>
+          <mat-option value="Poulet">Poulet</mat-option>
+          <mat-option value="Vennoiserie">Vennoiserie</mat-option>
+          <mat-option value="Fastfood">Fastfood</mat-option>
+          <mat-option value="Pizza">Pizza</mat-option>
+          <mat-option value="Glace">Glace</mat-option>
+          <mat-option value="Pat africain">Plat africain</mat-option>
         </mat-select>
       </mat-form-field>
    <div class="text-center">
+    <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+    <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
     <button mat-raised-button color="primary" type="submit">Ajouter</button>
    </div>
     </form>
-    <label for="singleFile">Upload file</label>
-<input id="singleFile" type="file" [fileUploadInputFor]= "fileUploadQueue"/>
-<br>
- 
-<mat-file-upload-queue #fileUploadQueue
-    [fileAlias]="'file'"
-    [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
- 
-    <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
-</mat-file-upload-queue>
   </div>
