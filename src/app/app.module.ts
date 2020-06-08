@@ -38,6 +38,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import {MatInputModule} from '@angular/material/input';
     SignUpComponent,
     ForgotPasswordComponent,
     VerifyEmailComponent,
-    AddFoodComponent
+    AddFoodComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +77,7 @@ import {MatInputModule} from '@angular/material/input';
     MatSlideToggleModule,
     MatInputModule,
     MatToolbarModule,
+    MatProgressSpinnerModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAvw8F1-PrDmQbMm6yzGOteQwM-4w80V5c',
     }),

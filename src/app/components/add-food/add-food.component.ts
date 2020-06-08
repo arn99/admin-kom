@@ -1,7 +1,8 @@
+import { LoadingComponent } from './../loading/loading.component';
 import { DataService } from './../../services/data.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Food } from 'src/app/models/food.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FoodService } from 'src/app/services/food.service';
@@ -21,7 +22,9 @@ export class AddFoodComponent implements OnInit {
   food: Food;
   file: any;
   storage = firebase.storage();
-  constructor(private formBuilder: FormBuilder, private foodService: FoodService, public dataService: DataService,
+  loadDialog: any;
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
+    private foodService: FoodService, public dataService: DataService,
     public dialogRef: MatDialogRef<AddFoodComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Food) {
       this.prepareForm();
@@ -29,6 +32,14 @@ export class AddFoodComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+  openDialog(): void {
+    this.loadDialog = this.dialog.open(LoadingComponent, {
+    });
+
+    this.loadDialog.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
   ngOnInit() {
   }
@@ -46,6 +57,7 @@ export class AddFoodComponent implements OnInit {
     this.prepareForm();
   }
   onSubmit(customerData) {
+    this.openDialog();
     this.foodForm.reset();
     this.file = (<HTMLInputElement>document.getElementById('file')).files[0];
     const thisRef = this.storage.ref('foods/images/' + this.file.name);
@@ -63,6 +75,10 @@ export class AddFoodComponent implements OnInit {
         };
         const foodId = this.foodService.createFood(food);
           console.log(foodId);
+          this.dialog.closeAll();
+          alert('Plat ajouter avec succès');
+      }).catch(error => {
+        console.log(error);
       });
     }
   onFileSelected() {
@@ -74,5 +90,4 @@ export class AddFoodComponent implements OnInit {
       reader.readAsArrayBuffer(inputNode.files[0]);
     }
   }
-
 }
