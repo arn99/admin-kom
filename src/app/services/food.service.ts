@@ -8,6 +8,36 @@ export class FoodService {
 
   constructor(private firestore: AngularFirestore) { }
 
+
+  createFood(data) {
+    this.firestore.collection('foods').add(
+      data
+      ).then((value) => {
+        console.log(value.id);
+      });
+  }
+  updateFood(data) {
+    this.firestore.collection('foods').doc(data.id).update(
+      data
+      ).then((value) => {
+        return true;
+      }).catch((value) => {
+        console.log(value);
+        return false;
+      });
+  }
+  deleteFood(data) {
+    this.firestore.collection('foods').doc(data.id).delete()
+    .then((value) => {
+        return true;
+      }).catch((value) => {
+        console.log(value);
+        return false;
+      });
+  }
+  getFoodById(id) {
+    this.firestore.collection('foods').doc(id).get();
+  }
   getFood(restoId) {
     return this.firestore.collection(
       'foods', ref => {

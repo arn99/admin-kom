@@ -29,6 +29,15 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { AuthService } from './services/auth.service';
+import { AddFoodComponent } from './components/add-food/add-food.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -41,7 +50,8 @@ import { AuthService } from './services/auth.service';
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    AddFoodComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +65,15 @@ import { AuthService } from './services/auth.service';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatSlideToggleModule,
+    MatInputModule,
+    MatToolbarModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAvw8F1-PrDmQbMm6yzGOteQwM-4w80V5c',
     }),
