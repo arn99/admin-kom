@@ -16,8 +16,8 @@ export class FoodService {
         console.log(value.id);
       });
   }
-  updateFood(data) {
-    this.firestore.collection('foods').doc(data.id).update(
+  async updateFood(data) {
+    return this.firestore.collection('foods').doc(data.docId).update(
       data
       ).then((value) => {
         return true;
@@ -26,12 +26,11 @@ export class FoodService {
         return false;
       });
   }
-  deleteFood(data) {
-    this.firestore.collection('foods').doc(data.id).delete()
+  async deleteFood(data) {
+    return this.firestore.collection('foods').doc(data).delete()
     .then((value) => {
-        return true;
+      return true;
       }).catch((value) => {
-        console.log(value);
         return false;
       });
   }

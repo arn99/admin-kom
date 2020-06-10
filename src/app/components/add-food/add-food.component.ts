@@ -26,8 +26,11 @@ export class AddFoodComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
     private foodService: FoodService, public dataService: DataService,
     public dialogRef: MatDialogRef<AddFoodComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Food) {
+    @Inject(MAT_DIALOG_DATA) public data) {
       this.prepareForm();
+      if (this.data) {
+        this.updateForm(data);
+      }
     }
 
   onNoClick(): void {
@@ -43,22 +46,51 @@ export class AddFoodComponent implements OnInit {
   }
   ngOnInit() {
   }
+
+  updateForm(data) {
+    this.foodForm.controls['category'].setValue(data.category);
+    this.foodForm.controls['description'].setValue(data.description);
+    this.foodForm.controls['name'].setValue(data.name);
+    this.foodForm.controls['price'].setValue(data.price);
+  }
   prepareForm() {
     this.foodForm = this.formBuilder.group({
       category: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
       description: ['', Validators.minLength(5)],
       name: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
       price: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
-      // imagePath: ['', Validators.required],
+      imagePath: ['', Validators.required],
     });
   }
 
   resetForm(form: FormGroup) {
     this.prepareForm();
   }
+  updateFood(food) {
+    console.log(food);
+    console.log(this.data);
+    this.data.name = food.name;
+    this.data.price = food.price;
+    this.data.description = food.description;
+    this.data.category = food.category;
+    this.openDialog();
+
+    try {
+      this.foodService.updateFood(this.data).then((result) => {
+        console.log(result);
+          this.dialog.closeAll();
+          alert('Plat mise à jour avec succès');
+      }).catch(() => {
+        this.dialog.closeAll();
+        alert('erreur de mise à jour');
+      }) ;
+    } catch (error) {
+      this.dialog.closeAll();
+      alert('erreur de mise à jour');
+    }
+  }
   onSubmit(customerData) {
     this.openDialog();
-    this.foodForm.reset();
     this.file = (<HTMLInputElement>document.getElementById('file')).files[0];
     const thisRef = this.storage.ref('foods/images/' + this.file.name);
     thisRef.put(this.file).then(snapshot => {
@@ -77,6 +109,7 @@ export class AddFoodComponent implements OnInit {
           console.log(foodId);
           this.dialog.closeAll();
           alert('Plat ajouter avec succès');
+          this.foodForm.reset();
       }).catch(error => {
         console.log(error);
       });

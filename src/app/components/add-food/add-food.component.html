@@ -15,6 +15,7 @@
         <mat-label>Description du plat</mat-label>
         <textarea matInput rows="2" cols="40" formControlName="description"></textarea>
     </mat-form-field>
+    
     <br>
     <mat-form-field appearance="fill">
         <mat-label>Categorie</mat-label>
@@ -28,10 +29,13 @@
           <mat-option value="Pat africain">Plat africain</mat-option>
         </mat-select>
       </mat-form-field>
+      <div>
+        <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+        <input formControlName="imagePath" hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+      </div>
    <div class="text-center">
-    <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-    <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
-    <button mat-raised-button color="primary" type="submit">Ajouter</button>
+    <button *ngIf="!data" [disabled]="!foodForm.valid" mat-raised-button color="primary" type="submit">Ajouter</button>
+    <button *ngIf="data"  mat-raised-button color="warn" type="button" (click)="updateFood(foodForm.value)" >Modifier</button>
    </div>
     </form>
     <button mat-button [mat-dialog-close]="" cdkFocusInitial>Annuler</button>
