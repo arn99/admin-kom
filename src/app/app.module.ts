@@ -38,6 +38,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
+import {MatCardModule} from '@angular/material/card';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoadingComponent } from './components/loading/loading.component';
 
@@ -64,6 +66,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     NgxPaginationModule,
     Ng2SearchPipeModule,
     HttpClientModule,
+    MatMenuModule,
     BrowserAnimationsModule,
     MatIconModule,
     MatButtonModule,
@@ -76,6 +79,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     MatOptionModule,
     MatSlideToggleModule,
     MatInputModule,
+    MatCardModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
     AgmCoreModule.forRoot({

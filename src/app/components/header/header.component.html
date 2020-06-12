@@ -1,16 +1,11 @@
-<nav >
-  <ul class="nav justify-content-center">
-    <li class="nav-item"> <a class="nav-link" [routerLink]="['order/waiting']"> Commande  <span class="sr-only">(current)</span> </a> </li>
-    <li class="nav-item"> <a class="nav-link"[routerLink]="['order/delivered']" > Livrer </a> </li>
-    <li class="nav-item"> 
-      <a class="nav-link"[routerLink]="['food']"> 
-      Menu 
-      </a> 
-    </li>
-    <li class="nav-item"> 
-      <a class="nav-link" (click)="authService.SignOut()"> 
+<mat-toolbar color="warn" class="expanded-toolbar">
+    <button  mat-button  [routerLink]="['order/waiting']"> Commande  <span class="sr-only">(current)</span> </button>
+    <button  mat-button [routerLink]="['order/delivered']" > Livrer </button>
+    
+      <button  mat-button [routerLink]="['food']"> 
+      Mes plats 
+      </button> 
+      <button  mat-button  (click)="authService.SignOut()"> 
       Deconnexion
-      </a> 
-    </li>
-  </ul>
-</nav>
+      </button > 
+</mat-toolbar>

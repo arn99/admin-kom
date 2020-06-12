@@ -1,34 +1,26 @@
-<div class="displayTable">
-    <div class="displayTableCell">
-  
-      <div class="authBlock">
-        <h3>Sign In</h3>
-        <div class="formGroup">
-          <input type="text" class="formControl" placeholder="Username" #userName required>
-        </div>
-  
-        <div class="formGroup">
-          <input type="password" class="formControl" placeholder="Password" #userPassword required>
-        </div>
-  
-        <!-- Calling SignIn Api from AuthService -->
-        <div class="formGroup">
-          <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
-        </div>
-  
-        <div class="formGroup">
-          <span class="or"><span class="orInner">Or</span></span>
-        </div>
-  
-        <div class="forgotPassword">
-          <span routerLink="/forgot-password">Forgot Password?</span>
-        </div>
-      </div>
-  
-      <div class="redirectToLogin">
-        <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
-      </div>
-  
-    </div>
+<mat-card>
+  <mat-card-content>
+    <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h2>Se connecter</h2>
+      <mat-error *ngIf="loginInvalid">
+        Email ou mot de passe incorrect
+      </mat-error>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" formControlName="username" required>
+        <mat-error>
+          Email incorrect
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput type="password" placeholder="Password" formControlName="password" required>
+        <mat-error>
+          Mot de passe incorrect
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary">Connexion</button>
+    </form>
+  </mat-card-content>
+  <div class="forgotPassword">
+    <a routerLink="/forgot-password">Mot de passe oubliez?</a>
   </div>
-  
+</mat-card>

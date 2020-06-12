@@ -25,10 +25,27 @@ export class OrderService {
         if (restoId) {
           query = query.where('restaurant', '==', restoId);
         }
+        if (restoId) {
+          query = query.where('paymentState', '==', 'none');
+          query = query.where('state', '==', 'waiting');
+        }
+        if (restoId) {
+          query = query.orderBy('date', 'asc');
+        }
         return query;
     }).snapshotChanges();
   }
 
+  async updateOrder(data) {
+    return this.firestore.collection('orders').doc(data.docId).update(
+      data
+      ).then((value) => {
+        return true;
+      }).catch((value) => {
+        console.log(value);
+        return false;
+      });
+  }
   saveOrders() {
     firebase.database().ref('/orders').set(this.orders);
   }

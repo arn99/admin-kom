@@ -1,16 +1,7 @@
-ol{
-    list-style-type: decimal;
-}
-.row{
-    margin-top: 5%;
-}
-th {
-    background-color: #f44336;
-    color: white;
-} 
-mat-icon.material-icons {
-    vertical-align: middle;
-}
-.contact-info{
-    padding-left: 0%;
-}
+table {
+    width: 100%;
+  }
+  
+  tr.mat-footer-row {
+    font-weight: bold;
+  }

@@ -3,53 +3,50 @@
   <div class="col-md-6">
     <h2>Liste des commandes en attente</h2>
     <div class="form-group" >
-      <input type="text" id="searchInput" style="text-align:center" class="form-control text-center" [(ngModel)]="searchInput" placeholder="Search for names..">
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput type="text" (keyup)="applyFilter($event)" placeholder="Ex. Mia">
+      </mat-form-field>
     </div>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
     
-    <table mat-table class ="table">
-      <thead>
-        <tr color="warn">
-                
-          <th data-field="id" data-filter-control="input" data-sortable="true">Numero</th>
-          <th data-field="name" data-filter-control="input" data-sortable="true">Nom</th>
-          <th data-field="adresse" data-filter-control="input" data-sortable="true">Adresse</th>
-          <th>Actions</th>
-         </tr>
-      </thead>
-      <tbody id="table1">
-      <tr *ngFor="let order of orders | filter: searchInput | paginate: config; let i = index">
-        <td>
-          {{i}}
-        </td>
-        <td>
-          {{order.customer.name}}
-        </td>
-        <td *ngIf="order.clientLocation.district" >
-          {{order.clientLocation.district}}
-        </td>
-        <td *ngIf="!order.clientLocation.district" >
-          Non disponible
-        </td>
-        
-        <td>
-          
-          <button mat-raised-button (click)="onViewOrder(order,i)">
-            <mat-icon class="material-icons" color="warn">
-            visibility
-            </mat-icon> 
-          </button>
-          <button mat-raised-button (click)="openDialog(order.clientLocation)">
-            <mat-icon class="material-icons contact" color="warn">
-              location_on
-            </mat-icon>
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
+          <td mat-cell *matCellDef="let row"> {{row.customer.name}} </td>
+        </ng-container>
+    
+        <!-- Color Column -->
+        <ng-container matColumnDef="adresse">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Adresse </th>
+          <td mat-cell  *matCellDef="let row" [style.color]="row.clientLocation.district"> {{row.clientLocation.district}} </td>
+        </ng-container>
+        <!-- Color Column -->
+        <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+          <td mat-cell *matCellDef="let row" > 
+            <button mat-button (click)="onViewOrder(row)" color="warn">
+              <mat-icon class="material-icons" color="warn">
+              visibility
+              </mat-icon></button>
+            <button mat-button (click)="openDialogLocation(row.clientLocation)" color="primary">
+              <mat-icon class="material-icons contact" color="warn">
+                location_on
+              </mat-icon>
+            </button>  
+          </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
   </div>
-  <div class="col-md-6" *ngIf="order.customer">
+  <div class="col-md-6" *ngIf="order.customer" id="card">
     <div class="card shadow-lg p-3 mb-5 bg-black rounded" style="width: 28rem;">
       <div class="card-body">
         <div>
@@ -86,7 +83,7 @@
           
           <h2>Total: <span> {{order.total}}</span></h2>
         </div>
-        <h5 class="card-title text-center"> <button mat-raised-button color="warn"   (click)="finish(order)"> Traiter </button></h5>
+        <h5 class="card-title text-center"> <button mat-raised-button color="warn"   (click)="finish(order,dataSource.filteredData.indexOf(order))"> Traiter </button></h5>
       </div>
     </div>
   </div>
