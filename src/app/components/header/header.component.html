@@ -1,11 +1,16 @@
 <mat-toolbar color="warn" class="expanded-toolbar">
+    <a href=""><img class="logo" src="assets/logos/miam/miam2.png" alt="" ></a>
     <button  mat-button  [routerLink]="['order/waiting']"> Commande  <span class="sr-only">(current)</span> </button>
     <button  mat-button [routerLink]="['order/delivered']" > Livrer </button>
     
       <button  mat-button [routerLink]="['food']"> 
       Mes plats 
       </button> 
-      <button  mat-button  (click)="authService.SignOut()"> 
-      Deconnexion
-      </button > 
+      <span class="example-spacer"></span>
+      <div class="right-nav">
+        <mat-icon matBadge="15" [routerLink] = "['order-page']" matBadgeColor="warn">shopping_cart</mat-icon>
+        <button  mat-button  (click)="authService.SignOut()" *ngIf="0!=0" > 
+          Deconnexion
+        </button >
+      </div>
 </mat-toolbar>

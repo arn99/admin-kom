@@ -1,0 +1,51 @@
+img.card-img {
+    max-height: 300px;
+    background-size: 100% 100%;
+    /* max-inline-size: 0%; */
+}
+.category {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.left-align {
+    float:left;
+    color: red;
+}
+.right-align {
+    float:right;
+}   
+.card-title {
+    font-size: 12px;
+    font-weight: bold;
+}
+.truncate {
+    font-size: 15px;
+    font-weight: lighter;
+}
+.card .card-content {
+    padding: 10px;
+}
+.card .card-action {
+    padding: 10px;
+}
+.speciale {
+    font-size: 18px;
+    font-weight: bold;
+}
+.burkinabe {
+    font-size: 18px;
+    font-weight: bold;
+}
+.download img {
+    max-width: 40%;
+}
+.description h4 {
+    color: white;
+}
+.title h1 {
+    color: white;
+}
+.application {
+    background: #f44336;
+    padding: 3%;
+}

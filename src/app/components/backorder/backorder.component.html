@@ -1,89 +1,92 @@
 
-<div class="row">
-  <div class="col-md-6">
-    <h2>Liste des commandes en attente</h2>
-    <div class="form-group" >
-      <mat-form-field>
-        <mat-label>Filter</mat-label>
-        <input matInput type="text" (keyup)="applyFilter($event)" placeholder="Ex. Mia">
-      </mat-form-field>
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Liste des commandes en attente</h2>
+      <div class="form-group" >
+        <mat-form-field>
+          <mat-label>Filter</mat-label>
+          <input matInput type="text" (keyup)="applyFilter($event)" placeholder="Ex. Mia">
+        </mat-form-field>
+      </div>
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
+            <td mat-cell *matCellDef="let row"> {{row.customer.name}} </td>
+          </ng-container>
+      
+          <!-- Color Column -->
+          <ng-container matColumnDef="adresse">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Adresse </th>
+            <td mat-cell  *matCellDef="let row" [style.color]="row.clientLocation.district"> {{row.clientLocation.district}} </td>
+          </ng-container>
+          <!-- Color Column -->
+          <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+            <td mat-cell *matCellDef="let row" > 
+              <button mat-button (click)="onViewOrder(row)" color="warn">
+                <mat-icon class="material-icons" color="warn">
+                visibility
+                </mat-icon></button>
+              <button mat-button (click)="openDialogLocation(row.clientLocation)" color="primary">
+                <mat-icon class="material-icons contact" color="warn">
+                  location_on
+                </mat-icon>
+              </button>  
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
     </div>
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort>
-    
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
-          <td mat-cell *matCellDef="let row"> {{row.customer.name}} </td>
-        </ng-container>
-    
-        <!-- Color Column -->
-        <ng-container matColumnDef="adresse">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Adresse </th>
-          <td mat-cell  *matCellDef="let row" [style.color]="row.clientLocation.district"> {{row.clientLocation.district}} </td>
-        </ng-container>
-        <!-- Color Column -->
-        <ng-container matColumnDef="Action">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-          <td mat-cell *matCellDef="let row" > 
-            <button mat-button (click)="onViewOrder(row)" color="warn">
-              <mat-icon class="material-icons" color="warn">
-              visibility
-              </mat-icon></button>
-            <button mat-button (click)="openDialogLocation(row.clientLocation)" color="primary">
-              <mat-icon class="material-icons contact" color="warn">
+    <div class="col-md-6" *ngIf="order.customer" id="card">
+      <div class="card shadow-lg p-3 mb-5 bg-black rounded" style="width: 28rem;">
+        <div class="card-body">
+          <div>
+            <div class="contact-info">
+              <h2><mat-icon class="material-icons contact" color="warn">
+                account_circle
+                </mat-icon>Nom:
+                 <span>{{order.customer.name}}</span>
+                </h2>
+              <h2>
+                <mat-icon class="material-icons contact" color="warn">
                 location_on
-              </mat-icon>
-            </button>  
-          </td>
-        </ng-container>
-    
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-        </tr>
-      </table>
-    
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-    </div>
-  </div>
-  <div class="col-md-6" *ngIf="order.customer" id="card">
-    <div class="card shadow-lg p-3 mb-5 bg-black rounded" style="width: 28rem;">
-      <div class="card-body">
-        <div>
-          <div class="contact-info">
-            <h2><mat-icon class="material-icons contact" color="warn">
-              account_circle
-              </mat-icon>Nom:
-               <span>{{order.customer.name}}</span>
+                </mat-icon>
+                Adresse: <span> {{order.clientLocation.district}}</span>
               </h2>
-            <h2>
-              <mat-icon class="material-icons contact" color="warn">
-              location_on
-              </mat-icon>
-              Adresse: <span> {{order.clientLocation.district}}</span>
-            </h2>
-            <h2><mat-icon class="material-icons contact" color="warn">
-              phone
-              </mat-icon>Numero: <span> {{order.customer.number}}</span>
-            </h2>
+              <h2><mat-icon class="material-icons contact" color="warn">
+                phone
+                </mat-icon>Numero: <span> {{order.customer.number}}</span>
+              </h2>
+            </div>
+            <table class ="table">
+              <thead>
+                <tr>
+                        
+                  <th data-field="id" data-filter-control="input" data-sortable="true">Menu</th>
+                  <th data-field="name" data-filter-control="input" data-sortable="true">Nombre</th>
+                 </tr>
+              </thead>
+              <tr  > 
+                <td><strong>{{order.food.name}}</strong></td>
+                <td><strong>{{order.food.numberOfItem}}</strong></td>
+              </tr>
+            </table>
+            
+            <h2>Prix: <span> {{order.food.price}}</span></h2>
           </div>
-          <table class ="table">
-            <thead>
-              <tr>
-                      
-                <th data-field="id" data-filter-control="input" data-sortable="true">Menu</th>
-                <th data-field="name" data-filter-control="input" data-sortable="true">Nombre</th>
-               </tr>
-            </thead>
-            <tr  > 
-              <td><strong>{{order.food.name}}</strong></td>
-              <td><strong>{{order.food.numberOfItem}}</strong></td>
-            </tr>
-          </table>
-          
-          <h2>Total: <span> {{order.total}}</span></h2>
+          <h5 class="card-title text-center"> <button mat-raised-button color="warn"   (click)="finish(order,dataSource.filteredData.indexOf(order))"> Traiter </button></h5>
         </div>
-        <h5 class="card-title text-center"> <button mat-raised-button color="warn"   (click)="finish(order,dataSource.filteredData.indexOf(order))"> Traiter </button></h5>
       </div>
     </div>
   </div>

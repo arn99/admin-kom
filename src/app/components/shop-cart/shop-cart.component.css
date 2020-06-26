@@ -1,0 +1,25 @@
+.shop-cart-img {
+   
+    max-width: 90%;
+}
+.fa-star {
+    content: "\f005";
+    color: yellow;
+}
+.material-icons {
+    color: #f44336;
+}
+span.number-item {
+    position: relative;
+    margin-left: 10%;
+    margin-right: 10%;
+    top: -7px;
+    font-weight: bold;
+}
+.justify-center button {
+    margin-left: 10%;
+}
+.back-btn {
+    background: black;
+    color: white;
+}

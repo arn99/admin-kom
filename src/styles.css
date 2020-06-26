@@ -2,3 +2,11 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+input.mat-input-element {
+    margin-top: -0.0625em;
+    border-bottom: none!important;
+    box-shadow: none!important;
+}
+mat-icon, span.material-icon {
+    cursor: pointer;
+}

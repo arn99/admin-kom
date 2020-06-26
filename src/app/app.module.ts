@@ -39,9 +39,15 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
+import {MatBadgeModule} from '@angular/material/badge';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoadingComponent } from './components/loading/loading.component';
+import { HomeComponent } from './components/home/home.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FooterComponent } from './components/footer/footer.component';
+import { ShopCartComponent } from './components/shop-cart/shop-cart.component';
+import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +62,11 @@ import { LoadingComponent } from './components/loading/loading.component';
     ForgotPasswordComponent,
     VerifyEmailComponent,
     AddFoodComponent,
-    LoadingComponent
+    LoadingComponent,
+    HomeComponent,
+    FooterComponent,
+    ShopCartComponent,
+    ShoppingPageComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +83,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     MatDialogModule,
     MatFormFieldModule,
     MatTableModule,
+    MatBadgeModule,
     MatPaginatorModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -89,6 +100,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    NgbModule,
   ],
   providers: [OrderService, FoodService, AuthService],
   bootstrap: [AppComponent]

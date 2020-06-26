@@ -1,3 +1,5 @@
+import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component';
+import { HomeComponent } from './components/home/home.component';
 import { MapsComponent } from './components/maps/maps.component';
 import { FoodComponent } from './components/food/food.component';
 import { NgModule } from '@angular/core';
@@ -15,7 +17,8 @@ const routes: Routes = [
   { path: 'order/waiting', component: BackorderComponent},
   { path: 'order/delivered', component: OrderDeliverComponent },
   { path: 'food', component: FoodComponent },
-  // { path: '', component: BackorderComponent },
+  { path: 'order-page', component: ShoppingPageComponent },
+  { path: '', component: HomeComponent },
   { path: 'back-order', component: BackorderComponent },
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent },

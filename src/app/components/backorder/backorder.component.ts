@@ -2,7 +2,6 @@ import { MapsComponent } from '../maps/maps.component';
 import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Order } from '../../models/order.model';
 import { OrderService } from '../../services/order.service';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import * as firebase from 'firebase';

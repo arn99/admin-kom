@@ -1,0 +1,21 @@
+.mat-badge-warn .mat-badge-content {
+    color: #f44336;
+    background: white;
+}   
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+@media ( max-width: 576px ) {
+    a .logo { 
+        max-width: 60%; 
+    }
+}
+@media ( min-width:576px ) and ( max-width: 1280px ) {
+    a .logo { 
+        max-width: 70%; 
+    }
+    a {
+        max-width: 15%;
+    }
+}
