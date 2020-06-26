@@ -6,16 +6,37 @@
     flex: 1 1 auto;
   }
 
-@media ( max-width: 576px ) {
+  @media ( max-width: 576px ) {
     a .logo { 
-        max-width: 60%; 
+        max-width: 35%; 
     }
 }
-@media ( min-width:576px ) and ( max-width: 1280px ) {
+@media ( min-width:576px ) and ( max-width: 768px ) {
     a .logo { 
-        max-width: 70%; 
+        max-width: 100%; 
     }
-    a {
-        max-width: 15%;
+    .a-logo {
+        max-width: 20%;
+        text-align: center;
     }
+}
+@media ( min-width:768px ) and ( max-width: 1280px ) {
+    a .logo { 
+        max-width: 100%; 
+    }
+    .a-logo {
+        max-width: 16%;
+    }
+}
+.menu-spacer {
+    flex: 1 1 auto;
+  }
+  .mat-toolbar.mat-warn {
+    padding: 0 10%;
+  }
+  ::ng-deep .mat-sidenav-backdrop.mat-sidenav-shown{
+    display: none;
+}
+mat-toolbar.mat-toolbar.expanded-toolbar.mat-warn.mat-toolbar-multiple-rows {
+    padding: 0 7%;
 }
