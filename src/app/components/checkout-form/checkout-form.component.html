@@ -1,0 +1,54 @@
+<div class="container">
+    <div mat-dialog-content>
+        <mat-card>
+            <mat-card-content>
+              <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+                <h2>Finalisez votre commande</h2>
+                <mat-error *ngIf="checkOutInvalid">
+                  Renseignez correctement les champs
+                </mat-error>
+                <mat-form-field appearance="fill">
+                  <input matInput placeholder="Nom" formControlName="username" required>
+                  <mat-error>
+                    Nom incorrect
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <input matInput type="number" placeholder="Numero" formControlName="numero" required>
+                  <mat-error>
+                    Le numero doit avoir 8 chiffres
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Type de payment</mat-label>
+                    <mat-select>
+                      <mat-option value="option">Payer à la livraison</mat-option>
+                      <!--<mat-option value="option">Option</mat-option>-->
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Lieu de livraison</mat-label>
+                    <mat-select>
+                      <mat-option value="option"> 1200</mat-option>
+                      <mat-option value="option"></mat-option>
+                      <mat-option value="option"></mat-option>
+                      <mat-option value="option"></mat-option>
+                      <mat-option value="option"></mat-option>
+                      <mat-option value="option"></mat-option>
+                      <mat-option value="option"></mat-option>
+                      <mat-option value="option"></mat-option>
+                      <mat-option value="option"></mat-option>
+                      <mat-option value="option"></mat-option>
+                      <mat-option value="option"></mat-option>
+                      <!--<mat-option value="option">Option</mat-option>-->
+                    </mat-select>
+                </mat-form-field>
+                <button mat-raised-button color="warn">Finaliser</button>
+              </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="div-btn" >
+        <button class="back-btn" mat-button [mat-dialog-close]="" cdkFocusInitial>Retour</button>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import {MatDialog} from '@angular/material/dialog';
+import { CheckoutFormComponent } from '../checkout-form/checkout-form.component';
 @Component({
   selector: 'app-shopping-page',
   templateUrl: './shopping-page.component.html',
@@ -16,9 +17,19 @@ export class ShoppingPageComponent implements OnInit {
     {item: 'Cooler', cost: 25},
     {item: 'Swim suit', cost: 15},
   ];
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
+  }
+  openDialog(data): void {
+    const dialogRef = this.dialog.open(CheckoutFormComponent, {
+      width: '75%',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   /** Gets the total cost of all transactions. */
@@ -26,9 +37,13 @@ export class ShoppingPageComponent implements OnInit {
     return this.transactions.map(t => t.cost).reduce((acc, value) => acc + value, 0);
   }
   checkout() {
+    this.openDialog(this.transactions);
     console.log('finaliser');
   }
   removeItem() {
+    console.log('yoo remove');
+  }
+  removeOneItem() {
     console.log('yoo remove');
   }
   plusItem() {

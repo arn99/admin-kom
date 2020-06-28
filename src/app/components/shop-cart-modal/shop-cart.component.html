@@ -23,13 +23,12 @@
                     <span class="number-item"> {{this.itemNumber}} </span>
                     <span *ngIf="this.itemNumber > 1"  class="material-icons remove" (click)="removeItem()"> remove </span>
                 </div>
-                <div class="justify-center">
-                    <button *ngIf="data" mat-raised-button color="warn" (click)="addFood('food')" >Ajouter</button>
-                </div>
+                
             </div>
         </div>
     </div>
-    <div mat-dialog-actions>
+    <div class="div-btn" >
         <button class="back-btn" mat-button [mat-dialog-close]="" cdkFocusInitial>Retour</button>
+        <button *ngIf="data" mat-raised-button color="warn" (click)="addFood('food')" >Ajouter</button>
     </div>
 </div>

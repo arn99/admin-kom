@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FoodService {
 
+  foodSubject = new Subject<any>();
   constructor(private firestore: AngularFirestore) { }
-
-
   createFood(data) {
     this.firestore.collection('foods').add(
       data
@@ -94,6 +94,14 @@ export class FoodService {
         // finally return query back to the collection second argument.
         return query;
     }).snapshotChanges();
+  }
+
+  public getNotification(): Observable<any> {
+
+    return this.foodSubject.asObservable();
+  }
+  public newUpdate(value): any {
+    this.foodSubject.next(value);
   }
 
 }

@@ -15,7 +15,7 @@
           Mes plats 
           </a> 
           <span class="example-spacer"></span>
-            <mat-icon matBadge="15" [routerLink] = "['order-page']" matBadgeColor="warn">shopping_cart</mat-icon>
+            <mat-icon matBadge={{itemNumber}} [routerLink] = "['order-page']" matBadgeColor="warn">shopping_cart</mat-icon>
             <a mat-button   (click)="authService.SignOut()" *ngIf="0!=0" > 
               Deconnexion
             </a>
@@ -39,7 +39,7 @@
         Mes plats 
         </a> 
         <a mat-list-item  [routerLink]="['food']"> 
-          <mat-icon matBadge="15" [routerLink] = "['order-page']" matBadgeColor="warn">shopping_cart</mat-icon>
+          <mat-icon matBadge={{itemNumber}} [routerLink] = "['order-page']" matBadgeColor="warn">shopping_cart</mat-icon>
         </a> 
         <a mat-list-item   (click)="authService.SignOut()" *ngIf="0!=0" > 
            Deconnexion

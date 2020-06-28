@@ -1,6 +1,7 @@
-import { ShopCartComponent } from './../shop-cart/shop-cart.component';
+
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import { ShopCartComponent } from '../shop-cart-modal/shop-cart.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

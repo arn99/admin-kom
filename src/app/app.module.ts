@@ -1,3 +1,5 @@
+import { LocalService } from './services/local.service';
+import { StorageService } from './services/storage.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
@@ -48,9 +50,10 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './components/footer/footer.component';
-import { ShopCartComponent } from './components/shop-cart/shop-cart.component';
 import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ShopCartComponent } from './components/shop-cart-modal/shop-cart.component';
+import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +72,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HomeComponent,
     FooterComponent,
     ShopCartComponent,
-    ShoppingPageComponent
+    ShoppingPageComponent,
+    CheckoutFormComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +112,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     AngularFirestoreModule,
     NgbModule,
   ],
-  providers: [OrderService, FoodService, AuthService],
+  providers: [OrderService, FoodService, AuthService, StorageService, LocalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

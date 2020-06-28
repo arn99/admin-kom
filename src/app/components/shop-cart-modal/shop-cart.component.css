@@ -16,10 +16,19 @@ span.number-item {
     top: -7px;
     font-weight: bold;
 }
-.justify-center button {
-    margin-left: 10%;
-}
+
 .back-btn {
     background: black;
     color: white;
+}
+button {
+    margin: 0 5%;
+}
+.div-btn {
+    text-align: center;
+}
+@media ( max-width: 576px ) {
+    .quantity {
+        text-align: center;
+    }
 }
