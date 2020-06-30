@@ -26,7 +26,7 @@
 <mat-sidenav-container [hasBackdrop]="false" fxFlexFill>
   <mat-sidenav #sidenav>
     <mat-nav-list>
-      <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+      <a (click)="sidenav.toggle()" href="" class="btn-back" mat-list-item>Retour</a>
       
       <a mat-list-item   [routerLink]="['order/waiting']"> Commande  <span class="sr-only">(current)</span> </a>
       <a mat-list-item  [routerLink]="['order/delivered']" > Livrer </a>

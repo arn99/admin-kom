@@ -1,4 +1,5 @@
 export interface LocationData {
-    latitude: string;
-    longitude: string;
+    latitude: number;
+    longitude: number;
+    district: string;
   }

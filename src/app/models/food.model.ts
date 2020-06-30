@@ -5,4 +5,6 @@ export interface Food {
     imagePath: string;
     category: string;
     description: string;
+    restaurant: string;
+    numberOfItem?: number;
 }

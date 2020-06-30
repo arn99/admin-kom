@@ -45,6 +45,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoadingComponent } from './components/loading/loading.component';
 import { HomeComponent } from './components/home/home.component';
@@ -88,6 +89,7 @@ import { CheckoutFormComponent } from './components/checkout-form/checkout-form.
     FlexLayoutModule,
     MatSidenavModule,
     BrowserAnimationsModule,
+    MatAutocompleteModule,
     MatIconModule,
     MatButtonModule,
     MatDialogModule,

@@ -19,36 +19,28 @@
                     Le numero doit avoir 8 chiffres
                   </mat-error>
                 </mat-form-field>
+                <br>
                 <mat-form-field appearance="fill">
                     <mat-label>Type de payment</mat-label>
-                    <mat-select>
+                    <mat-select formControlName="payment">
                       <mat-option value="option">Payer à la livraison</mat-option>
                       <!--<mat-option value="option">Option</mat-option>-->
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                    <mat-label>Lieu de livraison</mat-label>
-                    <mat-select>
-                      <mat-option value="option"> 1200</mat-option>
-                      <mat-option value="option"></mat-option>
-                      <mat-option value="option"></mat-option>
-                      <mat-option value="option"></mat-option>
-                      <mat-option value="option"></mat-option>
-                      <mat-option value="option"></mat-option>
-                      <mat-option value="option"></mat-option>
-                      <mat-option value="option"></mat-option>
-                      <mat-option value="option"></mat-option>
-                      <mat-option value="option"></mat-option>
-                      <mat-option value="option"></mat-option>
-                      <!--<mat-option value="option">Option</mat-option>-->
-                    </mat-select>
+                  <mat-label>Selectionnez votre lieu de livraison</mat-label>
+                  <input type="text"  matInput [(ngModel)]="district" [formControl]="districtControl" [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete"  [displayWith]="getDistrict">
+                    <mat-option *ngFor="let option of filteredDistricts | async" [value]="option">
+                      {{option.name}}
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
+                <br>
+                <button class="back-btn" mat-button [mat-dialog-close]="" cdkFocusInitial>Retour</button>
                 <button mat-raised-button color="warn">Finaliser</button>
               </form>
             </mat-card-content>
         </mat-card>
-    </div>
-    <div class="div-btn" >
-        <button class="back-btn" mat-button [mat-dialog-close]="" cdkFocusInitial>Retour</button>
     </div>
 </div>
