@@ -4,13 +4,14 @@ import { LocationData } from './../../models/location-data';
 import { FoodService } from 'src/app/services/food.service';
 import { District } from './../../models/district.model';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { Customer } from 'src/app/models/customer.model';
 import { DataService } from 'src/app/services/data.service';
+import { LocalService } from 'src/app/services/local.service';
 @Component({
   selector: 'app-checkout-form',
   templateUrl: './checkout-form.component.html',
@@ -52,12 +53,14 @@ export class CheckoutFormComponent implements OnInit {
 
 
   constructor(public dialogRef: MatDialogRef<CheckoutFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data,
+    @Inject(MAT_DIALOG_DATA) public data: any [],
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private orderService: OrderService,
-    public dataService: DataService
+    public dataService: DataService,
+    private localService: LocalService,
+    public dialog: MatDialog
     ) {
       console.log(data);
       this.form = this.fb.group({
@@ -124,16 +127,48 @@ export class CheckoutFormComponent implements OnInit {
                                 restaurant: 'resto',
                                 numberOfItem: 10
                               };
-          const data = {
-              clientLocation: clientLocation,
-              customer: customer,
-              food: food,
-              paymentState: payment,
-              state: 'waiting',
-              total: '1000'
-
-          };
-          console.log(data);
+          try {
+            this.data.forEach((item) => {
+              const data = {
+                  clientLocation: clientLocation,
+                  customer: customer,
+                  food: item,
+                  paymentState: payment,
+                  state: 'waiting',
+                  total: (item.price * item.numberOfItem)
+              };
+              console.log(data);
+              let orderNumber;
+              try {
+                 this.orderService.createOrder(data).then((result) => {
+                  orderNumber =  result;
+                  console.log(orderNumber);
+                  if (orderNumber !== null) {
+                    let orderTab = [];
+                    if (this.localService.getJsonValue('orders') !== null) {
+                      orderTab = this.localService.getJsonValue('orders');
+                      orderTab.push({'id': orderNumber});
+                    }
+                    this.localService.setJsonValue('orders', orderTab);
+                  } else {
+                    alert('Erreur dela commander reessayez');
+                  }
+                }).catch(() => {
+                  alert('Erreur dela commander reessayez');
+                }) ;
+              } catch (error) {
+                console.log(error);
+                alert('Erreur dela commander reessayez');
+              }
+            });
+            this.localService.setJsonValue('test', []);
+            console.log(this.localService.getJsonValue('orders'));
+            console.log(this.localService.getJsonValue('test'));
+             this.dialog.closeAll();
+          } catch (error) {
+            console.log(error);
+            alert('Erreur dela commander reessayez');
+          }
         }
       } catch (err) {
         this.checkOutInvalid = true;

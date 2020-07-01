@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card-image">
-                    <img class="shop-cart-img" src="https://cdn.vox-cdn.com/thumbor/Qu3Q4hfjjckujqLQ4eA7H03-3nk=/0x39:650x472/1200x800/filters:focal(0x39:650x472)/cdn.vox-cdn.com/assets/960660/Screen_Shot_2012-02-20_at_11.36.09_AM.png">
+                    <img class="shop-cart-img" src="{{ food.imagePath }}">
                 </div>
                 <div class="rating">
                     <span class="fa fa-star checked"></span>
@@ -15,9 +15,9 @@
             </div>
             
             <div class="col-md-6">
-                <h1 class="food-name">Nom: Hamburger </h1>
-                <h3 class="food-price" >Prix: 1500 CFA</h3>
-                <h4 class="food-description">This dialog showcases the title, close, content and actions elements.</h4>
+                <h1 class="food-name">Nom: {{ food.name  }} </h1>
+                <h3 class="food-price" >Prix: {{ food.price  }} CFA</h3>
+                <h4 class="food-description">{{ food.description  }}</h4>
                 <div class="quantity">
                     <span class="material-icons add" (click)="plusItem()"> add </span>
                     <span class="number-item"> {{this.itemNumber}} </span>

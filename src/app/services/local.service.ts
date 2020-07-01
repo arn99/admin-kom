@@ -12,7 +12,11 @@ export class LocalService {
   }
   // Get the json value from local storage
   getJsonValue(key: string) {
+    try {
       return this.storageService.secureStorage.getItem(key);
+    } catch (error) {
+      return null;
+    }
   }
   // Clear the local storage
   clearToken() {

@@ -12,6 +12,7 @@ import { LocalService } from 'src/app/services/local.service';
 export class HeaderComponent implements  OnDestroy {
 
   subscription: Subscription;
+  subscriptionMinus: Subscription;
   itemNumber = 0;
   constructor(public authService: AuthService, public foodService: FoodService, private localService: LocalService) {
 
@@ -20,6 +21,12 @@ export class HeaderComponent implements  OnDestroy {
       this.itemNumber = this.itemNumber + message;
       console.log(this.itemNumber);
     });
+    this.subscriptionMinus = this.foodService.getNotificationMinus().subscribe(message => {
+      this.itemNumber = message;
+      console.log(this.itemNumber);
+      console.log(message);
+    });
+
    }
 
 

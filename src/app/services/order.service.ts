@@ -36,6 +36,18 @@ export class OrderService {
     }).snapshotChanges();
   }
 
+  async createOrder(data) {
+    console.log(data);
+    return this.firestore.collection('orders').add(
+      data
+      ).then((value) => {
+        console.log(value.id);
+        return value.id;
+      }).catch((value) => {
+        console.log(value);
+        return null;
+      });
+  }
   async updateOrder(data) {
     return this.firestore.collection('orders').doc(data.docId).update(
       data

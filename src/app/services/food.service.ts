@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
+import { LocalService } from './local.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import { Observable, Subject } from 'rxjs';
 export class FoodService {
 
   foodSubject = new Subject<any>();
+  foodSubject2 = new Subject<any>();
   constructor(private firestore: AngularFirestore) { }
   createFood(data) {
     this.firestore.collection('foods').add(
@@ -103,7 +105,21 @@ export class FoodService {
 
     return this.foodSubject.asObservable();
   }
+  public getNotificationMinus(): Observable<any> {
+
+    return this.foodSubject2.asObservable();
+  }
   public newUpdate(value): any {
+    this.foodSubject.next(value);
+  }
+  public newUpdate2(value): any {
+    this.foodSubject2.next(value);
+  }
+  public getFoodFromlocal(): Observable<any> {
+
+    return this.foodSubject.asObservable();
+  }
+  public newLocal(value): any {
     this.foodSubject.next(value);
   }
 

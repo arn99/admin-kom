@@ -12,18 +12,18 @@ export class ShopCartComponent implements OnInit {
 
   itemNumber = 1;
   itemTotal = 0;
-  list: any = [];
+  list = [];
   food: any;
   constructor(public dialogRef: MatDialogRef<ShopCartComponent>,
                       @Inject(MAT_DIALOG_DATA) public data,
                       private localService: LocalService,
-                      public foodService: FoodService) {
+                      private foodService: FoodService) {
       this.food = data;
       console.log(data);
       this.foodService.getNotification().subscribe(message => {
       this.itemTotal = message;
       console.log(this.itemTotal);
-    });
+      });
     }
 
   ngOnInit(): void {
@@ -46,8 +46,9 @@ export class ShopCartComponent implements OnInit {
       this.setLocalStorage(this.list);
     } else {
           console.log( this.list);
-        this.list.push(food) ;
-        this.setLocalStorage(this.list);
+          console.log(JSON.stringify(this.list));
+          this.list.push(food) ;
+          this.setLocalStorage(this.list);
       }
       this.getLocalStorage();
     this.foodService.newUpdate(this.itemTotal);
@@ -70,9 +71,9 @@ export class ShopCartComponent implements OnInit {
   }
   getLocalStorage(): [] {
     // Get the user data
-    const user = this.localService.getJsonValue('test');
-    console.log(user);
-    return user;
+    const foods = this.localService.getJsonValue('test');
+    console.log(foods);
+    return foods;
   }
   findWithAttr(array, attr, value) {
     for (let i = 0; i < array.length; i += 1) {
