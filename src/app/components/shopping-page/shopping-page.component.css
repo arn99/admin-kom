@@ -49,7 +49,7 @@ span.remove{
     max-width: 100%;
   }
 }
-@media ( min-width:576px ) and ( max-width: 768px ) {
+@media all and ( min-width:576px ) {
   .example-container {
     height: 270px;
     overflow: auto;
@@ -58,7 +58,7 @@ span.remove{
     max-width: 85%;
   }
 }
-@media ( min-width:768px ) and ( max-width: 1280px ) {
+@media all and ( min-width:768px ) {
   .example-container {
     height: 270px;
     overflow: auto;

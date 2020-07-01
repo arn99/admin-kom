@@ -13,10 +13,12 @@ export class ShopCartComponent implements OnInit {
   itemNumber = 1;
   itemTotal = 0;
   list: any = [];
+  food: any;
   constructor(public dialogRef: MatDialogRef<ShopCartComponent>,
                       @Inject(MAT_DIALOG_DATA) public data,
                       private localService: LocalService,
                       public foodService: FoodService) {
+      this.food = data;
       console.log(data);
       this.foodService.getNotification().subscribe(message => {
       this.itemTotal = message;
@@ -29,18 +31,10 @@ export class ShopCartComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  addFood(data) {
+  addFood() {
     this.itemTotal =  this.itemNumber;
-    const food: Food = {
-      id: 'test',
-      name: 'test',
-      price: 2,
-      imagePath: 'test',
-      category: 'test',
-      description: 'test',
-      restaurant: 'test',
-      numberOfItem: this.itemNumber,
-    };
+    this.food['numberOfItem'] = this.itemNumber;
+    const food = this.food;
     console.log(food);
     if (this.getLocalStorage() !== null) {
       this.list = this.getLocalStorage();

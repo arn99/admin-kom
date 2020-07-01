@@ -34,6 +34,9 @@ export class FoodService {
         return false;
       });
   }
+  getFoods() {
+    return this.firestore.collection('foods').snapshotChanges();
+  }
   getFoodById(id) {
     this.firestore.collection('foods').doc(id).get();
   }

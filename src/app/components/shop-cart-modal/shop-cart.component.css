@@ -27,7 +27,7 @@ button {
 .div-btn {
     text-align: center;
 }
-@media ( max-width: 576px ) {
+@media all and ( max-width: 576px ) {
     .quantity {
         text-align: center;
     }

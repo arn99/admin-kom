@@ -13,7 +13,7 @@ export class HeaderComponent implements  OnDestroy {
 
   subscription: Subscription;
   itemNumber = 0;
-  constructor(public authService: AuthService, public foodService: FoodService, private localService: LocalService,) {
+  constructor(public authService: AuthService, public foodService: FoodService, private localService: LocalService) {
 
     this.itemNumber = this.getOrderItemNumberFromFoodList(this.localService.getJsonValue('test'));
     this.subscription = this.foodService.getNotification().subscribe(message => {
@@ -29,7 +29,9 @@ export class HeaderComponent implements  OnDestroy {
   }
   getOrderItemNumberFromFoodList(list): number {
     let number = 0;
-    list.forEach((item) => number = number + item.numberOfItem);
+    if (list !== null) {
+      list.forEach((item) => number = number + item.numberOfItem);
+    }
     return number;
   }
 }
