@@ -1,3 +1,4 @@
+@import 'home.component.css';
 img.card-img {
     max-height: 300px;
     background-size: 100% 100%;
@@ -74,4 +75,62 @@ img.card-img {
     .mobile-img {
         content:url("/assets/mobiles/telephone.png");
     }
+}
+.heading{
+    background: #ccc;
+    height: 70px;
+    line-height: 50px;
+    margin-top: 10px;
+    font-size: 30px;
+    padding-left: 10px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    overflow: auto;
+  }
+.presentation {
+    z-index: -1;
+    position: relative;
+}
+.complete-box {
+    margin: 0 auto;
+    width: 70%;
+}
+.search-icon {
+    position: relative;
+    bottom: 30px;
+    left: 1%;
+}
+
+::ng-deep .autocomplete-container .input-container input {
+    
+}
+:host ::ng-deep .autocomplete-container .input-container input {
+    margin-left: 7%;
+    margin-right: 7%;
+    width: 90%;
+    color: black;
+    background-color: transparent;
+    padding: 0;
+  }
+  :host ::ng-deep .autocomplete-container {
+    box-shadow: 0 1px 3px 0 red, 0 1px 1px 0 red, 0 2px 1px -1px red;
+    position: relative;
+    overflow: visible;
+    height: 40px;
+    border-radius: 100px;
+}
+div.search-text {
+    margin-bottom: 5%;
+    margin: 0 auto;
+    color: #000;
+    text-align: center;
+}
+strong {
+    color: #000;
+    margin-right: 10%;
+    display: inline-block;
+}
+.ng-autocomplete {
+    width: 450px;
 }

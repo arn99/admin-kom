@@ -1,3 +1,4 @@
+import { FoodFilterPipe } from './pipes/filter.pipe';
 import { LocalService } from './services/local.service';
 import { StorageService } from './services/storage.service';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -55,10 +56,12 @@ import { ShoppingPageComponent } from './components/shopping-page/shopping-page.
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ShopCartComponent } from './components/shop-cart-modal/shop-cart.component';
 import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
     AppComponent,
+    FoodFilterPipe,
     BackorderComponent,
     OrderDeliverComponent,
     HeaderComponent,
@@ -81,6 +84,7 @@ import { CheckoutFormComponent } from './components/checkout-form/checkout-form.
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    AutocompleteLibModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
     HttpClientModule,

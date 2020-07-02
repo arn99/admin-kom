@@ -9,10 +9,11 @@ import { ShopCartComponent } from '../shop-cart-modal/shop-cart.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  searchText = '';
   foods: any[];
   specialFoods: any[];
   burkinabeFoods: any[];
+  keyword = 'name';
 
   constructor(public dialog: MatDialog, private foodService: FoodService) {
     this.getFoods();
@@ -47,5 +48,14 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+  selectEvent(item) {
+    console.log(item['name']);
+    this.searchText = item['name'];
+    console.log(item);
+  }
+  onChangeSearch(item) {
+    console.log(item);
+    this.searchText = item;
   }
 }
