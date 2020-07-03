@@ -10,6 +10,24 @@
     a .logo { 
         max-width: 35%; 
     }
+    .btn-resto {
+        width: 83%;
+        border-radius: 10px;
+        justify-content: center;
+        margin-bottom: 7%;
+    }
+    .btn-item{
+        color: white;
+        background-color: #f44336;    /* color of the scroll thumb */
+              /* roundness of the scroll thumb */
+    }
+    .btn-item:hover, .btn-item:active {
+        
+    }
+    .arrow-resto {
+        position: relative;
+        top: 6px;
+    }
 }
 @media all and ( min-width:576px ) {
     a .logo { 
@@ -43,4 +61,43 @@ mat-toolbar.mat-toolbar.expanded-toolbar.mat-warn.mat-toolbar-multiple-rows {
 .btn-back {
     background-color: black;
     color: white;
+}
+.btn-resto {
+    width: 95%;
+    border-radius: 10px;
+    justify-content: center;
+    margin-bottom: 7%;
+}
+.btn-resto:hover, .btn-resto:active {
+    color: white;
+    background-color: #f44336;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    background-image: -webkit-linear-gradient(45deg,rgba(255, 255, 255, .2) 25%,
+											  transparent 25%,
+											  transparent 50%,
+											  rgba(255, 255, 255, .2) 50%,
+											  rgba(255, 255, 255, .2) 75%,
+											  transparent 75%,
+											  transparent);
+}
+.btn-item{
+    color: white;
+    background-color: #f44336;    /* color of the scroll thumb */
+          /* roundness of the scroll thumb */
+}
+.btn-item:hover, .btn-item:active {
+    color: white;
+    background-color: #f44336;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    background-image: -webkit-linear-gradient(45deg,rgba(255, 255, 255, .2) 25%,
+											  transparent 25%,
+											  transparent 50%,
+											  rgba(255, 255, 255, .2) 50%,
+											  rgba(255, 255, 255, .2) 75%,
+											  transparent 75%,
+											  transparent);
+}
+.arrow-resto {
+    position: relative;
+    top: 6px;
 }

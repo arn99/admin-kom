@@ -214,3 +214,18 @@ strong {
 .img-fluid {
     max-width: 50%; 
 }
+@media ( max-width: 576px ) {
+    .category {
+        display: none;
+    }
+}
+@media all and ( min-width:576px ) {
+    .category {
+        display: none;
+    }
+}
+@media all and ( min-width:768px )  {
+    .category {
+        display: block;
+    }
+}

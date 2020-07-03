@@ -1,25 +1,44 @@
 import { FoodService } from 'src/app/services/food.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { ShopCartComponent } from '../shop-cart-modal/shop-cart.component';
+import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   searchText = '';
   foods: any[];
   specialFoods: any[];
   burkinabeFoods: any[];
   keyword = 'name';
+  subscription: Subscription;
+  subscriptionRout: Subscription;
 
-  constructor(public dialog: MatDialog, private foodService: FoodService) {
+  constructor(public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router,
+    private foodService: FoodService) {
     this.getFoods();
+    this.subscription = this.foodService.getCategorySelectNotification().subscribe(message => {
+     this.searchText = message;
+    });
    }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit(): void {
+    this.subscriptionRout = this.route
+      .queryParams
+      .subscribe(params => {
+        console.log(params);
+        this.searchText = params.para;
+      });
   }
   getFoods() {
     this.foodService.getFoods().subscribe((data) => {

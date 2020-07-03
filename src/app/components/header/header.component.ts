@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { LocalService } from 'src/app/services/local.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,11 @@ export class HeaderComponent implements  OnDestroy {
   subscription: Subscription;
   subscriptionMinus: Subscription;
   itemNumber = 0;
-  constructor(public authService: AuthService, public foodService: FoodService, private localService: LocalService) {
+  categories = [];
+  isShowing: boolean;
+  constructor(public authService: AuthService, public foodService: FoodService,
+              private router: Router,
+              private localService: LocalService) {
 
     this.itemNumber = this.getOrderItemNumberFromFoodList(this.localService.getJsonValue('test'));
     this.subscription = this.foodService.getNotification().subscribe(message => {
@@ -26,6 +31,16 @@ export class HeaderComponent implements  OnDestroy {
       console.log(this.itemNumber);
       console.log(message);
     });
+    this.categories = [
+      'Poulet',
+      'Fastfood',
+      'Vennoiserie',
+      'Cuissine burkinabe',
+      'Cuissine africaine',
+      'Pizza',
+      'Glace',
+      'Boisson'
+    ];
 
    }
 
@@ -41,4 +56,12 @@ export class HeaderComponent implements  OnDestroy {
     }
     return number;
   }
+  getNotificaton(item) {
+    this.router.navigate(['/'], { queryParams: { para: item } });
+    this.foodService.newCategorySelectNotification(item);
+    this.toggleSidenav();
+  }
+  toggleSidenav() {
+    this.isShowing = !this.isShowing;
+ }
 }

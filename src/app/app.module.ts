@@ -48,6 +48,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatSidenav } from '@angular/material/sidenav';
 import { LoadingComponent } from './components/loading/loading.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -77,7 +78,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     FooterComponent,
     ShopCartComponent,
     ShoppingPageComponent,
-    CheckoutFormComponent
+    CheckoutFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -24,10 +24,37 @@
 </mat-toolbar>
 
 <mat-sidenav-container [hasBackdrop]="false" fxFlexFill>
-  <mat-sidenav #sidenav>
+  <mat-sidenav #sidenav [opened]="isShowing"  >
     <mat-nav-list>
       <a (click)="sidenav.toggle()" href="" class="btn-back" mat-list-item>Retour</a>
-      
+      <div class="restaurant">
+        <button color="warn" class="btn-resto" mat-menu-item [matMenuTriggerFor]="restaurants" >
+          Nos Rostaurants
+          <span class="material-icons arrow-resto">
+            arrow_right_alt
+          </span>
+        </button>
+        <mat-menu #restaurants="matMenu" yPosition="above">
+          <button class="btn-item" mat-menu-item >Fishes</button>
+          <button class="btn-item" mat-menu-item >Amphibians</button>
+          <button class="btn-item" mat-menu-item >Reptiles</button>
+          <button class="btn-item" mat-menu-item>Birds</button>
+          <button class="btn-item" mat-menu-item>Mammals</button>
+        </mat-menu>
+      </div>
+      <div class="restaurant">
+        <button color="warn" class="btn-resto" mat-menu-item [matMenuTriggerFor]="Categories" >
+          Categories
+          <span class="material-icons arrow-resto">
+            arrow_right_alt
+          </span>
+        </button>
+        <mat-menu #Categories="matMenu" yPosition="above">
+          <div *ngFor="let item of categories">
+            <button class="btn-item" (click)="getNotificaton(item)"  mat-menu-item >{{item}}</button>
+          </div>
+        </mat-menu>
+    </div>
       <a mat-list-item  (click)="sidenav.toggle()" [routerLink]="['order/waiting']"> Commande  <span class="sr-only">(current)</span> </a>
       <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['order/delivered']" > Livrer </a>
       

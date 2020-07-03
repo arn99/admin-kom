@@ -10,6 +10,7 @@ export class FoodService {
 
   foodSubject = new Subject<any>();
   foodSubject2 = new Subject<any>();
+  categorySubject = new Subject<any>();
   constructor(private firestore: AngularFirestore) { }
   createFood(data) {
     this.firestore.collection('foods').add(
@@ -111,6 +112,15 @@ export class FoodService {
   }
   public newUpdate(value): any {
     this.foodSubject.next(value);
+  }
+  /**this return subscribre each time which a category is select */
+  public getCategorySelectNotification(): Observable<any> {
+
+    return this.categorySubject.asObservable();
+  }
+  /** this creat notification */
+  public newCategorySelectNotification(value): any {
+    this.categorySubject.next(value);
   }
   public newUpdate2(value): any {
     this.foodSubject2.next(value);
