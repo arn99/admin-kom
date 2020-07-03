@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
     });
   }
   openDialog(data): void {
+    console.log(data);
     const dialogRef = this.dialog.open(ShopCartComponent, {
       width: '75%',
       data: data

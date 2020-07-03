@@ -168,10 +168,7 @@ img.card-img {
     top: 0px;
     overflow: auto;
   }
-.presentation {
-    z-index: -1;
-    position: relative;
-}
+
 .complete-box {
     margin: 0 auto;
     width: 70%;
