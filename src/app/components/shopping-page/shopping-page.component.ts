@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './shopping-page.component.html',
   styleUrls: ['./shopping-page.component.css']
 })
-export class ShoppingPageComponent implements OnDestroy {
+export class ShoppingPageComponent implements OnInit, OnDestroy {
 
   displayedColumns = ['item', 'cost', 'number', 'action'];
   list: MatTableDataSource<any>;
@@ -30,8 +30,19 @@ export class ShoppingPageComponent implements OnDestroy {
       this.list = new MatTableDataSource<Element>(this.getLocalStorage());
       this.tab = this.getLocalStorage();
     }
+    this.subscription = this.foodService.getFoodFromlocal().subscribe(message => {
+      if (message !== null) {
+        this.list = message;
+        console.log(this.list);
+      }
+    });
+  }
+  ngOnInit(): void {
+    console.log('yoo init');
   }
   ngOnDestroy(): void {
+    if (this.subscription) {
+    }
     this.subscription.unsubscribe();
   }
 
@@ -71,12 +82,6 @@ export class ShoppingPageComponent implements OnDestroy {
 
     // tab = this.list;
       console.log(this.tab);
-      this.subscription = this.foodService.getFoodFromlocal().subscribe(message => {
-        if (message !== null) {
-          this.list = message;
-          console.log(this.list);
-        }
-      });
       this.setLocalStorage(this.tab);
   }
   removeOneItem() {

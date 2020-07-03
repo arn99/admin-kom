@@ -31,8 +31,16 @@
       <ng-container matColumnDef="Action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
         <td mat-cell *matCellDef="let row" > 
-          <button mat-raised-button (click)="updateFood(row)" class="modify">Modifier</button>
-          <button mat-raised-button (click)="deleteFood(row.docId)" color="warn" >Supprimer</button>  
+          <button mat-raised-button (click)="updateFood(row)" class="modify">
+            <span class="material-icons">
+              create
+            </span>
+          </button>
+          <button mat-raised-button (click)="deleteFood(row.docId)" color="warn" >
+            <span class="material-icons">
+              delete_outline
+            </span>
+          </button>  
         </td>
       </ng-container>
   

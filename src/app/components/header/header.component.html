@@ -28,18 +28,15 @@
     <mat-nav-list>
       <a (click)="sidenav.toggle()" href="" class="btn-back" mat-list-item>Retour</a>
       
-      <a mat-list-item   [routerLink]="['order/waiting']"> Commande  <span class="sr-only">(current)</span> </a>
-      <a mat-list-item  [routerLink]="['order/delivered']" > Livrer </a>
+      <a mat-list-item  (click)="sidenav.toggle()" [routerLink]="['order/waiting']"> Commande  <span class="sr-only">(current)</span> </a>
+      <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['order/delivered']" > Livrer </a>
       
-        <a mat-list-item  [routerLink]="['food']"> 
+        <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['food']"> 
         Mes plats 
         </a> 
         <span class="example-spacer"></span>
-        <a mat-list-item  [routerLink]="['food']"> 
-        Mes plats 
-        </a> 
-        <a mat-list-item  [routerLink]="['food']"> 
-          <mat-icon matBadge={{itemNumber}} [routerLink] = "['order-page']" matBadgeColor="warn">shopping_cart</mat-icon>
+        <a mat-list-item  > 
+          <mat-icon matBadge={{itemNumber}} [routerLink] = "['order-page']" (click)="sidenav.toggle()" matBadgeColor="warn">shopping_cart</mat-icon>
         </a> 
         <a mat-list-item   (click)="authService.SignOut()" *ngIf="0!=0" > 
            Deconnexion

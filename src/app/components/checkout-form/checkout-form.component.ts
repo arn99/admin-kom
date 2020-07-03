@@ -2,7 +2,7 @@ import { OrderService } from './../../services/order.service';
 import { Food } from 'src/app/models/food.model';
 import { LocationData } from './../../models/location-data';
 import { FoodService } from 'src/app/services/food.service';
-import { District } from './../../models/district.model';
+import * as Districts from './../../models/district.model';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -12,6 +12,7 @@ import {map, startWith} from 'rxjs/operators';
 import { Customer } from 'src/app/models/customer.model';
 import { DataService } from 'src/app/services/data.service';
 import { LocalService } from 'src/app/services/local.service';
+import { District } from './../../models/district.model';
 @Component({
   selector: 'app-checkout-form',
   templateUrl: './checkout-form.component.html',
@@ -23,32 +24,7 @@ export class CheckoutFormComponent implements OnInit {
   private formSubmitAttempt: boolean;
   districtControl = new FormControl();
   filteredDistricts: Observable<District[]>;
-  districts: District[] = [
-    {
-      name: 'Balkuy',
-      prix: 1000
-    },
-    {
-      name: 'Bangpoore',
-      prix: 1000
-    },
-    {
-      name: 'Dassosgho',
-      prix: 1000
-    },
-    {
-      name: 'Hamdalaye',
-      prix: 1000
-    },
-    {
-      name: 'Kossodo',
-      prix: 1000
-    },
-    {
-      name: 'Ouaga 2000',
-      prix: 1000
-    },
-  ];
+  districts: District[]  = Districts.districts;
   district: string;
 
 
@@ -134,6 +110,7 @@ export class CheckoutFormComponent implements OnInit {
                   customer: customer,
                   food: item,
                   paymentState: payment,
+                  date: Date.now(),
                   state: 'waiting',
                   total: (item.price * item.numberOfItem)
               };
