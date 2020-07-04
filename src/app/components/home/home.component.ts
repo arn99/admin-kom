@@ -5,6 +5,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { ShopCartComponent } from '../shop-cart-modal/shop-cart.component';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import * as Category from './../../models/category.model';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   keyword = 'name';
   subscription: Subscription;
   subscriptionRout: Subscription;
+  categories: Category.Category[];
 
   constructor(public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -27,6 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscription = this.foodService.getCategorySelectNotification().subscribe(message => {
      this.searchText = message;
     });
+    this.categories = Category.categories;
    }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -77,5 +80,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   onChangeSearch(item) {
     console.log(item);
     this.searchText = item;
+  }
+  getNotificaton(item) {
+    this.searchText = item.name;
   }
 }

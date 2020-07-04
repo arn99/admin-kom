@@ -16,62 +16,18 @@
               <button class="btn-item" mat-menu-item>Mammals</button>
             </mat-menu>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-4 cat-img justify-content-center">
-              <img src="https://cdn.pratico-pratiques.com/app/uploads/sites/2/2019/04/23104327/poulet-barbecue-sur-canette-de-biere.jpg"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-            </div>
-            <div class="span-div">
-              <span>category</span>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-4 cat-img justify-content-center">
-              <img src="https://cdn.pratico-pratiques.com/app/uploads/sites/2/2019/04/23104327/poulet-barbecue-sur-canette-de-biere.jpg"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-            </div>
-            <div class="span-div">
-              <span>category</span>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-4 cat-img justify-content-center">
-              <img src="https://cdn.pratico-pratiques.com/app/uploads/sites/2/2019/04/23104327/poulet-barbecue-sur-canette-de-biere.jpg"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-            </div>
-            <div class="span-div">
-              <span>category</span>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-4 cat-img justify-content-center">
-              <img src="https://cdn.vox-cdn.com/thumbor/Qu3Q4hfjjckujqLQ4eA7H03-3nk=/0x39:650x472/1200x800/filters:focal(0x39:650x472)/cdn.vox-cdn.com/assets/960660/Screen_Shot_2012-02-20_at_11.36.09_AM.png"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-            </div>
-            <div class="span-div">
-              <span>category</span>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-4 cat-img justify-content-center">
-              <img src="https://cdn.vox-cdn.com/thumbor/Qu3Q4hfjjckujqLQ4eA7H03-3nk=/0x39:650x472/1200x800/filters:focal(0x39:650x472)/cdn.vox-cdn.com/assets/960660/Screen_Shot_2012-02-20_at_11.36.09_AM.png"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-            </div>
-            <div class="span-div">
-              <span>category</span>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-4 cat-img justify-content-center">
-              <img src="https://cdn.vox-cdn.com/thumbor/Qu3Q4hfjjckujqLQ4eA7H03-3nk=/0x39:650x472/1200x800/filters:focal(0x39:650x472)/cdn.vox-cdn.com/assets/960660/Screen_Shot_2012-02-20_at_11.36.09_AM.png"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-            </div>
-            <div class="span-div">
-              <span>category</span>
-            </div>
+        <div *ngFor="let item of categories" >
+          <div class="row btn-item-cat" (click)="getNotificaton(item)">
+              <div class="col-md-6 col-4 cat-img justify-content-center">
+                <img src="{{item.image}}"
+                            alt="avatar mx-auto white" class="rounded-circle img-fluid">
+                            <span> {{item.name}} </span>
+              </div>
+              
+          </div>
         </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-8">
       <div class="carde border-dark">
         <img src="https://i.ytimg.com/vi/8bXlyk0ITAE/maxresdefault.jpg" class="card-img" alt="...">
       </div>

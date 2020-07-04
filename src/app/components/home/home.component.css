@@ -51,6 +51,18 @@ img.card-img {
 											  transparent 75%,
 											  transparent);
 }
+.btn-item-cat:hover, .btn-item-cat:active {
+    color: white;
+    background-color: #f44336;    /* color of the scroll thumb */
+    border-radius: 15px;       /* roundness of the scroll thumb */
+    background-image: -webkit-linear-gradient(45deg,rgba(255, 255, 255, .2) 25%,
+											  transparent 25%,
+											  transparent 50%,
+											  rgba(255, 255, 255, .2) 50%,
+											  rgba(255, 255, 255, .2) 75%,
+											  transparent 75%,
+											  transparent);
+}
 .arrow-resto {
     position: relative;
     top: 6px;

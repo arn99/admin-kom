@@ -14,20 +14,15 @@ export class FoodFilterPipe implements PipeTransform {
     if (!searchText) {
       return items;
     }
-    console.log(items);
-    console.log(searchText);
     if (typeof searchText === 'string') {
-      console.log(searchText);
-      // this is a string
       searchText = searchText.toLocaleLowerCase();
-    } else {
-      console.log(searchText);
-      searchText = searchText['name'];
-      searchText = searchText.toLocaleLowerCase();
+      return items.filter(it => {
+        if (it.name.toLocaleLowerCase().includes(searchText)) {
+          return it.name.toLocaleLowerCase().includes(searchText);
+        } else {
+          return it.category.toLocaleLowerCase().includes(searchText);
+        }
+      });
     }
-
-    return items.filter(it => {
-      return it.name.toLocaleLowerCase().includes(searchText);
-    });
   }
 }

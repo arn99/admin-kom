@@ -16,14 +16,6 @@
         justify-content: center;
         margin-bottom: 7%;
     }
-    .btn-item{
-        color: white;
-        background-color: #f44336;    /* color of the scroll thumb */
-              /* roundness of the scroll thumb */
-    }
-    .btn-item:hover, .btn-item:active {
-        
-    }
     .arrow-resto {
         position: relative;
         top: 6px;

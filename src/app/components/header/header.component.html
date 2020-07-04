@@ -51,7 +51,7 @@
         </button>
         <mat-menu #Categories="matMenu" yPosition="above">
           <div *ngFor="let item of categories">
-            <button class="btn-item" (click)="getNotificaton(item)"  mat-menu-item >{{item}}</button>
+            <button class="btn-item" (click)="getNotificaton(item)"  mat-menu-item >{{item.name}}</button>
           </div>
         </mat-menu>
     </div>

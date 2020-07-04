@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { LocalService } from 'src/app/services/local.service';
 import { Router } from '@angular/router';
-
+import * as Category from './../../models/category.model';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -31,17 +31,7 @@ export class HeaderComponent implements  OnDestroy {
       console.log(this.itemNumber);
       console.log(message);
     });
-    this.categories = [
-      'Poulet',
-      'Fastfood',
-      'Vennoiserie',
-      'Cuissine burkinabe',
-      'Cuissine africaine',
-      'Pizza',
-      'Glace',
-      'Boisson'
-    ];
-
+    this.categories = Category.categories;
    }
 
 
@@ -57,7 +47,7 @@ export class HeaderComponent implements  OnDestroy {
     return number;
   }
   getNotificaton(item) {
-    this.router.navigate(['/'], { queryParams: { para: item } });
+    this.router.navigate(['/'], { queryParams: { para: item.name } });
     this.foodService.newCategorySelectNotification(item);
     this.toggleSidenav();
   }
