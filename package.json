@@ -27,6 +27,7 @@
     "@angular/router": "~9.1.6",
     "@netlify-builder/deploy": "^3.1.0",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
+    "@ngmodule/material-carousel": "^0.6.0",
     "@types/crypto-js": "^3.1.47",
     "agm-direction": "^0.7.9",
     "angular-ng-autocomplete": "^2.0.1",

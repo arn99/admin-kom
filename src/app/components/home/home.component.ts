@@ -1,6 +1,6 @@
 import { FoodService } from 'src/app/services/food.service';
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { ShopCartComponent } from '../shop-cart-modal/shop-cart.component';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import * as Category from './../../models/category.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
   searchText = '';
   foods: any[];
   specialFoods: any[];
@@ -24,7 +24,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private foodService: FoodService) {
+    private foodService: FoodService,
+    private cdr: ChangeDetectorRef) {
     this.getFoods();
     this.subscription = this.foodService.getCategorySelectNotification().subscribe(message => {
      this.searchText = message;
@@ -42,6 +43,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log(params);
         this.searchText = params.para;
       });
+  }
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
   getFoods() {
     this.foodService.getFoods().subscribe((data) => {
@@ -75,7 +79,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   selectEvent(item) {
     console.log(item['name']);
     this.searchText = item['name'];
-    console.log(item);
   }
   onChangeSearch(item) {
     console.log(item);
@@ -83,5 +86,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   getNotificaton(item) {
     this.searchText = item.name;
+    console.log(this.foods);
+    console.log(this.burkinabeFoods);
+    console.log(this.specialFoods);
   }
 }

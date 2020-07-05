@@ -230,6 +230,10 @@ strong {
     .category {
         display: none;
     }
+    .container {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
 }
 @media all and ( min-width:576px ) {
     .category {
@@ -240,4 +244,16 @@ strong {
     .category {
         display: block;
     }
+    .container {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+}
+
+:host ::ng-deep .carousel-indicators.ng-star-inserted {
+    box-shadow: 0 1px 3px 0 #f44336, 0 1px 1px 0 #f44336, 0 2px 1px -1px #f44336;
+    overflow: visible;
+    height: 40px;
+    border-radius: 100px;
+    left: 35%;
 }

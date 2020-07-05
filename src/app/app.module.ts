@@ -48,7 +48,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { MatSidenav } from '@angular/material/sidenav';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { LoadingComponent } from './components/loading/loading.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -110,6 +110,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     MatCardModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
+    MatCarouselModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAvw8F1-PrDmQbMm6yzGOteQwM-4w80V5c',
     }),
