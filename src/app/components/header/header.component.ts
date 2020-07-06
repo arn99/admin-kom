@@ -17,11 +17,14 @@ export class HeaderComponent implements  OnDestroy {
   itemNumber = 0;
   categories = [];
   isShowing: boolean;
+  currentUser: any;
+  currentUserSubscription: Subscription;
   constructor(public authService: AuthService, public foodService: FoodService,
               private router: Router,
               private localService: LocalService) {
 
     this.itemNumber = this.getOrderItemNumberFromFoodList(this.localService.getJsonValue('test'));
+    this.categories = Category.categories;
     this.subscription = this.foodService.getNotification().subscribe(message => {
       this.itemNumber = this.itemNumber + message;
       console.log(this.itemNumber);
@@ -31,7 +34,9 @@ export class HeaderComponent implements  OnDestroy {
       console.log(this.itemNumber);
       console.log(message);
     });
-    this.categories = Category.categories;
+    this.currentUserSubscription = authService.getCurrentNotification().subscribe( message => {
+      this.currentUser = message;
+    });
    }
 
 
@@ -53,5 +58,9 @@ export class HeaderComponent implements  OnDestroy {
   }
   toggleSidenav() {
     this.isShowing = !this.isShowing;
+ }
+ deconnexion() {
+   this.authService.SignOut();
+   this.toggleSidenav();
  }
 }

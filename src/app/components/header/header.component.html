@@ -8,17 +8,18 @@
       <span class="menu-spacer"></span>
       <div fxShow="true" fxHide.lt-md>
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-        <a mat-button   [routerLink]="['order/waiting']"> Commande  <span class="sr-only">(current)</span> </a>
-        <a mat-button  [routerLink]="['order/delivered']" > Livrer </a>
+        <a mat-button   [routerLink]="['/']"> Accueil  <span class="sr-only">(current)</span> </a>
+        <a mat-button   [routerLink]="['order/waiting']" *ngIf="currentUser !== null"> Commande  <span class="sr-only">(current)</span> </a>
+        <!-- <a mat-button  [routerLink]="['order/delivered']" *ngIf="currentUser !== null"> Livrer </a> -->
         
-          <a mat-button  [routerLink]="['food']"> 
+          <a mat-button  [routerLink]="['food']" *ngIf="currentUser !== null"> 
           Mes plats 
           </a> 
           <span class="example-spacer"></span>
-            <mat-icon matBadge={{itemNumber}} [routerLink] = "['order-page']" matBadgeColor="warn">shopping_cart</mat-icon>
-            <a mat-button   (click)="authService.SignOut()" *ngIf="0!=0" > 
-              Deconnexion
-            </a>
+          <a mat-button   (click)="authService.SignOut()" *ngIf="currentUser !== null" > 
+            Deconnexion
+          </a>
+            <mat-icon *ngIf="currentUser === null" matBadge={{itemNumber}} [routerLink] = "['order-page']" matBadgeColor="warn">shopping_cart</mat-icon>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -27,7 +28,7 @@
   <mat-sidenav #sidenav [opened]="isShowing"  >
     <mat-nav-list>
       <a (click)="sidenav.toggle()" href="" class="btn-back" mat-list-item>Retour</a>
-      <div class="restaurant">
+      <div class="restaurant" *ngIf="currentUser === null">
         <button color="warn" class="btn-resto" mat-menu-item [matMenuTriggerFor]="restaurants" >
           Nos Rostaurants
           <span class="material-icons arrow-resto">
@@ -42,30 +43,32 @@
           <button class="btn-item" mat-menu-item>Mammals</button>
         </mat-menu>
       </div>
-      <div class="restaurant">
+      <div class="restaurant" *ngIf="currentUser === null">
         <button color="warn" class="btn-resto" mat-menu-item [matMenuTriggerFor]="Categories" >
           Categories
           <span class="material-icons arrow-resto">
             arrow_right_alt
           </span>
         </button>
-        <mat-menu #Categories="matMenu" yPosition="above">
+        <mat-menu #Categories="matMenu" yPosition="above" >
           <div *ngFor="let item of categories">
             <button class="btn-item" (click)="getNotificaton(item)"  mat-menu-item >{{item.name}}</button>
           </div>
         </mat-menu>
     </div>
-      <a mat-list-item  (click)="sidenav.toggle()" [routerLink]="['order/waiting']"> Commande  <span class="sr-only">(current)</span> </a>
-      <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['order/delivered']" > Livrer </a>
+      <a mat-list-item  (click)="sidenav.toggle()" [routerLink]="['/']" > Accueil  <span class="sr-only">(current)</span> </a>
+      <a mat-list-item  (click)="sidenav.toggle()" [routerLink]="['order/waiting']" *ngIf="currentUser !== null"> Commande  <span class="sr-only">(current)</span> </a>
+      <!-- <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['order/delivered']" *ngIf="currentUser !== null" > Livrer </a> -->
       
-        <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['food']"> 
+        <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['food']" *ngIf="currentUser !== null"> 
         Mes plats 
         </a> 
         <span class="example-spacer"></span>
-        <a mat-list-item  > 
+        
+        <a mat-list-item *ngIf="currentUser === null"  > 
           <mat-icon matBadge={{itemNumber}} [routerLink] = "['order-page']" (click)="sidenav.toggle()" matBadgeColor="warn">shopping_cart</mat-icon>
         </a> 
-        <a mat-list-item   (click)="authService.SignOut()" *ngIf="0!=0" > 
+        <a mat-list-item   (click)="deconnexion()" *ngIf="currentUser !== null" > 
            Deconnexion
         </a>
       </mat-nav-list>

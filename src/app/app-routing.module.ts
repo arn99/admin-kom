@@ -14,17 +14,19 @@ import { AuthGuard } from './shared/guard/auth.guard';
 
 
 const routes: Routes = [
-  { path: 'order/waiting', component: BackorderComponent},
-  { path: 'order/delivered', component: OrderDeliverComponent },
-  { path: 'food', component: FoodComponent },
+  { path: 'order/waiting', component: BackorderComponent, canActivate: [AuthGuard]},
+  { path: 'order/delivered', component: OrderDeliverComponent, canActivate: [AuthGuard] },
+  { path: 'food', component: FoodComponent, canActivate: [AuthGuard] },
   { path: 'order-page', component: ShoppingPageComponent },
   { path: '', component: HomeComponent },
-  { path: 'back-order', component: BackorderComponent },
-  { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
+  { path: 'back-order', component: BackorderComponent, canActivate: [AuthGuard] },
+  /* { path: '', redirectTo: '/sign-in', pathMatch: 'full' }, */
   { path: 'sign-in', component: SignInComponent },
+  { path: 'sign-up', component: SignUpComponent },
   { path: 'register-user', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'verify-email-address', component: VerifyEmailComponent }
+  { path: 'verify-email-address', component: VerifyEmailComponent },
+  { path: '**', redirectTo: '' }
 
 ];
 

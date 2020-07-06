@@ -90,4 +90,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
     console.log(this.burkinabeFoods);
     console.log(this.specialFoods);
   }
+  toBePartener() {
+    console.log('oyoo');
+    this.router.navigate(['sign-up']);
+  }
 }

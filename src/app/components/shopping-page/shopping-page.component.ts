@@ -55,6 +55,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.list = new MatTableDataSource<Element>([]);
+      this.getTotalCost();
     });
   }
 

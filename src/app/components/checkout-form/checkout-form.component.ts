@@ -104,6 +104,7 @@ export class CheckoutFormComponent implements OnInit {
                                 numberOfItem: 10
                               };
           try {
+            const resto = JSON.parse(localStorage.getItem('user'));
             this.data.forEach((item) => {
               const data = {
                   clientLocation: clientLocation,
@@ -112,7 +113,8 @@ export class CheckoutFormComponent implements OnInit {
                   paymentState: payment,
                   date: Date.now(),
                   state: 'waiting',
-                  total: (item.price * item.numberOfItem)
+                  total: (item.price * item.numberOfItem),
+                  restaurant: item['user'],
               };
               console.log(data);
               let orderNumber;

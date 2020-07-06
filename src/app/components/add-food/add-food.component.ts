@@ -1,3 +1,5 @@
+import { AuthService } from 'src/app/services/auth.service';
+import { auth } from 'firebase/app';
 import { LoadingComponent } from './../loading/loading.component';
 import { DataService } from './../../services/data.service';
 import { Component, OnInit, Inject } from '@angular/core';
@@ -25,6 +27,7 @@ export class AddFoodComponent implements OnInit {
   loadDialog: any;
   constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
     private foodService: FoodService, public dataService: DataService,
+    private authService: AuthService,
     public dialogRef: MatDialogRef<AddFoodComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
       this.prepareForm();
@@ -97,19 +100,26 @@ export class AddFoodComponent implements OnInit {
           return snapshot.ref.getDownloadURL();   // Will return a promise with the download link
       })
       .then(downloadURL => {
-        const food = {
+        const currentUser = JSON.parse(localStorage.getItem('user'));
+        if (currentUser !== null) {
+          const food = {
           category : customerData['category'],
           name : customerData['name'],
           description : customerData['description'],
           price : customerData['price'],
           id : this.dataService.Genkey(8),
-          imagePath: downloadURL
+          imagePath: downloadURL,
+          restaurant: currentUser.displayName,
+          user: currentUser.uid
         };
         const foodId = this.foodService.createFood(food);
           console.log(foodId);
           this.dialog.closeAll();
           alert('Plat ajouter avec succès');
           this.foodForm.reset();
+        } else {
+          console.log('user not connect');
+        }
       }).catch(error => {
         console.log(error);
       });

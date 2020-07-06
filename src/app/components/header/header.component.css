@@ -93,3 +93,8 @@ mat-toolbar.mat-toolbar.expanded-toolbar.mat-warn.mat-toolbar-multiple-rows {
     position: relative;
     top: 6px;
 }
+
+
+.mat-drawer-container {
+background-color: #EBEDEF;
+}

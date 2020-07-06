@@ -1,26 +1,35 @@
 <mat-card>
   <mat-card-content>
-    <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <h2>Se connecter</h2>
-      <mat-error *ngIf="loginInvalid">
-        Email ou mot de passe incorrect
-      </mat-error>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Email" formControlName="username" required>
-        <mat-error>
-          Email incorrect
+    <div class="row justify-content-center">
+
+      <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="row justify-content-center">
+
+          <h2 cla>Se connecter</h2>
+        </div>
+        <mat-error *ngIf="loginInvalid">
+          Email ou mot de passe incorrect
         </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput type="password" placeholder="Password" formControlName="password" required>
-        <mat-error>
-          Mot de passe incorrect
-        </mat-error>
-      </mat-form-field>
-      <button mat-raised-button color="primary">Connexion</button>
-    </form>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Email" formControlName="username" required>
+          <mat-error>
+            Email incorrect
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput type="password" placeholder="Password" formControlName="password" required>
+          <mat-error>
+            Mot de passe incorrect
+          </mat-error>
+        </mat-form-field>
+        <div class="row justify-content-center">
+          <button mat-raised-button color="primary">Connexion</button>
+
+        </div>
+        <div class="forgotPassword">
+          <a routerLink="/forgot-password">Mot de passe oubliez?</a>
+        </div>
+      </form>
+    </div>
   </mat-card-content>
-  <div class="forgotPassword">
-    <a routerLink="/forgot-password">Mot de passe oubliez?</a>
-  </div>
 </mat-card>

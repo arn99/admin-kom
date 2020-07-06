@@ -31,7 +31,10 @@ export class BackorderComponent implements OnInit {
     this.getOrders();
   }
   getOrders() {
-    this.ordersService.getOrders('J0g4w7MqxkRhaEA81QnwXey23s02').subscribe((data) => {
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    if (currentUser !== null) {
+      console.log(currentUser);
+      this.ordersService.getOrders(currentUser.uid).subscribe((data) => {
       this.orders = [];
       data.forEach((element) => {
         // tslint:disable-next-line:no-shadowed-variable
@@ -42,7 +45,10 @@ export class BackorderComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.orders);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    });
+      });
+    } else {
+
+    }
   }
   onViewOrder(order) {
     this.order = order;

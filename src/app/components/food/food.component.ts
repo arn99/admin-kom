@@ -24,7 +24,9 @@ export class FoodComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.foodService.getFood('J0g4w7MqxkRhaEA81QnwXey23s02').subscribe((data) => {
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    if (currentUser !== null) {
+      this.foodService.getFood(currentUser.uid).subscribe((data) => {
       this.foods = [];
       data.forEach((element) => {
         // tslint:disable-next-line:no-shadowed-variable
@@ -35,7 +37,10 @@ export class FoodComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.foods);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    });
+      });
+    } else {
+      console.log('redirect to login');
+    }
   }
 
   deleteFood(food) {
