@@ -1,0 +1,32 @@
+<div class="container" *ngIf="tab.length>0">
+    <div class="example-container mat-elevation-z2">
+        <table mat-table [dataSource]="list" >
+          <!-- Item Column -->
+          <ng-container matColumnDef="Identifiant">
+            <th mat-header-cell *matHeaderCellDef> Identifiant </th>
+            <td mat-cell *matCellDef="let order"> {{order.id}} </td>
+            <td mat-footer-cell *matFooterCellDef>  </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="action"> Action </th>
+            <td mat-cell *matCellDef="let order" class="action"> 
+                <!-- <span class="material-icons add" (click)="plusItem()"> add </span> -->
+                <!-- <span class="number-item"> {{ order.numberOfItem }} </span> -->
+               <!--  <span class="material-icons remove" (click)="removeOneItem()"> remove </span> -->
+                <span class="material-icons action-icon" (click)="removeItem(order)"> clear </span>
+            </td>
+            <td mat-footer-cell *matFooterCellDef>  </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+        </table>
+    </div>
+</div>
+<div class="container" *ngIf="tab.length==0">
+    <div class="example-container mat-elevation-z2">
+      <h1 class="text-center">Votre panier est vide</h1>
+    </div>
+</div>

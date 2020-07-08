@@ -29,6 +29,7 @@ export class HeaderComponent implements  OnDestroy {
                 if (JSON.parse(localStorage.getItem('user')) === null) {
                   this.items = [
                     {icon: 'home', label: 'Accueil', routerLink: ''},
+                    {icon: 'restaurant', label: 'Mes Commandes', routerLink: 'my-order'},
                     {icon: 'account_circle', label: 'Compte', routerLink: ''},
                     {icon: 'library_books', label: 'A Propos', routerLink: ''},
                   ];
@@ -56,6 +57,7 @@ export class HeaderComponent implements  OnDestroy {
       if (message === null) {
         this.items = [
           {icon: 'home', label: 'Accueil', routerLink: ''},
+          {icon: 'restaurant', label: 'Mes Commandes', routerLink: 'my-order'},
           {icon: 'account_circle', label: 'Compte', routerLink: ''},
           {icon: 'library_books', label: 'A Propos', routerLink: ''},
         ];

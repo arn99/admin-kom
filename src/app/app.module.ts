@@ -60,6 +60,7 @@ import { CheckoutFormComponent } from './components/checkout-form/checkout-form.
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { SuccessModalComponent } from './components/success-modal/success-modal.component';
 import {BottomNavModule} from 'ngx-bottom-nav';
+import { CustomerOrderComponent } from './components/customer-order/customer-order.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import {BottomNavModule} from 'ngx-bottom-nav';
     ShoppingPageComponent,
     CheckoutFormComponent,
     SuccessModalComponent,
+    CustomerOrderComponent,
   ],
   imports: [
     BrowserModule,

@@ -23,6 +23,15 @@
     .botton-nav, .shop-mobile {
         display: block;
     }
+   /*  .mat-drawer-container {
+        position: initial;
+        /* margin-top: 10%; 
+    }
+    mat-toolbar.mat-toolbar.expanded-toolbar.mat-warn.mat-toolbar-multiple-rows {
+        position: fixed;
+        top: 0;
+        overflow: hidden;
+    } */
 }
 @media all and ( min-width:576px ) {
     a .logo { 
@@ -53,9 +62,7 @@
   ::ng-deep .mat-sidenav-backdrop.mat-sidenav-shown{
     display: none;
 }
-mat-toolbar.mat-toolbar.expanded-toolbar.mat-warn.mat-toolbar-multiple-rows {
-    padding: 0 7%;
-}
+
 .btn-back {
     background-color: black;
     color: white;

@@ -128,7 +128,20 @@ export class CheckoutFormComponent implements OnInit {
                     let orderTab = [];
                     if (this.localService.getJsonValue('orders') !== null) {
                       orderTab = this.localService.getJsonValue('orders');
-                      orderTab.push({'id': orderNumber});
+                      const today = new Date();
+                      const dd = today.getDate();
+                      let ddString, mmString, todayString;
+                      const mm = today.getMonth() + 1;
+                      const yyyy = today.getFullYear();
+                      if (dd < 10) {
+                        ddString = '0' + dd;
+                      }
+
+                      if (mm < 10) {
+                        mmString = '0' + mm;
+                      }
+                      todayString = mmString + '-' + ddString + '-' + yyyy;
+                      orderTab.push({'id': orderNumber, 'date': todayString});
                     }
                     this.localService.setJsonValue('orders', orderTab);
                   } else {
