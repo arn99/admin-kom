@@ -59,6 +59,7 @@ import { ShopCartComponent } from './components/shop-cart-modal/shop-cart.compon
 import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { SuccessModalComponent } from './components/success-modal/success-modal.component';
+import {BottomNavModule} from 'ngx-bottom-nav';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { SuccessModalComponent } from './components/success-modal/success-modal.
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    BottomNavModule,
     ReactiveFormsModule,
     AutocompleteLibModule,
     NgxPaginationModule,

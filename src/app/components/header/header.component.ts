@@ -6,6 +6,7 @@ import { LocalService } from 'src/app/services/local.service';
 import { Router } from '@angular/router';
 import * as Category from './../../models/category.model';
 import { MatSidenav } from '@angular/material/sidenav';
+import { BottomNavItem } from 'ngx-bottom-nav';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -21,6 +22,11 @@ export class HeaderComponent implements  OnDestroy {
   currentUser: any;
   currentUserSubscription: Subscription;
   @ViewChild('sidenav') sidenav: MatSidenav;
+  items: BottomNavItem[] = [
+    {icon: 'home', label: 'Accueil', routerLink: ''},
+    {icon: 'account_circle', label: 'Compte', routerLink: ''},
+    {icon: 'library_books', label: 'A Propos', routerLink: ''},
+  ];
   constructor(public authService: AuthService, public foodService: FoodService,
               private router: Router,
               private localService: LocalService) {

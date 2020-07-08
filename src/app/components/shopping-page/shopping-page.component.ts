@@ -29,6 +29,9 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     if (this.getLocalStorage() !== null) {
       this.list = new MatTableDataSource<Element>(this.getLocalStorage());
       this.tab = this.getLocalStorage();
+      if (!this.tab) {
+        this.tab = [];
+      }
     }
     this.subscription = this.foodService.getFoodFromlocal().subscribe(message => {
       if (message !== null) {

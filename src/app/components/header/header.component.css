@@ -20,6 +20,9 @@
         position: relative;
         top: 6px;
     }
+    .botton-nav {
+        display: block;
+    }
 }
 @media all and ( min-width:576px ) {
     a .logo { 
@@ -28,6 +31,9 @@
     .a-logo {
         max-width: 20%;
         text-align: center;
+    }
+    .botton-nav {
+        display: none;
     }
 }
 @media all and ( min-width:768px )  {
@@ -97,4 +103,18 @@ mat-toolbar.mat-toolbar.expanded-toolbar.mat-warn.mat-toolbar-multiple-rows {
 
 .mat-drawer-container {
 background-color: #EBEDEF;
+}
+ngx-bottom-nav {
+    background-color: #f44336;
+    position: fixed;
+    bottom: 0;
+}
+::ng-deep .material-icons{
+    color: white;
+}
+::ng-deep .label {
+    color: white;
+}
+::ng-deep .ngx-bottom-nav-button {
+    margin-top: 7%;
 }
