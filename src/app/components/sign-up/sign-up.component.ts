@@ -9,6 +9,7 @@ import { startWith, map } from 'rxjs/operators';
 import { MyErrorStateMatcher } from 'src/app/utils/my-error-state-matcher.class';
 import { MatDialog } from '@angular/material/dialog';
 import { LoadingComponent } from '../loading/loading.component';
+import { SuccessModalComponent } from '../success-modal/success-modal.component';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -91,14 +92,18 @@ export class SignUpComponent implements OnInit {
           try {
             this.authService.SignUp(user).then( result => {
               console.log(result);
+              this.openDialogSuccess( {message: 'Votre compte a été creé avec succès',
+              key: '',
+              thanks: 'Nous allons vous recontacter au plus vite afin de finaliser le partenariat'});
             }).catch( error => {
               console.log(error);
+              this.dialog.closeAll();
             });
           } catch (error) {
             console.log(error);
+            this.dialog.closeAll();
           }
         }
-        this.dialog.closeAll();
       } catch (err) {
         this.checkOutInvalid = true;
         this.dialog.closeAll();
@@ -120,6 +125,18 @@ export class SignUpComponent implements OnInit {
 
     this.loadDialog.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+    });
+  }
+  openDialogSuccess(data): void {
+    const dialogRef = this.dialog.open(SuccessModalComponent, {
+      width: '85%',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      this.dialog.closeAll();
     });
   }
 }

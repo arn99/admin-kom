@@ -1,7 +1,11 @@
 table {
-    width: 100%;
+    width: 600px;
   }
-  
+  .example-container {
+    height: 400px;
+    width: 100%;
+    overflow: auto;
+  }
   tr.mat-footer-row {
     font-weight: bold;
   }

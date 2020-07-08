@@ -3,51 +3,53 @@
       <div class="row justify-content-center">
 
         <form  class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-                <mat-form-field class="full">
-                   <mat-label>Nom du restaurant</mat-label>
-                   <input  matInput  placeholder="Nom du restaurant" formControlName="restoName"  name="restoName"  required>
-                </mat-form-field>
-                <mat-form-field class="fill">
-                    <mat-label>Numero de téléphone</mat-label>
-                    <input matInput type="number" placeholder="Numero" formControlName="numero" required>
-                    <mat-error>
-                      Le numero doit avoir 8 chiffres
-                    </mat-error>
-                  </mat-form-field>
-                  <br>
-                <mat-form-field class="fill">
-                    <mat-label>Adresse</mat-label>
-                    <input type="text"  matInput [(ngModel)]="district" [formControl]="districtControl" [matAutocomplete]="auto">
-                    <mat-autocomplete #auto="matAutocomplete"  [displayWith]="getDistrict">
-                      <mat-option *ngFor="let option of filteredDistricts | async" [value]="option">
-                        {{option.name}}
-                      </mat-option>
-                    </mat-autocomplete>
-                  </mat-form-field>
-                <mat-form-field class="full">
-                   <mat-label>Email</mat-label>
-                   <input  matInput type="email" formControlName="email" placeholder="Email" name="email">
-                </mat-form-field>
-                <br>
-                <mat-form-field class="full">
-                   <mat-label>Mot de passe</mat-label>
-                   <input  matInput type="password" formControlName="password"  placeholder="Mot de passe"  name="password" required>
-                   <mat-error *ngIf="form.hasError('notSame')">
-                    Le mot de passe doit etre superieure à 8 caractères
-                  </mat-error> 
-                </mat-form-field>
-                <mat-form-field class="full">
-                    <input matInput type="password" placeholder="Confirmez voter mot de passe" formControlName="confirmPassword" [errorStateMatcher]="matcher">
-                      <mat-error *ngIf="form.hasError('notSame')">
-                        Le mot de passe doit etre identique
-                    </mat-error>  
-                </mat-form-field>
-                <br>
+          <div class="form-field">
+
+            <mat-form-field class="full">
+               <mat-label>Nom du restaurant</mat-label>
+               <input  matInput  placeholder="Nom du restaurant" formControlName="restoName"  name="restoName"  required>
+            </mat-form-field>
+            <mat-form-field class="fill">
+                <mat-label>Numero de téléphone</mat-label>
+                <input matInput type="number" placeholder="Numero" formControlName="numero" required>
+                <mat-error>
+                  Le numero doit avoir 8 chiffres
+                </mat-error>
+              </mat-form-field>
+              <br>
+            <mat-form-field class="fill">
+                <mat-label>Adresse</mat-label>
+                <input type="text"  matInput [(ngModel)]="district" [formControl]="districtControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete"  [displayWith]="getDistrict">
+                  <mat-option *ngFor="let option of filteredDistricts | async" [value]="option">
+                    {{option.name}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            <mat-form-field class="full">
+               <mat-label>Email</mat-label>
+               <input  matInput type="email" formControlName="email" placeholder="Email" name="email">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="full">
+               <mat-label>Mot de passe</mat-label>
+               <input  matInput type="password" formControlName="password"  placeholder="Mot de passe"  name="password" required>
+               <mat-error *ngIf="form.hasError('notSame')">
+                Le mot de passe doit etre superieure à 8 caractères
+              </mat-error> 
+            </mat-form-field>
+            <mat-form-field class="full">
+                <input matInput type="password" placeholder="Confirmez voter mot de passe" formControlName="confirmPassword" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="form.hasError('notSame')">
+                    Le mot de passe doit etre identique
+                </mat-error>  
+            </mat-form-field>
+          </div>
                 <button mat-raised-button color="warn">Creer</button>
+                <div class="sigin-link">
+                  <a routerLink="/sign-in">J'ai deja un compte?</a>
+                </div>
          </form>
       </div>
     </mat-card-content>
-    <div class="forgotPassword">
-      <a routerLink="/sign-in">J'ai deja un compte?</a>
-    </div>
 </mat-card>

@@ -17,7 +17,8 @@
             <div class="col-md-6">
                 <h1 class="food-name">Nom: {{ food.name  }} </h1>
                 <h3 class="food-price" >Prix: {{ food.price  }} CFA</h3>
-                <h4 class="food-description">{{ food.description  }}</h4>
+                <h4 class="food-description">Description: {{ food.description  }}</h4>
+                <h4 class="food-resto">Restaurant: {{ food.restaurant  }}</h4>
                 <div class="quantity">
                     <span class="material-icons add" (click)="plusItem()"> add </span>
                     <span class="number-item"> {{this.itemNumber}} </span>

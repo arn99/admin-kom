@@ -54,14 +54,25 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.list = new MatTableDataSource<Element>([]);
-      this.getTotalCost();
+      console.log(result);
+      if (result === 'none') {
+        console.log(result);
+        this.getTotalCost();
+      } else {
+        this.list = new MatTableDataSource<Element>([]);
+        this.getTotalCost('buy');
+        console.log(this.getTotalCost('buy'));
+      }
     });
   }
 
   /** Gets the total cost of all transactions. */
-  getTotalCost() {
-    return this.tab.map(food => (food.price * food.numberOfItem)).reduce((acc, value) => acc + value, 0);
+  getTotalCost(buy?) {
+    if (buy) {
+      return 0;
+    } else {
+      return this.tab.map(food => (food.price * food.numberOfItem)).reduce((acc, value) => acc + value, 0);
+    }
   }
   /** Gets the total cost of all transactions. */
   getNumberOfItem() {

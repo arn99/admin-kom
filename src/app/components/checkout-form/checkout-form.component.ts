@@ -1,3 +1,4 @@
+import { SuccessModalComponent } from './../success-modal/success-modal.component';
 import { OrderService } from './../../services/order.service';
 import { Food } from 'src/app/models/food.model';
 import { LocationData } from './../../models/location-data';
@@ -61,7 +62,8 @@ export class CheckoutFormComponent implements OnInit {
     return this.districts.filter(district => district.name.toLowerCase().indexOf(filterValue) === 0);
   }
   onNoClick(): void {
-    this.dialogRef.close();
+    console.log('yoo fermer');
+    this.dialogRef.close('none');
   }
   getDistrict(district: District) {
     try {
@@ -141,9 +143,11 @@ export class CheckoutFormComponent implements OnInit {
               }
             });
             this.localService.setJsonValue('test', []);
-            console.log(this.localService.getJsonValue('orders'));
             console.log(this.localService.getJsonValue('test'));
-             this.dialog.closeAll();
+            this.openDialog( {message: 'Commande effectuer avec succes! Lidentifiant de votre commande: ',
+            key: this.localService.getJsonValue('orders')[this.localService.getJsonValue('orders').length - 1].id,
+            thanks: 'Merci pour la confiance'});
+             // this.dialog.closeAll();
           } catch (error) {
             console.log(error);
             alert('Erreur dela commander reessayez');
@@ -155,5 +159,17 @@ export class CheckoutFormComponent implements OnInit {
     } else {
       this.formSubmitAttempt = true;
     }
+  }
+  openDialog(data): void {
+    const dialogRef = this.dialog.open(SuccessModalComponent, {
+      width: '85%',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      this.dialog.closeAll();
+    });
   }
 }

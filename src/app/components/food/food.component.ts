@@ -7,6 +7,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AddFoodComponent } from '../add-food/add-food.component';
 import { LoadingComponent } from '../loading/loading.component';
+import { SuccessModalComponent } from '../success-modal/success-modal.component';
 
 @Component({
   selector: 'app-food',
@@ -48,8 +49,9 @@ export class FoodComponent implements OnInit {
       this.openLoadDialog();
       this.foodService.deleteFood(food).then((result) => {
         console.log(result);
-          this.dialog.closeAll();
-          alert('Plat supprimer avec succès');
+        this.openDialogSuccess( {message: 'Plat supprimer avec succès',
+            key: '',
+            thanks: ''});
       }).catch(() => {
         this.dialog.closeAll();
         alert('erreur de suppression');
@@ -82,6 +84,7 @@ export class FoodComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.dialog.closeAll();
     });
   }
 
@@ -92,6 +95,17 @@ export class FoodComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  openDialogSuccess(data): void {
+    const dialogRef = this.dialog.open(SuccessModalComponent, {
+      width: '85%',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
   }
 
 }

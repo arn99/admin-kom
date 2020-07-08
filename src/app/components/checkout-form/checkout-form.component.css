@@ -9,3 +9,21 @@ mat-card-content.mat-card-content {
   background-color: black;
   color: white;
 }
+@media ( max-width: 576px ) {
+  .back-btn {
+    margin-right: 0%;
+  }
+  .form-field {
+    overflow: auto;
+    height: 400px;
+  }
+}
+@media all and ( min-width:576px ) {
+  .form-field {
+    overflow: auto;
+    height: 200px;
+  }
+}
+form {
+  padding-bottom: 10px;
+}

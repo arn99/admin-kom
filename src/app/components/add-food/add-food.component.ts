@@ -9,6 +9,7 @@ import { Food } from 'src/app/models/food.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FoodService } from 'src/app/services/food.service';
 import * as firebase from 'firebase';
+import { SuccessModalComponent } from '../success-modal/success-modal.component';
 
 @Component({
   selector: 'app-add-food',
@@ -81,8 +82,9 @@ export class AddFoodComponent implements OnInit {
     try {
       this.foodService.updateFood(this.data).then((result) => {
         console.log(result);
-          this.dialog.closeAll();
-          alert('Plat mise à jour avec succès');
+          this.openDialogSuccess( {message: 'Plat mise à jour avec succès',
+            key: '',
+            thanks: ''});
       }).catch(() => {
         this.dialog.closeAll();
         alert('erreur de mise à jour');
@@ -114,8 +116,9 @@ export class AddFoodComponent implements OnInit {
         };
         const foodId = this.foodService.createFood(food);
           console.log(foodId);
-          this.dialog.closeAll();
-          alert('Plat ajouter avec succès');
+          this.openDialogSuccess( {message: 'Plat ajouter avec succès',
+            key: '',
+            thanks: ''});
           this.foodForm.reset();
         } else {
           console.log('user not connect');
@@ -132,5 +135,17 @@ export class AddFoodComponent implements OnInit {
       };
       reader.readAsArrayBuffer(inputNode.files[0]);
     }
+  }
+  openDialogSuccess(data): void {
+    const dialogRef = this.dialog.open(SuccessModalComponent, {
+      width: '85%',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      this.dialog.closeAll();
+    });
   }
 }

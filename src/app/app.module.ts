@@ -58,6 +58,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ShopCartComponent } from './components/shop-cart-modal/shop-cart.component';
 import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { SuccessModalComponent } from './components/success-modal/success-modal.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     ShopCartComponent,
     ShoppingPageComponent,
     CheckoutFormComponent,
+    SuccessModalComponent,
   ],
   imports: [
     BrowserModule,

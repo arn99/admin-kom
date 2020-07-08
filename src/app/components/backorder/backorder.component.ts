@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { LoadingComponent } from '../loading/loading.component';
+import { SuccessModalComponent } from '../success-modal/success-modal.component';
 
 @Component({
   selector: 'app-backorder',
@@ -61,8 +62,9 @@ export class BackorderComponent implements OnInit {
       this.openLoadDialog();
       this.ordersService.updateOrder(order).then((result) => {
         console.log(result);
-          this.dialog.closeAll();
-          alert('commande traiter avec succès');
+        this.openDialogSuccess( {message: 'La commande a été traité avec succès',
+        key: '',
+        thanks: 'La commande se trouve maintenant dans la partie traité'});
       }).catch(() => {
         this.dialog.closeAll();
         alert('erreur yoo');
@@ -80,6 +82,7 @@ export class BackorderComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.dialog.closeAll();
     });
   }
 
@@ -98,5 +101,16 @@ export class BackorderComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  openDialogSuccess(data): void {
+    const dialogRef = this.dialog.open(SuccessModalComponent, {
+      width: '85%',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
   }
 }

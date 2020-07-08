@@ -142,6 +142,7 @@ img.card-img {
     background: #f44336;
     padding: 3%;
     max-height: 300px;
+    margin-bottom: 3%;
 }
 .mobile {
     max-width: 25%;
@@ -150,7 +151,7 @@ img.card-img {
     max-width: 150%;
     position: relative;
     left: 30%;
-    bottom: 0%;
+    bottom: 11%;
 }
 
 @media all and ( min-width:768px ) {
@@ -234,10 +235,18 @@ strong {
         padding-right: 15px;
         padding-left: 15px;
     }
+    img.img-size {
+        max-height: 200px;
+        background-size: cover;
+    }
 }
 @media all and ( min-width:576px ) {
     .category {
         display: none;
+    }
+    img.img-size {
+        max-height: 300px;
+        background-size: cover;
     }
 }
 @media all and ( min-width:768px )  {

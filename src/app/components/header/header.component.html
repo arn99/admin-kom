@@ -24,13 +24,14 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-sidenav-container [hasBackdrop]="false" fxFlexFill>
+<!-- mobile menu nav-->
+<mat-sidenav-container [hasBackdrop]="false" >
   <mat-sidenav #sidenav [opened]="isShowing"  >
     <mat-nav-list>
       <a (click)="sidenav.toggle()" href="" class="btn-back" mat-list-item>Retour</a>
       <div class="restaurant" *ngIf="currentUser === null">
         <button color="warn" class="btn-resto" mat-menu-item [matMenuTriggerFor]="restaurants" >
-          Nos Rostaurants
+          Nos Restaurants
           <span class="material-icons arrow-resto">
             arrow_right_alt
           </span>
@@ -68,12 +69,12 @@
         <a mat-list-item *ngIf="currentUser === null"  > 
           <mat-icon matBadge={{itemNumber}} [routerLink] = "['order-page']" (click)="sidenav.toggle()" matBadgeColor="warn">shopping_cart</mat-icon>
         </a> 
-        <a mat-list-item   (click)="deconnexion()" *ngIf="currentUser !== null" > 
+        <a mat-list-item   (click)="deconnexion(); sidenav.toggle()" *ngIf="currentUser !== null" > 
            Deconnexion
         </a>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content fxFlexFill>  
+    <mat-sidenav-content fxLayout="column">  
       <router-outlet></router-outlet>
       <app-footer> </app-footer>
     </mat-sidenav-content>

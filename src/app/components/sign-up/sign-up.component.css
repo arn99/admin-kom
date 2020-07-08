@@ -18,3 +18,24 @@ form {
 mat-card {
   background-image: url('/assets/images/food.jpg');
 }
+@media ( max-width: 576px ) {
+  .form-field {
+    overflow: auto;
+    height: 400px;
+  }
+}
+@media all and ( min-width:576px ) {
+  .form-field {
+    overflow: auto;
+    height: 400px;
+  }
+}
+form{
+  padding-bottom: 10px;
+}
+.sigin-link {
+  margin-top: 10px;
+}
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+  margin: 10%;
+}

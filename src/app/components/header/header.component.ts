@@ -1,10 +1,11 @@
 import { FoodService } from 'src/app/services/food.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { LocalService } from 'src/app/services/local.service';
 import { Router } from '@angular/router';
 import * as Category from './../../models/category.model';
+import { MatSidenav } from '@angular/material/sidenav';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -19,6 +20,7 @@ export class HeaderComponent implements  OnDestroy {
   isShowing: boolean;
   currentUser: any;
   currentUserSubscription: Subscription;
+  @ViewChild('sidenav') sidenav: MatSidenav;
   constructor(public authService: AuthService, public foodService: FoodService,
               private router: Router,
               private localService: LocalService) {
@@ -52,9 +54,9 @@ export class HeaderComponent implements  OnDestroy {
     return number;
   }
   getNotificaton(item) {
+    this.sidenav.toggle();
     this.router.navigate(['/'], { queryParams: { para: item.name } });
     this.foodService.newCategorySelectNotification(item);
-    this.toggleSidenav();
   }
   toggleSidenav() {
     this.isShowing = !this.isShowing;
