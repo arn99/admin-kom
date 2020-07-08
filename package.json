@@ -35,6 +35,8 @@
     "core-js": "^3.6.5",
     "crypto-js": "^4.0.0",
     "firebase": "^7.15.0",
+    "firebase-admin": "^8.13.0",
+    "firebase-tools": "^8.4.3",
     "httpclient": "^0.1.0",
     "materialize-css": "^1.0.0-rc.2",
     "ng2-search-filter": "^0.5.1",
