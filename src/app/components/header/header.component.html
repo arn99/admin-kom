@@ -5,8 +5,8 @@
         <mat-icon>menu</mat-icon>
       </button>
       <a class="a-logo" mat-button href=""><img class="logo" src="assets/logos/miam/miam2.png" alt="" ></a>
-      <a mat-list-item *ngIf="currentUser === null"  > 
-        <mat-icon matBadge={{itemNumber}} [routerLink] = "['order-page']" (click)="sidenav.toggle()" matBadgeColor="warn">shopping_cart</mat-icon>
+      <a mat-list-item class="shop-mobile" *ngIf="currentUser === null"  > 
+        <mat-icon matBadge={{itemNumber}} [routerLink] = "['order-page']" matBadgeColor="warn">shopping_cart</mat-icon>
       </a> 
       <span class="menu-spacer"></span>
       <div fxShow="true" fxHide.lt-md>
@@ -60,7 +60,6 @@
           </div>
         </mat-menu>
     </div>
-      <a mat-list-item  (click)="sidenav.toggle()" [routerLink]="['/']" > Accueil  <span class="sr-only">(current)</span> </a>
       <a mat-list-item  (click)="sidenav.toggle()" [routerLink]="['order/waiting']" *ngIf="currentUser !== null"> Commande  <span class="sr-only">(current)</span> </a>
       <!-- <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['order/delivered']" *ngIf="currentUser !== null" > Livrer </a> -->
       
@@ -68,13 +67,6 @@
         Mes plats 
         </a> 
         <span class="example-spacer"></span>
-        
-        <a mat-list-item *ngIf="currentUser === null"  > 
-          <mat-icon matBadge={{itemNumber}} [routerLink] = "['order-page']" (click)="sidenav.toggle()" matBadgeColor="warn">shopping_cart</mat-icon>
-        </a> 
-        <a mat-list-item   (click)="deconnexion(); sidenav.toggle()" *ngIf="currentUser !== null" > 
-           Deconnexion
-        </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content fxLayout="column">  

@@ -20,7 +20,7 @@
         position: relative;
         top: 6px;
     }
-    .botton-nav {
+    .botton-nav, .shop-mobile {
         display: block;
     }
 }
@@ -32,7 +32,7 @@
         max-width: 20%;
         text-align: center;
     }
-    .botton-nav {
+    .botton-nav, .shop-mobile {
         display: none;
     }
 }

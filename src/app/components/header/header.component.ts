@@ -22,15 +22,24 @@ export class HeaderComponent implements  OnDestroy {
   currentUser: any;
   currentUserSubscription: Subscription;
   @ViewChild('sidenav') sidenav: MatSidenav;
-  items: BottomNavItem[] = [
-    {icon: 'home', label: 'Accueil', routerLink: ''},
-    {icon: 'account_circle', label: 'Compte', routerLink: ''},
-    {icon: 'library_books', label: 'A Propos', routerLink: ''},
-  ];
+  items: BottomNavItem[];
   constructor(public authService: AuthService, public foodService: FoodService,
               private router: Router,
               private localService: LocalService) {
-
+                if (JSON.parse(localStorage.getItem('user')) === null) {
+                  this.items = [
+                    {icon: 'home', label: 'Accueil', routerLink: ''},
+                    {icon: 'account_circle', label: 'Compte', routerLink: ''},
+                    {icon: 'library_books', label: 'A Propos', routerLink: ''},
+                  ];
+                } else {
+                  this.items = [
+                    {icon: 'home', label: 'Accueil', routerLink: ''},
+                    {icon: 'restaurant', label: 'Mes plats', routerLink: 'food'},
+                    {icon: 'menu_book', label: 'Commandes', routerLink: 'order/waiting'},
+                    {icon: 'account_circle', label: 'Compte', routerLink: ''},
+                  ];
+                }
     this.itemNumber = this.getOrderItemNumberFromFoodList(this.localService.getJsonValue('test'));
     this.categories = Category.categories;
     this.subscription = this.foodService.getNotification().subscribe(message => {
@@ -44,6 +53,20 @@ export class HeaderComponent implements  OnDestroy {
     });
     this.currentUserSubscription = authService.getCurrentNotification().subscribe( message => {
       this.currentUser = message;
+      if (message === null) {
+        this.items = [
+          {icon: 'home', label: 'Accueil', routerLink: ''},
+          {icon: 'account_circle', label: 'Compte', routerLink: ''},
+          {icon: 'library_books', label: 'A Propos', routerLink: ''},
+        ];
+      } else {
+        this.items = [
+          {icon: 'home', label: 'Accueil', routerLink: ''},
+          {icon: 'restaurant', label: 'Mes plats', routerLink: 'food'},
+          {icon: 'menu_book', label: 'Commandes', routerLink: 'order/waiting'},
+          {icon: 'account_circle', label: 'Compte', routerLink: ''},
+        ];
+      }
     });
    }
 
