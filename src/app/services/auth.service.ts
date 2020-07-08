@@ -7,6 +7,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Router } from '@angular/router';
 import { User } from '../shared/services/user';
 import { Subject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +26,10 @@ export class AuthService {
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(async user => {
       if (user) {
+        this.getUser(user.uid);
         this.userData = user;
-        await localStorage.setItem('user', JSON.stringify(this.userData));
-        this.newCurrentUserNotification(this.userData);
-        JSON.parse(localStorage.getItem('user'));
+        console.log(user.uid);
+        this.getUser(user.uid);
       } else {
         await localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
@@ -139,12 +140,31 @@ export class AuthService {
       merge: true
     });
   }
+  getUser (uid) {
+    return this.afs.collection('users').doc(uid).valueChanges().subscribe( async result => {
+      console.log(result);
+       /*  const data = changes.payload.data();
+      const id = changes.payload.id;
+      data['uid'] = id; */
+      console.log(result);
+      await localStorage.setItem('user', JSON.stringify(result));
+      const self = this;
+      setTimeout(async function() {
+        await self.newCurrentUserNotification(result);
+        JSON.parse(localStorage.getItem('user'));
+      }, 1500);
+    });
+  }
 
   // Sign out
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['']);
+      const self = this;
+      setTimeout(async function() {
+        await self.newCurrentUserNotification(JSON.parse(localStorage.getItem('user')));
+      }, 1500);
     });
   }
   getCurrentUser(): String {

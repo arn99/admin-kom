@@ -26,19 +26,19 @@ export class HeaderComponent implements  OnDestroy {
   constructor(public authService: AuthService, public foodService: FoodService,
               private router: Router,
               private localService: LocalService) {
-                if (JSON.parse(localStorage.getItem('user')) === null) {
+                if (JSON.parse(localStorage.getItem('user')) !== null && JSON.parse(localStorage.getItem('user')).roles.includes('resto')) {
                   this.items = [
                     {icon: 'home', label: 'Accueil', routerLink: ''},
-                    {icon: 'restaurant', label: 'Mes Commandes', routerLink: 'my-order'},
-                    {icon: 'account_circle', label: 'Compte', routerLink: ''},
-                    {icon: 'library_books', label: 'A Propos', routerLink: ''},
+                    {icon: 'restaurant', label: 'Mes plats', routerLink: 'food'},
+                    {icon: 'menu_book', label: 'Mes commandes', routerLink: 'order/waiting'},
+                    {icon: 'account_circle', label: 'Compte', routerLink: 'account'},
                   ];
                 } else {
                   this.items = [
                     {icon: 'home', label: 'Accueil', routerLink: ''},
-                    {icon: 'restaurant', label: 'Mes plats', routerLink: 'food'},
-                    {icon: 'menu_book', label: 'Commandes', routerLink: 'order/waiting'},
+                    {icon: 'restaurant', label: 'Mes Commandes', routerLink: 'my-order'},
                     {icon: 'account_circle', label: 'Compte', routerLink: ''},
+                    {icon: 'library_books', label: 'A Propos', routerLink: 'account'},
                   ];
                 }
     this.itemNumber = this.getOrderItemNumberFromFoodList(this.localService.getJsonValue('test'));
@@ -54,19 +54,19 @@ export class HeaderComponent implements  OnDestroy {
     });
     this.currentUserSubscription = authService.getCurrentNotification().subscribe( message => {
       this.currentUser = message;
-      if (message === null) {
+      if (message !== null && message.roles && message.roles.includes('resto')) {
         this.items = [
           {icon: 'home', label: 'Accueil', routerLink: ''},
-          {icon: 'restaurant', label: 'Mes Commandes', routerLink: 'my-order'},
-          {icon: 'account_circle', label: 'Compte', routerLink: ''},
-          {icon: 'library_books', label: 'A Propos', routerLink: ''},
+          {icon: 'restaurant', label: 'Mes plats', routerLink: 'food'},
+          {icon: 'menu_book', label: 'Mes commandes', routerLink: 'order/waiting'},
+          {icon: 'account_circle', label: 'Compte', routerLink: 'account'},
         ];
       } else {
         this.items = [
           {icon: 'home', label: 'Accueil', routerLink: ''},
-          {icon: 'restaurant', label: 'Mes plats', routerLink: 'food'},
-          {icon: 'menu_book', label: 'Commandes', routerLink: 'order/waiting'},
-          {icon: 'account_circle', label: 'Compte', routerLink: ''},
+          {icon: 'restaurant', label: 'Mes Commandes', routerLink: 'my-order'},
+          {icon: 'account_circle', label: 'Compte', routerLink: 'account'},
+          {icon: 'library_books', label: 'A Propos', routerLink: ''},
         ];
       }
     });

@@ -1,3 +1,4 @@
+import { AccountComponent } from './components/account/account.component';
 import { CustomerOrderComponent } from './components/customer-order/customer-order.component';
 import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component';
 import { HomeComponent } from './components/home/home.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'food', component: FoodComponent, canActivate: [AuthGuard] },
   { path: 'order-page', component: ShoppingPageComponent },
   { path: '', component: HomeComponent },
+  { path: 'account', component: AccountComponent },
   { path: 'my-order', component: CustomerOrderComponent },
   { path: 'back-order', component: BackorderComponent, canActivate: [AuthGuard] },
   /* { path: '', redirectTo: '/sign-in', pathMatch: 'full' }, */
