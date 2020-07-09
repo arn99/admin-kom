@@ -8,8 +8,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class LoadingComponent implements OnInit {
 
+  message: string;
   constructor(
-    public dialogRef: MatDialogRef<LoadingComponent>) {
+    public dialogRef: MatDialogRef<LoadingComponent>, @Inject(MAT_DIALOG_DATA) public data) {
+      this.message = data;
     }
 
   ngOnInit(): void {

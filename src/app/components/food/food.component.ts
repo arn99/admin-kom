@@ -27,6 +27,7 @@ export class FoodComponent implements OnInit {
   ngOnInit() {
     const currentUser = JSON.parse(localStorage.getItem('user'));
     if (currentUser !== null) {
+      this.openLoadDialog();
       this.foodService.getFood(currentUser.uid).subscribe((data) => {
       this.foods = [];
       data.forEach((element) => {
@@ -38,8 +39,10 @@ export class FoodComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.foods);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.dialog.closeAll();
       });
     } else {
+      this.dialog.closeAll();
       console.log('redirect to login');
     }
   }

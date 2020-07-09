@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-backorder',
@@ -25,13 +26,16 @@ export class BackorderComponent implements OnInit {
   dataSource: MatTableDataSource<Order>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  constructor(private ordersService: OrderService, public dialog: MatDialog, private authService: AuthService) { }
+  constructor(private router: Router, private ordersService: OrderService, public dialog: MatDialog, private authService: AuthService) {
+    console.log('yo');
+    this.getOrders();
+  }
 
   ngOnInit() {
     const uid = firebase.auth().currentUser;
-    this.getOrders();
   }
   getOrders() {
+    this.openLoadDialog('Chargement des commandes');
     const currentUser = JSON.parse(localStorage.getItem('user'));
     if (currentUser !== null) {
       console.log(currentUser);
@@ -46,9 +50,10 @@ export class BackorderComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.orders);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.dialog.closeAll();
       });
     } else {
-
+      this.dialog.closeAll();
     }
   }
   onViewOrder(order) {
@@ -86,7 +91,7 @@ export class BackorderComponent implements OnInit {
     });
   }
 
-  openLoadDialog(): void {
+  openLoadDialog(message?): void {
     const dialogRef = this.dialog.open(LoadingComponent, {
     });
 

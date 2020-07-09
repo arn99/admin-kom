@@ -37,8 +37,8 @@ export class HeaderComponent implements  OnDestroy {
                   this.items = [
                     {icon: 'home', label: 'Accueil', routerLink: ''},
                     {icon: 'restaurant', label: 'Mes Commandes', routerLink: 'my-order'},
-                    {icon: 'account_circle', label: 'Compte', routerLink: ''},
-                    {icon: 'library_books', label: 'A Propos', routerLink: 'account'},
+                    {icon: 'account_circle', label: 'Compte', routerLink: 'account'},
+                    {icon: 'library_books', label: 'A Propos', routerLink: ''},
                   ];
                 }
     this.itemNumber = this.getOrderItemNumberFromFoodList(this.localService.getJsonValue('test'));

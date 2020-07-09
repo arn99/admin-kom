@@ -29,10 +29,12 @@ export class AccountComponent implements OnInit {
     const userData = JSON.parse(localStorage.getItem('user'));
     if (userData !== null) {
       this.user = {
+        uid: userData['uid'],
         email: userData['email'],
         phoneNumber: userData['phoneNumber'],
         displayName: userData['displayName'],
         district: userData['district'],
+        emailVerified: userData['emailVerified'],
       };
     } else {
       this.router.navigate(['sign-up']);
@@ -80,22 +82,30 @@ export class AccountComponent implements OnInit {
       try {
         this.openDialog();
         const restoName = this.form.get('restoName').value;
+        console.log(restoName);
         const phoneNumber = this.form.get('numero').value;
+        console.log(phoneNumber);
+        console.log(this.district);
         const district = this.district['name'];
-        console.log(this.district['name']);
         if (district === '' || district === 'none') {
           alert('Selectionnez votre lieu de livraison');
         } else {
           // send order
-          this.user.uid = restoName;
-          this.user.district = district;
-          this.user.phoneNumber = phoneNumber;
+          const user = {
+            uid: this.user.uid,
+            displayName: restoName,
+            phoneNumber: phoneNumber,
+            district: this.district['name'],
+            email: this.user.email,
+            emailVerified: this.user.emailVerified
+          };
           try {
-            this.authService.SetUserData(this.user).then( result => {
+            console.log(user);
+            this.authService.SetUserData(user).then( result => {
               console.log(result);
               this.openDialogSuccess( {message: 'Votre compte a été Modifier avec succès',
               key: '',
-              thanks: 'Nous allons vous recontacter au plus vite afin de finaliser le partenariat'});
+              thanks: ''});
             }).catch( error => {
               console.log(error);
               this.dialog.closeAll();

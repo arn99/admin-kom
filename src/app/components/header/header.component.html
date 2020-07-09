@@ -18,6 +18,9 @@
           <a mat-button  [routerLink]="['food']" *ngIf="currentUser !== null"> 
           Mes plats 
           </a> 
+          <a mat-button  [routerLink]="['account']" *ngIf="currentUser !== null"> 
+          Mon compte 
+          </a> 
           <span class="example-spacer"></span>
           <a mat-button   (click)="authService.SignOut()" *ngIf="currentUser !== null" > 
             Deconnexion

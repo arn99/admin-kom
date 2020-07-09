@@ -43,7 +43,8 @@ export class AuthService {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['back-order']);
+          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+          this.router.navigate(['back-order']));
         });
         console.log(result.user);
         this.SetUserData(result.user);
@@ -124,12 +125,13 @@ export class AuthService {
     const userData: UserInterface = {
       uid: user.uid,
       email: user.email,
-      photoURL: user.photoURL,
       emailVerified: user.emailVerified
     };
-    if (user['displayName'] !== '' ) {
+    if (user['displayName'] ) {
       userData['displayName'] = user['displayName'];
-    } if (user['phoneNumber'] !== '' ) {
+    } if (user['photoURL']) {
+      userData['photoURL'] = user['photoURL'];
+    } if (user['phoneNumber'] ) {
       userData['phoneNumber'] = user['phoneNumber'];
     } if (user['district'] && user['district'] !== '') {
       userData['district'] = user['district'];

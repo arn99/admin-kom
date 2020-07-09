@@ -23,15 +23,16 @@
     .botton-nav, .shop-mobile {
         display: block;
     }
-   /*  .mat-drawer-container {
-        position: initial;
-        /* margin-top: 10%; 
+    .mat-drawer-container {
+        position: relative;
+        margin-top: 13%; 
     }
     mat-toolbar.mat-toolbar.expanded-toolbar.mat-warn.mat-toolbar-multiple-rows {
         position: fixed;
         top: 0;
         overflow: hidden;
-    } */
+        z-index: 2;
+    }
 }
 @media all and ( min-width:576px ) {
     a .logo { 
@@ -57,7 +58,7 @@
     flex: 1 1 auto;
   }
   .mat-toolbar.mat-warn {
-    padding: 0 10%;
+    padding: 0 2%;
   }
   ::ng-deep .mat-sidenav-backdrop.mat-sidenav-shown{
     display: none;
