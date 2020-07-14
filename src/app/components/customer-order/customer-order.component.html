@@ -1,5 +1,8 @@
-<div class="container" *ngIf="tab.length>0">
+<div class="" *ngIf="tab.length>0">
     <div class="example-container mat-elevation-z2">
+      <div class="row justify-content-center">
+        <h2> Liste des identifiants de vos commandes</h2>
+      </div>
         <table mat-table [dataSource]="list" >
           <!-- Item Column -->
           <ng-container matColumnDef="Identifiant">
@@ -14,7 +17,8 @@
                 <!-- <span class="material-icons add" (click)="plusItem()"> add </span> -->
                 <!-- <span class="number-item"> {{ order.numberOfItem }} </span> -->
                <!--  <span class="material-icons remove" (click)="removeOneItem()"> remove </span> -->
-                <span class="material-icons action-icon" (click)="removeItem(order)"> clear </span>
+              <span class="material-icons action-icon" (click)="getStat(order)" color="warn"> visibility </span>
+              <span class="material-icons action-icon" (click)="removeItem(order)"> clear </span>
             </td>
             <td mat-footer-cell *matFooterCellDef>  </td>
           </ng-container>

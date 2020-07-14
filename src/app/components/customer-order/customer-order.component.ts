@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FoodService } from 'src/app/services/food.service';
 import { LocalService } from 'src/app/services/local.service';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
+import { ProgessBarModalComponent } from '../progess-bar-modal/progess-bar-modal.component';
 
 @Component({
   selector: 'app-customer-order',
@@ -26,7 +27,6 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
     {item: 'Swim suit', cost: 15},
   ];
   constructor(public dialog: MatDialog, public foodService: FoodService, private localService: LocalService) {
-
     if (this.getLocalStorage() !== null) {
       this.list = new MatTableDataSource<Element>(this.getLocalStorage());
       this.tab = this.getLocalStorage();
@@ -62,6 +62,18 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
       this.dialog.closeAll();
     });
   }
+  openDialogProgressBar(data): void {
+    const dialogRef = this.dialog.open(ProgessBarModalComponent, {
+      width: '85%',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      this.dialog.closeAll();
+    });
+  }
 
   checkout() {
     this.openDialog(this.tab);
@@ -78,6 +90,9 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
     this.list = new MatTableDataSource<Element>(this.tab);
 
       this.setLocalStorage(this.tab);
+  }
+  getStat(order) {
+    this.openDialogProgressBar(order);
   }
   removeOneItem() {
     console.log('yoo remove');

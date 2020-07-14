@@ -62,6 +62,10 @@ import { SuccessModalComponent } from './components/success-modal/success-modal.
 import {BottomNavModule} from 'ngx-bottom-nav';
 import { CustomerOrderComponent } from './components/customer-order/customer-order.component';
 import { AccountComponent } from './components/account/account.component';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { ProgessBarModalComponent } from './components/progess-bar-modal/progess-bar-modal.component';
+import { CustomerSignUpComponent } from './components/customer-sign-up/customer-sign-up.component';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +90,10 @@ import { AccountComponent } from './components/account/account.component';
     SuccessModalComponent,
     CustomerOrderComponent,
     AccountComponent,
+    ProgressBarComponent,
+    ProgessBarModalComponent,
+    CustomerSignUpComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

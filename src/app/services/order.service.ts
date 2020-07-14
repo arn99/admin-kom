@@ -13,7 +13,6 @@ export class OrderService {
   ordersSubject = new Subject<Order[]>();
 
   constructor(private firestore: AngularFirestore) {
-    this.getOrders('J0g4w7MqxkRhaEA81QnwXey23s02');
   }
   emitOrders() {
     this.ordersSubject.next(this.orders);
@@ -61,18 +60,8 @@ export class OrderService {
   saveOrders() {
     firebase.database().ref('/orders').set(this.orders);
   }
-  getSingleOrder(id: number) {
-    return new Promise(
-      (resolve, reject) => {
-        firebase.database().ref('/orders/' + id).once('value').then(
-          (data) => {
-            resolve(data.val());
-          }, (error) => {
-            reject(error);
-          }
-        );
-      }
-    );
+  getOrderById (id) {
+    return this.firestore.collection('orders').doc(id).valueChanges();
   }
   removeOrder(order: Order) {
     const orderIndexToRemove = this.orders.findIndex(

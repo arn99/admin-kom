@@ -60,7 +60,7 @@ span.remove{
 }
 @media all and ( min-width:768px ) {
   .example-container {
-    height: 270px;
+    height: 400px;
     overflow: auto;
   }
   .container {
@@ -75,4 +75,10 @@ th, .action-icon {
 }
 .action {
   text-align: center;
+}
+.example-container.mat-elevation-z2 {
+  margin-bottom: 10%;
+}
+span.material-icons.action-icon {
+  margin-right: 25%;
 }

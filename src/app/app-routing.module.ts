@@ -1,3 +1,5 @@
+import { AboutComponent } from './components/about/about.component';
+import { CustomerSignUpComponent } from './components/customer-sign-up/customer-sign-up.component';
 import { AccountComponent } from './components/account/account.component';
 import { CustomerOrderComponent } from './components/customer-order/customer-order.component';
 import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component';
@@ -22,11 +24,13 @@ const routes: Routes = [
   { path: 'order-page', component: ShoppingPageComponent },
   { path: '', component: HomeComponent },
   { path: 'account', component: AccountComponent },
-  { path: 'my-order', component: CustomerOrderComponent },
+  { path: 'my-order', component: CustomerOrderComponent, canActivate: [AuthGuard] },
   { path: 'back-order', component: BackorderComponent, canActivate: [AuthGuard] },
   /* { path: '', redirectTo: '/sign-in', pathMatch: 'full' }, */
   { path: 'sign-in', component: SignInComponent },
-  { path: 'sign-up', component: SignUpComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'sign-up-resto', component: SignUpComponent, canActivate: [AuthGuard] },
+  { path: 'sign-up', component: CustomerSignUpComponent },
   { path: 'register-user', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-email-address', component: VerifyEmailComponent },
