@@ -15,6 +15,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   displayedColumns = ['item', 'cost', 'number', 'action'];
   list: MatTableDataSource<any>;
   tab: any [];
+  livraison = 0;
   subscription: Subscription;
   transactions = [
     {item: 'Beach ball', cost: 4},
@@ -41,7 +42,11 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
-    console.log('yoo init');
+    console.log(this.getLocalStorage());
+    this.getLivraisonPrice();
+  }
+  getLivraisonPrice() {
+    this.tab.forEach( item => this.livraison = this.findWithAttr(this.tab, 'restaurant', item['restaurant']));
   }
   ngOnDestroy(): void {
     if (this.subscription) {
@@ -96,7 +101,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     this.list = new MatTableDataSource<Element>(this.tab);
 
     // tab = this.list;
-      console.log(this.tab);
+    this.getLivraisonPrice();
       this.setLocalStorage(this.tab);
   }
   removeOneItem() {
@@ -111,13 +116,13 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     console.log(foods);
     return foods;
   }
-  findWithAttr(array, attr, value) {
+  findWithAttr(array, attr, value): number {
     for (let i = 0; i < array.length; i += 1) {
-        if (array[i][attr] === value) {
-            return i;
+        if (array[i][attr] !== value) {
+            return 1500;
         }
     }
-    return -1;
+    return 1000;
   }
   setLocalStorage(data) {
     // Set the User data

@@ -39,7 +39,8 @@
         </table>
     </div>
     <div class="delivery">
-        <h4> Livraison: 1000 CFA </h4>
+        <h4> Livraison: {{ livraison }} CFA </h4>
+        <strong> Prix total avec la livraison: {{ getTotalCost()+ livraison }}CFA </strong>
     </div>
     <div class="checkout">
         <button mat-raised-button color="warn" (click)="checkout()" > Payer </button>

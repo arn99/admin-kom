@@ -27,7 +27,7 @@ export class CheckoutFormComponent implements OnInit {
   filteredDistricts: Observable<District[]>;
   districts: District[]  = Districts.districts;
   district: string;
-
+  livraison = 0;
 
   constructor(public dialogRef: MatDialogRef<CheckoutFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any [],
@@ -55,6 +55,7 @@ export class CheckoutFormComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.getLivraisonPrice();
   }
   private _filterDistricts(value: string): District[] {
     console.log(value);
@@ -80,6 +81,17 @@ export class CheckoutFormComponent implements OnInit {
       this.district = '';
     }
     return this.district;
+  }
+  getLivraisonPrice() {
+    this.data.forEach( item => this.livraison = this.findWithAttr(this.data, 'restaurant', item['restaurant']));
+  }
+  findWithAttr(array, attr, value): number {
+    for (let i = 0; i < array.length; i += 1) {
+        if (array[i][attr] !== value) {
+            return 1500;
+        }
+    }
+    return 1000;
   }
   async onSubmit() {
     this.checkOutInvalid = false;
@@ -116,6 +128,7 @@ export class CheckoutFormComponent implements OnInit {
                   date: Date.now(),
                   state: 'waiting',
                   total: (item.price * item.numberOfItem),
+                  livraison: this.livraison,
                   restaurant: item['user'],
               };
               console.log(data);

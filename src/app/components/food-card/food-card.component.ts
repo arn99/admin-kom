@@ -13,7 +13,6 @@ export class FoodCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.item);
   }
   openDialog(data): void {
     console.log(data);
