@@ -64,6 +64,19 @@ exports.updateUser = functions.https.onCall((data: any, context: any) => {
       return error;
     });
   });
+  /** send notification to device */
+  exports.sendNotificationByTopic = functions.https.onCall((data: any, context: any) => {
+    return admin.messaging().sendToDevice(data.registrationTokens, data.payload)
+    .then((response: any) => {
+      // Response is a message ID string.
+      console.log('Successfully sent message:', response);
+      return response;
+    })
+    .catch((error: any) => {
+      console.log('Error sending message:', error);
+      return error;
+    });
+  });
   /** send notification on topic */
   exports.sendNotificationByTopic = functions.https.onCall((data: any, context: any) => {
     return admin.messaging().send(data)

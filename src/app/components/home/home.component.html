@@ -202,27 +202,12 @@
         </ng-template>
       </div>
     </div>
-    <div class="presentation" *ngIf="searchText === ''" >
+    <div class="presentation" *ngIf="!checkSearchText" >
       <div class="offre">
         <div ><h3 class="speciale">Offres spéciales</h3></div>
         <div  class="fast-food row">
             <div *ngFor="let item of specialFoods | foodFilter: searchText" class="col-md-3">
-                <div class="card">
-                    <div class="card-image">
-                      <img class="img-size" src= "{{ item.imagePath }}">
-                      <a class="btn-floating halfway-fab waves-effect waves-light red" (click)="openDialog(item)">
-                        <i class="material-icons">add_shopping_cart</i>
-                      </a>
-                    </div>
-                    <div class="card-content">
-                      <span class="card-title">{{ item.name }}</span>
-                      <div class="truncate " > {{ item.description }} </div>
-                    </div>
-                    <div class="card-action">
-                      <span class="left-align"><i>{{ item.restaurant }}</i></span>
-                      <span class="right-align">{{ item.price }} F</span>
-                    </div>
-                </div>
+              <app-food-card [item] = "item"></app-food-card>
             </div>  
         </div>
       </div>
@@ -230,45 +215,15 @@
         <div><h3 class="burkinabe">Cuisine burkinabe</h3> </div>
         <div class="fast-food row">
           <div *ngFor="let item of burkinabeFoods | foodFilter: searchText" class="col-md-3">
-            <div class="card">
-                <div class="card-image">
-                  <img class="img-size" src= "{{ item.imagePath }}">
-                  <a class="btn-floating halfway-fab waves-effect waves-light red" (click)="openDialog(item)">
-                    <i class="material-icons">add_shopping_cart</i>
-                  </a>
-                </div>
-                <div class="card-content">
-                  <span class="card-title">{{ item.name }}</span>
-                  <div class="truncate " > {{ item.description }} </div>
-                </div>
-                <div class="card-action">
-                  <span class="left-align"><i>{{ item.restaurant }}</i></span>
-                  <span class="right-align">{{ item.price }} F</span>
-                </div>
-            </div>
+            <app-food-card [item] = "item"></app-food-card>
         </div>    
         </div>
       </div>
     </div>
     <div class="result">
-      <div  class="fast-food row" *ngIf="searchText !== ''" >
+      <div  class="fast-food row" *ngIf="checkSearchText" >
         <div  *ngFor="let item of foods | foodFilter: searchText as results" class="col-md-3">
-            <div class="card">
-                <div class="card-image">
-                  <img class="img-size" src= "{{ item.imagePath }}">
-                  <a class="btn-floating halfway-fab waves-effect waves-light red" (click)="openDialog(item)">
-                    <i class="material-icons">add_shopping_cart</i>
-                  </a>
-                </div>
-                <div class="card-content">
-                  <span class="card-title">{{ item.name }}</span>
-                  <div class="truncate " > {{ item.description }} </div>
-                </div>
-                <div class="card-action">
-                  <span class="left-align"><i>{{ item.restaurant }}</i></span>
-                  <span class="right-align">{{ item.price }} F</span>
-                </div>
-            </div>
+          <app-food-card [item] = "item"></app-food-card>
         </div>  
         <!--<div class="example-container mat-elevation-z2" [hidden]="foods.length" >
           <h1 class="text-center">Aucun plat n'est present pour cette categorie</h1>

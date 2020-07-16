@@ -12,7 +12,8 @@ import * as Category from './../../models/category.model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
-  searchText = '';
+  checkSearchText: boolean;
+  searchText: string;
   foods: any[];
   specialFoods: any[];
   burkinabeFoods: any[];
@@ -27,9 +28,12 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
     private foodService: FoodService,
     private cdr: ChangeDetectorRef) {
     this.getFoods();
+    this.searchText = '';
+    this.checkSearchText = false;
     this.subscription = this.foodService.getCategorySelectNotification().subscribe(message => {
      this.searchText = message;
     });
+    console.log(this.searchText);
     this.categories = Category.categories;
    }
   ngOnDestroy(): void {
@@ -83,6 +87,11 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
   onChangeSearch(item) {
     console.log(item);
     this.searchText = item;
+    if (item !== '') {
+      this.checkSearchText = true;
+    } else {
+      this.checkSearchText = false;
+    }
   }
   getNotificaton(item) {
     this.searchText = item.name;

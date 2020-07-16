@@ -66,11 +66,14 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
 import { ProgessBarModalComponent } from './components/progess-bar-modal/progess-bar-modal.component';
 import { CustomerSignUpComponent } from './components/customer-sign-up/customer-sign-up.component';
 import { AboutComponent } from './components/about/about.component';
+import { FoodCardComponent } from './components/food-card/food-card.component';
+import { PriceCalculatePipe } from './pipes/price.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     FoodFilterPipe,
+    PriceCalculatePipe,
     BackorderComponent,
     OrderDeliverComponent,
     HeaderComponent,
@@ -94,6 +97,7 @@ import { AboutComponent } from './components/about/about.component';
     ProgessBarModalComponent,
     CustomerSignUpComponent,
     AboutComponent,
+    FoodCardComponent,
   ],
   imports: [
     BrowserModule,

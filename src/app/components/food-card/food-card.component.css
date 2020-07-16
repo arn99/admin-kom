@@ -1,0 +1,48 @@
+.img-fluid {
+    max-width: 50%; 
+}
+@media ( max-width: 576px ) {
+    img.img-size {
+        max-height: 200px;
+        background-size: cover;
+    }
+}
+@media all and ( min-width:576px ) {
+    img.img-size {
+        max-height: 300px;
+        background-size: cover;
+    }
+}
+@media all and ( min-width:768px ) {
+    img.img-size {
+        height: 100px;
+        object-fit: cover;
+        object-position: center center;
+    }
+}
+.left-align {
+    float:left;
+    color: red;
+}
+.right-align {
+    float:right;
+}   
+.card-title {
+    font-size: 12px;
+    font-weight: bold;
+}
+.truncate {
+    font-size: 15px;
+    font-weight: lighter;
+}
+.card .card-content {
+    padding: 10px;
+}
+.card .card-action {
+    padding: 10px;
+}
+img.card-img {
+    max-height: 300px;
+    background-size: 100% 100%;
+    /* max-inline-size: 0%; */
+}
