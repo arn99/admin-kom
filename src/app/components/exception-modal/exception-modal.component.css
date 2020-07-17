@@ -1,0 +1,11 @@
+button {
+    background-color: green;
+    color: white;
+}
+
+@media all and ( max-width:768px )  {
+    .mat-dialog-container{
+        padding: 0;
+    }
+   
+}

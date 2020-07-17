@@ -1,0 +1,13 @@
+<div class="container">
+    <div mat-dialog-content>
+        <mat-card>
+            <mat-card-content>
+              <div>{{message.message}}
+                <strong *ngIf="message.key" > {{message.key}} </strong>
+                <div *ngIf="message.thanks" >{{message.thanks}}</div>
+              </div>
+            </mat-card-content>
+            <button class="back-btn" mat-button (click)="onNoClick()"  cdkFocusInitial>Retour</button>
+        </mat-card>
+    </div>
+</div>

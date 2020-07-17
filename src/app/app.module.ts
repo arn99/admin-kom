@@ -68,6 +68,9 @@ import { CustomerSignUpComponent } from './components/customer-sign-up/customer-
 import { AboutComponent } from './components/about/about.component';
 import { FoodCardComponent } from './components/food-card/food-card.component';
 import { PriceCalculatePipe } from './pipes/price.pipe';
+import { PrivatePolicyComponent } from './components/private-policy/private-policy.component';
+import { TermComponent } from './components/term/term.component';
+import { ExceptionModalComponent } from './components/exception-modal/exception-modal.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +101,9 @@ import { PriceCalculatePipe } from './pipes/price.pipe';
     CustomerSignUpComponent,
     AboutComponent,
     FoodCardComponent,
+    PrivatePolicyComponent,
+    TermComponent,
+    ExceptionModalComponent,
   ],
   imports: [
     BrowserModule,

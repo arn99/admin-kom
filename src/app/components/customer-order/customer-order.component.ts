@@ -1,3 +1,4 @@
+import { ExceptionModalComponent } from './../exception-modal/exception-modal.component';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
@@ -6,6 +7,7 @@ import { FoodService } from 'src/app/services/food.service';
 import { LocalService } from 'src/app/services/local.service';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
 import { ProgessBarModalComponent } from '../progess-bar-modal/progess-bar-modal.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-customer-order',
@@ -18,6 +20,8 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
   list: MatTableDataSource<any>;
   tab: any [];
   subscription: Subscription;
+  currentUser = false;
+  currentUserSubscription: Subscription;
   transactions = [
     {item: 'Beach ball', cost: 4},
     {item: 'Towel', cost: 5},
@@ -26,7 +30,8 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
     {item: 'Cooler', cost: 25},
     {item: 'Swim suit', cost: 15},
   ];
-  constructor(public dialog: MatDialog, public foodService: FoodService, private localService: LocalService) {
+  constructor(public authService: AuthService,
+    public dialog: MatDialog, public foodService: FoodService, private localService: LocalService) {
     if (this.getLocalStorage() !== null) {
       this.list = new MatTableDataSource<Element>(this.getLocalStorage());
       this.tab = this.getLocalStorage();
@@ -42,7 +47,13 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
-    console.log('yoo init');
+    this.currentUserSubscription = this.authService.getCurrentNotification().subscribe( message => {
+      if (message !== null && message.roles && message.roles.includes('customer')) {
+        this.currentUser = true;
+      } else {
+        this.currentUser = false;
+      }
+    });
   }
   ngOnDestroy(): void {
     if (this.subscription) {
@@ -92,7 +103,13 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
       this.setLocalStorage(this.tab);
   }
   getStat(order) {
-    this.openDialogProgressBar(order);
+    if (this.currentUser) {
+      this.openDialogProgressBar(order);
+    } else {
+      this.openDialogEception({message: 'Vous devez creer un compte ou vous connectez pour voir l\'état de votre commande ',
+      key: '',
+      thanks: ''});
+    }
   }
   removeOneItem() {
     console.log('yoo remove');
@@ -117,6 +134,17 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
   setLocalStorage(data) {
     // Set the User data
     this.localService.setJsonValue('orders', data);
+  }
+  openDialogEception(data): void {
+    const dialogRef = this.dialog.open(ExceptionModalComponent, {
+      width: '85%',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
   }
 
 }

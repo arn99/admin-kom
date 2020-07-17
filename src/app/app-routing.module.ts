@@ -1,3 +1,5 @@
+import { TermComponent } from './components/term/term.component';
+import { PrivatePolicyComponent } from './components/private-policy/private-policy.component';
 import { AboutComponent } from './components/about/about.component';
 import { CustomerSignUpComponent } from './components/customer-sign-up/customer-sign-up.component';
 import { AccountComponent } from './components/account/account.component';
@@ -28,6 +30,8 @@ const routes: Routes = [
   { path: 'back-order', component: BackorderComponent, canActivate: [AuthGuard] },
   /* { path: '', redirectTo: '/sign-in', pathMatch: 'full' }, */
   { path: 'sign-in', component: SignInComponent },
+  { path: 'term', component: TermComponent },
+  { path: 'private-policy', component: PrivatePolicyComponent },
   { path: 'about', component: AboutComponent },
   { path: 'sign-up-resto', component: SignUpComponent, canActivate: [AuthGuard] },
   { path: 'sign-up', component: CustomerSignUpComponent },
