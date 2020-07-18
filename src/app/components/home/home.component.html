@@ -19,8 +19,8 @@
         <div *ngFor="let item of categories" >
           <div class="row btn-item-cat" (click)="getNotificaton(item)">
               <div class="col-md-6 col-4 cat-img justify-content-center">
-                <img src="{{item.image}}"
-                            alt="avatar mx-auto white" class="rounded-circle img-fluid">
+                <img [lazyLoad]="item.image"
+                            alt="food" class="rounded-circle img-fluid">
                             <span> {{item.name}} </span>
               </div>
               
@@ -36,7 +36,7 @@
           color="warn"
           maxWidth="auto"
           proportion="49"
-          slides="3"
+          slides="4"
           [loop]="true"
           [hideArrows]="false"
           [hideIndicators]="false"
@@ -46,132 +46,37 @@
         >
           <mat-carousel-slide
             #matCarouselSlide
-            image='assets/images/miam1.jpeg'
+            image='https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/partenaire%2Fpartenaire.png?alt=media&token=ecb3657b-36c0-4608-b108-9d2c0ea862f3'
             overlayColor="#00000040"
             [hideOverlay]="false"
           >
           </mat-carousel-slide>
           <mat-carousel-slide
             #matCarouselSlide
-            image='assets/images/partenaire.png'
+            image='https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/partenaire%2Fmiam1.jpeg?alt=media&token=cc8ad013-019b-433a-ba2a-07bace535808'
             overlayColor="#00000040"
             [hideOverlay]="false"
           >
-            <div
-              style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center"
-            >
-              <button (click)='toBePartener()' 
-                mat-flat-button
-                
-              >
-                Click me!
-              </button>
-            </div>
+          </mat-carousel-slide>
+          <mat-carousel-slide
+            #matCarouselSlide
+            image='https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/partenaire%2Flivraison.png?alt=media&token=58c11842-0eb3-4142-b7f5-c86fe8f227a3'
+            overlayColor="#00000040"
+            [hideOverlay]="false"
+          >
+          </mat-carousel-slide>
+          <mat-carousel-slide
+            #matCarouselSlide
+            image='https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/partenaire%2Fmain1.png?alt=media&token=80e26f03-a7b3-43bb-82df-0c88298d2a75'
+            overlayColor="#00000040"
+            [hideOverlay]="false"
+          >
           </mat-carousel-slide>
         </mat-carousel>
         <!--<img src="https://i.ytimg.com/vi/8bXlyk0ITAE/maxresdefault.jpg" class="card-img" alt="..."> !-->
       </div>
     </div>
-   <!--  <div class="col-md-2 category flex-row flex-nowrap">
-        <div class="row justify-content-center">
-          <div class="col-md-2 col-4 cat-img">
-            <div class="row justify-content-center">
-              <img src="https://cdn.vox-cdn.com/thumbor/Qu3Q4hfjjckujqLQ4eA7H03-3nk=/0x39:650x472/1200x800/filters:focal(0x39:650x472)/cdn.vox-cdn.com/assets/960660/Screen_Shot_2012-02-20_at_11.36.09_AM.png"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-              <span>category</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-md-2 col-4 cat-img">
-            <div class="row justify-content-center">
-              <img src="https://cdn.vox-cdn.com/thumbor/Qu3Q4hfjjckujqLQ4eA7H03-3nk=/0x39:650x472/1200x800/filters:focal(0x39:650x472)/cdn.vox-cdn.com/assets/960660/Screen_Shot_2012-02-20_at_11.36.09_AM.png"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-              <span>category</span>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-md-2 col-4 cat-img">
-            <div class="row justify-content-center">
-              <img src="https://cdn.vox-cdn.com/thumbor/Qu3Q4hfjjckujqLQ4eA7H03-3nk=/0x39:650x472/1200x800/filters:focal(0x39:650x472)/cdn.vox-cdn.com/assets/960660/Screen_Shot_2012-02-20_at_11.36.09_AM.png"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-              <span>category</span>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-md-2 col-4 cat-img">
-            <div class="row justify-content-center">
-              <img src="https://cdn.vox-cdn.com/thumbor/Qu3Q4hfjjckujqLQ4eA7H03-3nk=/0x39:650x472/1200x800/filters:focal(0x39:650x472)/cdn.vox-cdn.com/assets/960660/Screen_Shot_2012-02-20_at_11.36.09_AM.png"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-              <span>category</span>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-md-2 col-4 cat-img">
-            <div class="row justify-content-center">
-              <img src="https://cdn.vox-cdn.com/thumbor/Qu3Q4hfjjckujqLQ4eA7H03-3nk=/0x39:650x472/1200x800/filters:focal(0x39:650x472)/cdn.vox-cdn.com/assets/960660/Screen_Shot_2012-02-20_at_11.36.09_AM.png"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-              <span>category</span>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-md-2 col-4 cat-img">
-            <div class="row justify-content-center">
-              <img src="https://cdn.vox-cdn.com/thumbor/Qu3Q4hfjjckujqLQ4eA7H03-3nk=/0x39:650x472/1200x800/filters:focal(0x39:650x472)/cdn.vox-cdn.com/assets/960660/Screen_Shot_2012-02-20_at_11.36.09_AM.png"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-              <span>category</span>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-md-2 col-4 cat-img">
-            <div class="row justify-content-center">
-              <img src="https://cdn.vox-cdn.com/thumbor/Qu3Q4hfjjckujqLQ4eA7H03-3nk=/0x39:650x472/1200x800/filters:focal(0x39:650x472)/cdn.vox-cdn.com/assets/960660/Screen_Shot_2012-02-20_at_11.36.09_AM.png"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-              <span>category</span>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-md-2 col-4 cat-img">
-            <div class="row justify-content-center">
-              <img src="https://cdn.vox-cdn.com/thumbor/Qu3Q4hfjjckujqLQ4eA7H03-3nk=/0x39:650x472/1200x800/filters:focal(0x39:650x472)/cdn.vox-cdn.com/assets/960660/Screen_Shot_2012-02-20_at_11.36.09_AM.png"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-              <span>category</span>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-md-2 col-4 cat-img">
-            <div class="row justify-content-center">
-              <img src="https://cdn.vox-cdn.com/thumbor/Qu3Q4hfjjckujqLQ4eA7H03-3nk=/0x39:650x472/1200x800/filters:focal(0x39:650x472)/cdn.vox-cdn.com/assets/960660/Screen_Shot_2012-02-20_at_11.36.09_AM.png"
-                          alt="avatar mx-auto white" class="rounded-circle img-fluid">
-              <span>category</span>
-            </div>
-          </div>
-
-        </div>
-    </div> -->
-  </div>
+    </div>
     <div class="search-text">
       <strong> Tapez le nom du plat</strong>
     </div>
@@ -241,12 +146,12 @@
             <h4>L'application Miam permet à n'importe qui d'utiliser un appareil mobile pour consulter le menu des meilleurs vendeurs et passer une commande pour une livraison à domicile.</h4>
           </div>
           <div class="download"> 
-            <img src="../../../assets/images/android.png" alt="" srcset="">
-            <img src="../../../assets/images/ios.png" alt="" srcset="">
+            <img src = 'https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/categories%2Fandroid.png?alt=media&token=565ba874-56e9-4e08-b846-3526ef060efa' alt="application mobile" srcset="">
+            <img src="" alt="commande en ligne" srcset="">
           </div>
         </div>
         <div class="col-md-6 mobile">
-          <img class="mobile-img" src="" alt="" srcset="">
+          <img class="mobile-img" src="" alt="commande en ligne" srcset="">
         </div>
       </div>
     </div>

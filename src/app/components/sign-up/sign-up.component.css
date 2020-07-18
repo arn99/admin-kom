@@ -16,7 +16,7 @@ form {
   color: white;
 }
 mat-card {
-  background-image: url('/assets/images/food.jpg');
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/categories%2Ffood.jpg?alt=media&token=0047c161-d103-416b-99ef-d97506700847');
 }
 @media ( max-width: 576px ) {
   .form-field {

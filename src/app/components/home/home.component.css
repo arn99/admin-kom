@@ -131,7 +131,7 @@
 
 @media all and ( min-width:768px ) {
     .mobile-img {
-        content:url("/assets/mobiles/telephone.png");
+        content:url("https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/categories%2Ftelephone.png?alt=media&token=399a87b3-1661-48c2-b4b5-caecde9ebb32");
     }
 }
 .heading{

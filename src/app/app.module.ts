@@ -71,6 +71,10 @@ import { PriceCalculatePipe } from './pipes/price.pipe';
 import { PrivatePolicyComponent } from './components/private-policy/private-policy.component';
 import { TermComponent } from './components/term/term.component';
 import { ExceptionModalComponent } from './components/exception-modal/exception-modal.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { LazyLoadImageModule, ScrollHooks } from 'ng-lazyload-image';
+
 
 @NgModule({
   declarations: [
@@ -106,6 +110,7 @@ import { ExceptionModalComponent } from './components/exception-modal/exception-
     ExceptionModalComponent,
   ],
   imports: [
+    LazyLoadImageModule.forRoot(ScrollHooks),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -145,6 +150,7 @@ import { ExceptionModalComponent } from './components/exception-modal/exception-
     AngularFireAuthModule,
     AngularFirestoreModule,
     NgbModule,
+    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately'  }),
   ],
   providers: [OrderService, FoodService, AuthService, StorageService, LocalService],
   bootstrap: [AppComponent]
