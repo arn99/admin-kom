@@ -71,6 +71,8 @@ import { PriceCalculatePipe } from './pipes/price.pipe';
 import { PrivatePolicyComponent } from './components/private-policy/private-policy.component';
 import { TermComponent } from './components/term/term.component';
 import { ExceptionModalComponent } from './components/exception-modal/exception-modal.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -145,6 +147,7 @@ import { ExceptionModalComponent } from './components/exception-modal/exception-
     AngularFireAuthModule,
     AngularFirestoreModule,
     NgbModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [OrderService, FoodService, AuthService, StorageService, LocalService],
   bootstrap: [AppComponent]
