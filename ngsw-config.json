@@ -11,21 +11,54 @@
           "/manifest.webmanifest",
           "/*.css",
           "/*.js"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "https://fonts.googleapis.com/css?family=Roboto:300,400,500&amp;display=swap",
+          "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css",
+          "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css",
+          "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
         ]
       }
-    }, {
+    },
+    {
       "name": "assets",
       "installMode": "lazy",
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/assets/**",
+          "/assets/**/*",
+          "/assets/*",
           "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
-        ],
-        "urls": [
-          "https://fonts.googleapis.com/**"
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "from-api",
+      "version": 1,
+      "urls": ["/order/*", "/food", "order-page", "", "account","my-order", "back-order", "sign-in", "term",
+              "private-policy", "about", "sign-up-resto", "sign-up", "register-user", "forgot-password", "verify-email-address"],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 131072,
+        "maxAge": "1d",
+        "timeout": "5s"
+      }
+      
+    },
+    {
+      "name": "api-freshness",
+    "urls": [
+      "https://firestore.googleapis.com/*"
+    ],
+    "cacheConfig": {
+      "maxSize": 100,
+      "maxAge": "1h",
+      "timeout": "10s",
+      "strategy": "freshness"
+    }
+  }
   ]
 }

@@ -73,6 +73,8 @@ import { TermComponent } from './components/term/term.component';
 import { ExceptionModalComponent } from './components/exception-modal/exception-modal.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { LazyLoadImageModule, ScrollHooks } from 'ng-lazyload-image';
+
 
 @NgModule({
   declarations: [
@@ -108,6 +110,7 @@ import { environment } from '../environments/environment';
     ExceptionModalComponent,
   ],
   imports: [
+    LazyLoadImageModule.forRoot(ScrollHooks),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -147,7 +150,7 @@ import { environment } from '../environments/environment';
     AngularFireAuthModule,
     AngularFirestoreModule,
     NgbModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately'  }),
   ],
   providers: [OrderService, FoodService, AuthService, StorageService, LocalService],
   bootstrap: [AppComponent]
