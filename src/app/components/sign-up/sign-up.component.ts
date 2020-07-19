@@ -45,16 +45,13 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
   }
   private _filterDistricts(value: string): District[] {
-    console.log(value);
     const filterValue = value.toLowerCase();
     return this.districts.filter(district => district.name.toLowerCase().indexOf(filterValue) === 0);
   }
   getDistrict(district: District) {
     try {
       if (district && district.name) {
-        console.log(district.name);
         this.district = district.name;
-        console.log(this.district);
         return this.district;
       } else {
         console.log('error');
@@ -91,7 +88,6 @@ export class SignUpComponent implements OnInit {
           };
           try {
             this.authService.SignUp(user).then( result => {
-              console.log(result);
               this.openDialogSuccess( {message: 'Votre compte a été creé avec succès',
               key: '',
               thanks: 'Nous allons vous recontacter au plus vite afin de finaliser le partenariat'});
@@ -122,10 +118,6 @@ export class SignUpComponent implements OnInit {
   openDialog(): void {
     this.loadDialog = this.dialog.open(LoadingComponent, {
     });
-
-    this.loadDialog.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
   }
   openDialogSuccess(data): void {
     const dialogRef = this.dialog.open(SuccessModalComponent, {
@@ -134,8 +126,6 @@ export class SignUpComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       this.dialog.closeAll();
     });
   }

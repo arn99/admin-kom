@@ -2,15 +2,14 @@ import { MapsComponent } from '../maps/maps.component';
 import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Order } from '../../models/order.model';
 import { OrderService } from '../../services/order.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
-import * as firebase from 'firebase';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
-import { Router, NavigationEnd } from '@angular/router';
+
 
 @Component({
   selector: 'app-backorder',
@@ -26,19 +25,16 @@ export class BackorderComponent implements OnInit {
   dataSource: MatTableDataSource<Order>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  constructor(private router: Router, private ordersService: OrderService, public dialog: MatDialog, private authService: AuthService) {
-    console.log('yo');
+  constructor(private ordersService: OrderService, public dialog: MatDialog) {
     this.getOrders();
   }
 
   ngOnInit() {
-    const uid = firebase.auth().currentUser;
   }
   getOrders() {
     this.openLoadDialog('Chargement des commandes');
     const currentUser = JSON.parse(localStorage.getItem('user'));
     if (currentUser !== null) {
-      console.log(currentUser);
       this.ordersService.getOrders(currentUser.uid).subscribe((data) => {
       this.orders = [];
       data.forEach((element) => {
@@ -58,15 +54,12 @@ export class BackorderComponent implements OnInit {
   }
   onViewOrder(order) {
     this.order = order;
-    console.log(Object(this.order));
   }
   finish(order, index) {
     order['state'] = 'ready';
     try {
-      console.log(order);
       this.openLoadDialog();
       this.ordersService.updateOrder(order).then((result) => {
-        console.log(result);
         this.openDialogSuccess( {message: 'La commande a été traité avec succès',
         key: '',
         thanks: 'La commande se trouve maintenant dans la partie traité'});
@@ -86,17 +79,12 @@ export class BackorderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.dialog.closeAll();
     });
   }
 
   openLoadDialog(message?): void {
-    const dialogRef = this.dialog.open(LoadingComponent, {
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    this.dialog.open(LoadingComponent, {
     });
   }
   applyFilter(event: Event) {
@@ -108,14 +96,9 @@ export class BackorderComponent implements OnInit {
     }
   }
   openDialogSuccess(data): void {
-    const dialogRef = this.dialog.open(SuccessModalComponent, {
+    this.dialog.open(SuccessModalComponent, {
       width: '85%',
       data: data
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
     });
   }
 }

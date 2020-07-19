@@ -1,13 +1,9 @@
-import { async } from '@angular/core/testing';
 import { UserInterface } from './../models/user.model';
 import { Injectable, NgZone } from '@angular/core';
-import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { User } from '../shared/services/user';
 import { Subject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

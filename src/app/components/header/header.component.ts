@@ -1,5 +1,5 @@
 import { FoodService } from 'src/app/services/food.service';
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { LocalService } from 'src/app/services/local.service';
@@ -45,12 +45,9 @@ export class HeaderComponent implements  OnDestroy {
     this.categories = Category.categories;
     this.subscription = this.foodService.getNotification().subscribe(message => {
       this.itemNumber = this.itemNumber + message;
-      console.log(this.itemNumber);
     });
     this.subscriptionMinus = this.foodService.getNotificationMinus().subscribe(message => {
       this.itemNumber = message;
-      console.log(this.itemNumber);
-      console.log(message);
     });
     this.currentUserSubscription = authService.getCurrentNotification().subscribe( message => {
       this.currentUser = message;

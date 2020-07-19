@@ -42,7 +42,6 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
     this.subscription = this.foodService.getOrderAddNotification().subscribe(message => {
       if (message !== null) {
         this.list = message;
-        console.log(this.list);
       }
     });
   }
@@ -68,8 +67,6 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       this.dialog.closeAll();
     });
   }
@@ -80,15 +77,12 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       this.dialog.closeAll();
     });
   }
 
   checkout() {
     this.openDialog(this.tab);
-    console.log(this.tab);
   }
   removeItem(order) {
     this.checkout();
@@ -111,16 +105,10 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
       thanks: ''});
     }
   }
-  removeOneItem() {
-    console.log('yoo remove');
-  }
-  plusItem() {
-    console.log('yoo plus');
-  }
+
   getLocalStorage(): [] {
     // Get the user data
     const orders = this.localService.getJsonValue('orders');
-    console.log(orders);
     return orders;
   }
   findWithAttr(array, attr, value) {
@@ -136,14 +124,9 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
     this.localService.setJsonValue('orders', data);
   }
   openDialogEception(data): void {
-    const dialogRef = this.dialog.open(ExceptionModalComponent, {
+    this.dialog.open(ExceptionModalComponent, {
       width: '85%',
       data: data
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
     });
   }
 

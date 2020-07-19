@@ -74,6 +74,7 @@ import { ExceptionModalComponent } from './components/exception-modal/exception-
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { LazyLoadImageModule, ScrollHooks } from 'ng-lazyload-image';
+import { InstallModalComponent } from './components/install-modal/install-modal.component';
 
 
 @NgModule({
@@ -108,6 +109,7 @@ import { LazyLoadImageModule, ScrollHooks } from 'ng-lazyload-image';
     PrivatePolicyComponent,
     TermComponent,
     ExceptionModalComponent,
+    InstallModalComponent,
   ],
   imports: [
     LazyLoadImageModule.forRoot(ScrollHooks),

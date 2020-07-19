@@ -11,7 +11,6 @@ export class MapsComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<MapsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: LocationData) {
-      console.log(data);
     }
 
   public lat = 24.799448;
@@ -41,8 +40,6 @@ export class MapsComponent implements OnInit {
   }
 
   markerDragEnd(origin, event) {
-    console.log(origin);
-    console.log(event);
   }
   getDirection() {
     this.destination = { lat: this.data.latitude, lng: this.data.longitude };
@@ -73,7 +70,6 @@ export class MapsComponent implements OnInit {
     }
   }
   onSuccess(position) {
-    console.log(position);
     this.origin =  { lat: position.coords.latitude, lng: position.coords.longitude };
   }
 

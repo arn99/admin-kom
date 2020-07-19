@@ -18,7 +18,6 @@ export class ExceptionModalComponent implements OnInit {
   ngOnInit(): void {
   }
   onNoClick(): void {
-    console.log('yoo fermer');
     this.dialogRef.close('none');
   }
 }

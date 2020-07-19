@@ -17,14 +17,6 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   tab: any [];
   livraison = 0;
   subscription: Subscription;
-  transactions = [
-    {item: 'Beach ball', cost: 4},
-    {item: 'Towel', cost: 5},
-    {item: 'Frisbee', cost: 2},
-    {item: 'Sunscreen', cost: 4},
-    {item: 'Cooler', cost: 25},
-    {item: 'Swim suit', cost: 15},
-  ];
   constructor(public dialog: MatDialog, public foodService: FoodService, private localService: LocalService) {
 
     if (this.getLocalStorage() !== null) {
@@ -37,12 +29,10 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     this.subscription = this.foodService.getFoodFromlocal().subscribe(message => {
       if (message !== null) {
         this.list = message;
-        console.log(this.list);
       }
     });
   }
   ngOnInit(): void {
-    console.log(this.getLocalStorage());
     this.getLivraisonPrice();
   }
   getLivraisonPrice() {
@@ -61,15 +51,11 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       if (result === 'none') {
-        console.log(result);
         this.getTotalCost();
       } else {
         this.list = new MatTableDataSource<Element>([]);
         this.getTotalCost('buy');
-        console.log(this.getTotalCost('buy'));
       }
     });
   }
@@ -88,7 +74,6 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   }
   checkout() {
     this.openDialog(this.tab);
-    console.log(this.tab);
   }
   removeItem(food) {
     for (let i = this.tab.length - 1; i >= 0; --i) {
@@ -96,7 +81,6 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
         this.tab.splice(i, 1);
       }
     }
-    console.log(this.getNumberOfItem());
     this.foodService.newUpdate2(this.getNumberOfItem());
     this.list = new MatTableDataSource<Element>(this.tab);
 

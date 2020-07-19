@@ -1,5 +1,4 @@
-import { Food } from 'src/app/models/food.model';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { LocalService } from 'src/app/services/local.service';
 import { FoodService } from 'src/app/services/food.service';
@@ -8,7 +7,7 @@ import { FoodService } from 'src/app/services/food.service';
   templateUrl: './shop-cart.component.html',
   styleUrls: ['./shop-cart.component.css']
 })
-export class ShopCartComponent implements OnInit {
+export class ShopCartComponent {
 
   itemNumber = 1;
   itemTotal = 0;
@@ -19,15 +18,10 @@ export class ShopCartComponent implements OnInit {
                       private localService: LocalService,
                       private foodService: FoodService) {
       this.food = data;
-      console.log(data);
       this.foodService.getNotification().subscribe(message => {
       this.itemTotal = message;
-      console.log(this.itemTotal);
       });
     }
-
-  ngOnInit(): void {
-  }
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -35,7 +29,6 @@ export class ShopCartComponent implements OnInit {
     this.itemTotal =  this.itemNumber;
     this.food['numberOfItem'] = this.itemNumber;
     const food = this.food;
-    console.log(food);
     if (this.getLocalStorage() !== null) {
       this.list = this.getLocalStorage();
     }
@@ -45,8 +38,6 @@ export class ShopCartComponent implements OnInit {
       this.list[foodOccurrence]['numberOfItem'] =  this.list[foodOccurrence]['numberOfItem'] +  this.itemNumber;
       this.setLocalStorage(this.list);
     } else {
-          console.log( this.list);
-          console.log(JSON.stringify(this.list));
           this.list.push(food) ;
           this.setLocalStorage(this.list);
       }
@@ -57,13 +48,11 @@ export class ShopCartComponent implements OnInit {
   removeItem() {
     if (this.itemNumber > 1) {
       this.itemNumber --;
-      console.log('yoo remove');
       this.getLocalStorage();
     }
   }
   plusItem() {
     this.itemNumber ++;
-    console.log('yoo plus');
   }
   setLocalStorage(data) {
     // Set the User data
@@ -72,7 +61,6 @@ export class ShopCartComponent implements OnInit {
   getLocalStorage(): [] {
     // Get the user data
     const foods = this.localService.getJsonValue('test');
-    console.log(foods);
     return foods;
   }
   findWithAttr(array, attr, value) {

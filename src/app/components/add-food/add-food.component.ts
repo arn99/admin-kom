@@ -1,8 +1,7 @@
 import { AuthService } from 'src/app/services/auth.service';
-import { auth } from 'firebase/app';
 import { LoadingComponent } from './../loading/loading.component';
 import { DataService } from './../../services/data.service';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Food } from 'src/app/models/food.model';
@@ -16,7 +15,7 @@ import { SuccessModalComponent } from '../success-modal/success-modal.component'
   templateUrl: './add-food.component.html',
   styleUrls: ['./add-food.component.css']
 })
-export class AddFoodComponent implements OnInit {
+export class AddFoodComponent {
 
   color: ThemePalette = 'accent';
   checked = false;
@@ -28,7 +27,6 @@ export class AddFoodComponent implements OnInit {
   loadDialog: any;
   constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
     private foodService: FoodService, public dataService: DataService,
-    private authService: AuthService,
     public dialogRef: MatDialogRef<AddFoodComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
       this.prepareForm();
@@ -41,14 +39,8 @@ export class AddFoodComponent implements OnInit {
     this.dialogRef.close();
   }
   openDialog(): void {
-    this.loadDialog = this.dialog.open(LoadingComponent, {
+    this.dialog.open(LoadingComponent, {
     });
-
-    this.loadDialog.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
-  ngOnInit() {
   }
 
   updateForm(data) {
@@ -71,8 +63,6 @@ export class AddFoodComponent implements OnInit {
     this.prepareForm();
   }
   updateFood(food) {
-    console.log(food);
-    console.log(this.data);
     this.data.name = food.name;
     this.data.price = food.price;
     this.data.description = food.description;
@@ -81,7 +71,6 @@ export class AddFoodComponent implements OnInit {
 
     try {
       this.foodService.updateFood(this.data).then((result) => {
-        console.log(result);
           this.openDialogSuccess( {message: 'Plat mise à jour avec succès',
             key: '',
             thanks: ''});
@@ -114,14 +103,12 @@ export class AddFoodComponent implements OnInit {
           restaurant: currentUser.displayName,
           user: currentUser.uid
         };
-        const foodId = this.foodService.createFood(food);
-          console.log(foodId);
+          this.foodService.createFood(food);
           this.openDialogSuccess( {message: 'Plat ajouter avec succès',
             key: '',
             thanks: ''});
           this.foodForm.reset();
         } else {
-          console.log('user not connect');
         }
       }).catch(error => {
         console.log(error);
@@ -143,8 +130,6 @@ export class AddFoodComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       this.dialog.closeAll();
     });
   }

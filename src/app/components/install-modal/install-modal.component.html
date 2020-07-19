@@ -1,0 +1,16 @@
+<div class="container">
+    <div mat-dialog-content>
+        <a mat-list-item (click)='installApp()' *ngIf='true'>
+            <div class="example-button-container">
+              <button mat-raised-button color="warn" color="warn" aria-label="Example icon button with a filter list icon">
+                <mat-icon>get_app</mat-icon>
+                <span>Installer l'application</span>
+              </button>
+              <div mat-line>Installer l'application</div>
+            </div>    
+        </a>
+    </div>
+    <div class="div-btn" >
+        <button class="back-btn" mat-button [mat-dialog-close]="" cdkFocusInitial>Non</button>
+    </div>
+</div>

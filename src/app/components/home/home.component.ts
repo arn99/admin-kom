@@ -1,3 +1,4 @@
+import { InstallModalComponent } from './../install-modal/install-modal.component';
 import { FoodService } from 'src/app/services/food.service';
 
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
   subscription: Subscription;
   subscriptionRout: Subscription;
   categories: Category.Category[];
+  deferredPrompt: any;
 
   constructor(public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -33,7 +35,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
     this.subscription = this.foodService.getCategorySelectNotification().subscribe(message => {
      this.searchText = message;
     });
-    console.log(this.searchText);
     this.categories = Category.categories;
    }
   ngOnDestroy(): void {
@@ -44,7 +45,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
     this.subscriptionRout = this.route
       .queryParams
       .subscribe(params => {
-        console.log(params);
         this.searchText = params.para;
       });
   }
@@ -70,14 +70,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
     });
   }
   openDialog(data): void {
-    console.log(data);
-    const dialogRef = this.dialog.open(ShopCartComponent, {
+    this.dialog.open(ShopCartComponent, {
       width: '75%',
       data: data
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
   selectEvent(item) {
@@ -93,12 +88,37 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
   }
   getNotificaton(item) {
     this.searchText = item.name;
-    console.log(this.foods);
-    console.log(this.burkinabeFoods);
-    console.log(this.specialFoods);
   }
   toBePartener() {
-    console.log('oyoo');
     this.router.navigate(['sign-up']);
+  }
+  onBeforeinstallprompt(ev) {
+    this.deferredPrompt = ev;
+  ev.preventDefault();
+
+  // on affiche le bouton install
+  this.openDialogInstall(ev);
+
+  }
+  openDialogInstall(data): void {
+    this.dialog.open(InstallModalComponent, {
+      width: '75%',
+      data: data
+    });
+  }
+  installApp() {
+    // on affiche la boite de dialogue : installer l'application
+    this.deferredPrompt.prompt();
+    // selon la réponse de l'utilisateur
+    this.deferredPrompt.userChoice
+    .then((choiceResult) => {
+    if (choiceResult.outcome === 'accepted') {
+    console.log('Youpi, notre appli est installée');
+    } else {
+    console.log('Arg, il en veut pas !');
+    }
+    // la madame elle fait le ménache
+    this.deferredPrompt = null;
+    });
   }
 }

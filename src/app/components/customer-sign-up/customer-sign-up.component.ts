@@ -1,5 +1,5 @@
 import { UserInterface } from './../../models/user.model';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -15,7 +15,7 @@ import { SuccessModalComponent } from '../success-modal/success-modal.component'
   templateUrl: './customer-sign-up.component.html',
   styleUrls: ['./customer-sign-up.component.css']
 })
-export class CustomerSignUpComponent implements OnInit {
+export class CustomerSignUpComponent {
   loadDialog: any;
   form: FormGroup;
   public checkOutInvalid: boolean;
@@ -41,20 +41,14 @@ export class CustomerSignUpComponent implements OnInit {
       map(name => name ? this._filterDistricts(name) : this.districts.slice())
     );
   }
-
-  ngOnInit(): void {
-  }
   private _filterDistricts(value: string): District[] {
-    console.log(value);
     const filterValue = value.toLowerCase();
     return this.districts.filter(district => district.name.toLowerCase().indexOf(filterValue) === 0);
   }
   getDistrict(district: District) {
     try {
       if (district && district.name) {
-        console.log(district.name);
         this.district = district.name;
-        console.log(this.district);
         return this.district;
       } else {
         console.log('error');
@@ -91,7 +85,7 @@ export class CustomerSignUpComponent implements OnInit {
           };
           try {
             this.authService.SignUp(user).then( result => {
-              console.log(result);
+
               this.openDialogSuccess( {message: 'Votre compte a été creé avec succès',
               key: '',
               thanks: 'Nous allons vous recontacter au plus vite afin de finaliser le partenariat'});
@@ -120,11 +114,7 @@ export class CustomerSignUpComponent implements OnInit {
     return pass === confirmPass ? null : { notSame: true };
   }
   openDialog(): void {
-    this.loadDialog = this.dialog.open(LoadingComponent, {
-    });
-
-    this.loadDialog.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    this.dialog.open(LoadingComponent, {
     });
   }
   openDialogSuccess(data): void {
@@ -134,8 +124,6 @@ export class CustomerSignUpComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       this.dialog.closeAll();
     });
   }

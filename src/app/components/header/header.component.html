@@ -72,12 +72,6 @@
           </div>
         </mat-menu>
     </div>
-      <!-- <a mat-list-item  (click)="sidenav.toggle()" [routerLink]="['order/waiting']" *ngIf="currentUser !== null"> Commande  <span class="sr-only">(current)</span> </a>
-      <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['order/delivered']" *ngIf="currentUser !== null" > Livrer </a> 
-      
-        <a mat-list-item (click)="sidenav.toggle()" [routerLink]="['food']" *ngIf="currentUser !== null"> 
-        Mes plats 
-        </a> -->
         <a mat-list-item   (click)="sidenav.toggle(); authService.SignOut()" *ngIf="currentUser !== null" > 
           Deconnexion
         </a> 

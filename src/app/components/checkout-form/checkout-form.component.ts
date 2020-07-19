@@ -2,7 +2,6 @@ import { SuccessModalComponent } from './../success-modal/success-modal.componen
 import { OrderService } from './../../services/order.service';
 import { Food } from 'src/app/models/food.model';
 import { LocationData } from './../../models/location-data';
-import { FoodService } from 'src/app/services/food.service';
 import * as Districts from './../../models/district.model';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
@@ -32,14 +31,11 @@ export class CheckoutFormComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<CheckoutFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any [],
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
     private orderService: OrderService,
     public dataService: DataService,
     private localService: LocalService,
     public dialog: MatDialog
     ) {
-      console.log(data);
       this.form = this.fb.group({
         username: ['', [Validators.required, Validators.minLength(3)]],
         payment: ['', [Validators.required]],
@@ -58,20 +54,16 @@ export class CheckoutFormComponent implements OnInit {
     this.getLivraisonPrice();
   }
   private _filterDistricts(value: string): District[] {
-    console.log(value);
     const filterValue = value.toLowerCase();
     return this.districts.filter(district => district.name.toLowerCase().indexOf(filterValue) === 0);
   }
   onNoClick(): void {
-    console.log('yoo fermer');
     this.dialogRef.close('none');
   }
   getDistrict(district: District) {
     try {
       if (district && district.name) {
-        console.log(district.name);
         this.district = district.name;
-        console.log(this.district);
         return this.district;
       } else {
         console.log('error');
@@ -131,12 +123,10 @@ export class CheckoutFormComponent implements OnInit {
                   livraison: this.livraison,
                   restaurant: item['user'],
               };
-              console.log(data);
               let orderNumber;
               try {
                  this.orderService.createOrder(data).then((result) => {
                   orderNumber =  result;
-                  console.log(orderNumber);
                   if (orderNumber !== null) {
                     let orderTab = [];
                     if (this.localService.getJsonValue('orders') !== null) {
@@ -169,7 +159,6 @@ export class CheckoutFormComponent implements OnInit {
               }
             });
             this.localService.setJsonValue('test', []);
-            console.log(this.localService.getJsonValue('test'));
             this.openDialog( {message: 'Commande effectuer avec succes! Lidentifiant de votre commande: ',
             key: this.localService.getJsonValue('orders')[this.localService.getJsonValue('orders').length - 1].id,
             thanks: 'Merci pour la confiance'});
@@ -193,8 +182,6 @@ export class CheckoutFormComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       this.dialog.closeAll();
     });
   }

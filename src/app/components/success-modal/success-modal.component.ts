@@ -6,7 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dial
   templateUrl: './success-modal.component.html',
   styleUrls: ['./success-modal.component.css']
 })
-export class SuccessModalComponent implements OnInit {
+export class SuccessModalComponent {
 
   message: any ;
   constructor(public dialogRef: MatDialogRef<SuccessModalComponent>,
@@ -14,11 +14,7 @@ export class SuccessModalComponent implements OnInit {
       public dialog: MatDialog) {
         this.message = data;
   }
-
-  ngOnInit(): void {
-  }
   onNoClick(): void {
-    console.log('yoo fermer');
     this.dialogRef.close('none');
   }
 }

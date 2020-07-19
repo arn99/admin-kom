@@ -123,15 +123,17 @@
     max-width: 25%;
 }
 .mobile-img {
-    max-width: 150%;
+    max-width: 125%;
     position: relative;
     left: 30%;
-    bottom: 11%;
 }
 
 @media all and ( min-width:768px ) {
     .mobile-img {
         content:url("https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/categories%2Ftelephone.png?alt=media&token=399a87b3-1661-48c2-b4b5-caecde9ebb32");
+        position: relative;
+        left: 30%;
+        bottom: 40px;
     }
 }
 .heading{

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
-import { LocalService } from './local.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,6 @@ export class FoodService {
     this.firestore.collection('foods').add(
       data
       ).then((value) => {
-        console.log(value.id);
       });
   }
   async updateFood(data) {

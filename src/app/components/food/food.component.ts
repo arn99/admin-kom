@@ -4,7 +4,7 @@ import {Component, OnInit, ViewChild, Inject} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { AddFoodComponent } from '../add-food/add-food.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
@@ -43,7 +43,6 @@ export class FoodComponent implements OnInit {
       });
     } else {
       this.dialog.closeAll();
-      console.log('redirect to login');
     }
   }
 
@@ -51,7 +50,6 @@ export class FoodComponent implements OnInit {
     try {
       this.openLoadDialog();
       this.foodService.deleteFood(food).then((result) => {
-        console.log(result);
         this.openDialogSuccess( {message: 'Plat supprimer avec succès',
             key: '',
             thanks: ''});
@@ -65,20 +63,12 @@ export class FoodComponent implements OnInit {
     }
   }
   updateFood(food) {
-    const dialogRef = this.dialog.open(AddFoodComponent, {
+    this.dialog.open(AddFoodComponent, {
       data: food
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
   openLoadDialog(): void {
-    const dialogRef = this.dialog.open(LoadingComponent, {
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    this.dialog.open(LoadingComponent, {
     });
   }
   openDialog(): void {
@@ -86,7 +76,6 @@ export class FoodComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.dialog.closeAll();
     });
   }
@@ -100,14 +89,9 @@ export class FoodComponent implements OnInit {
     }
   }
   openDialogSuccess(data): void {
-    const dialogRef = this.dialog.open(SuccessModalComponent, {
+    this.dialog.open(SuccessModalComponent, {
       width: '85%',
       data: data
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
     });
   }
 

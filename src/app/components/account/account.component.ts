@@ -1,5 +1,5 @@
 import { UserInterface } from './../../models/user.model';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { District } from 'src/app/models/district.model';
 import { Observable } from 'rxjs';
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent {
   user: UserInterface;
   loadDialog: any;
   form: FormGroup;
@@ -52,25 +52,18 @@ export class AccountComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-  }
   private _filterDistricts(value: string): District[] {
-    console.log(value);
     const filterValue = value.toLowerCase();
     return this.districts.filter(district => district.name.toLowerCase().indexOf(filterValue) === 0);
   }
   getDistrict(district: District) {
     try {
       if (district && district.name) {
-        console.log(district.name);
         this.district = district.name;
-        console.log(this.district);
         return this.district;
       } else {
-        console.log('error');
       }
     } catch (error) {
-      console.log(error);
       this.district = '';
     }
     return this.district;
@@ -82,10 +75,7 @@ export class AccountComponent implements OnInit {
       try {
         this.openDialog();
         const restoName = this.form.get('restoName').value;
-        console.log(restoName);
         const phoneNumber = this.form.get('numero').value;
-        console.log(phoneNumber);
-        console.log(this.district);
         const district = this.district['name'];
         if (district === '' || district === 'none') {
           alert('Selectionnez votre lieu de livraison');
@@ -100,18 +90,14 @@ export class AccountComponent implements OnInit {
             emailVerified: this.user.emailVerified
           };
           try {
-            console.log(user);
             this.authService.SetUserData(user).then( result => {
-              console.log(result);
               this.openDialogSuccess( {message: 'Votre compte a été Modifier avec succès',
               key: '',
               thanks: ''});
             }).catch( error => {
-              console.log(error);
               this.dialog.closeAll();
             });
           } catch (error) {
-            console.log(error);
             this.dialog.closeAll();
           }
         }
@@ -125,12 +111,10 @@ export class AccountComponent implements OnInit {
     }
   }
   openDialog(): void {
-    this.loadDialog = this.dialog.open(LoadingComponent, {
+    this.dialog.open(LoadingComponent, {
     });
 
-    this.loadDialog.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+
   }
   openDialogSuccess(data): void {
     const dialogRef = this.dialog.open(SuccessModalComponent, {
@@ -139,8 +123,6 @@ export class AccountComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       this.dialog.closeAll();
     });
   }

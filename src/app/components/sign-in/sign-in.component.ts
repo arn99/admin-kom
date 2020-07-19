@@ -17,7 +17,6 @@ export class SignInComponent implements OnInit {
   private returnUrl: string;
   loadDialog: any;
   constructor(private fb: FormBuilder,
-    private route: ActivatedRoute,
     public dialog: MatDialog,
     private router: Router,
     private authService: AuthService) { }
@@ -52,11 +51,7 @@ export class SignInComponent implements OnInit {
     }
   }
   openDialog(): void {
-    this.loadDialog = this.dialog.open(LoadingComponent, {
-    });
-
-    this.loadDialog.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    this.dialog.open(LoadingComponent, {
     });
   }
 }
