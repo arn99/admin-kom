@@ -76,7 +76,13 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
     });
   }
   selectEvent(item) {
-    this.searchText = item['name'];
+    this.searchText = 'Benga';
+    if (item.name !== '') {
+      this.checkSearchText = true;
+    } else {
+      this.checkSearchText = false;
+    }
+    this.getNotificaton(item);
   }
   onChangeSearch(item) {
     this.searchText = item;
@@ -88,9 +94,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
   }
   getNotificaton(item) {
     this.searchText = item.name;
-  }
-  toBePartener() {
-    this.router.navigate(['sign-up']);
+    console.log(this.foods);
   }
   onBeforeinstallprompt(ev) {
     this.deferredPrompt = ev;
@@ -104,21 +108,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
     this.dialog.open(InstallModalComponent, {
       width: '75%',
       data: data
-    });
-  }
-  installApp() {
-    // on affiche la boite de dialogue : installer l'application
-    this.deferredPrompt.prompt();
-    // selon la réponse de l'utilisateur
-    this.deferredPrompt.userChoice
-    .then((choiceResult) => {
-    if (choiceResult.outcome === 'accepted') {
-    console.log('Youpi, notre appli est installée');
-    } else {
-    console.log('Arg, il en veut pas !');
-    }
-    // la madame elle fait le ménache
-    this.deferredPrompt = null;
     });
   }
 }

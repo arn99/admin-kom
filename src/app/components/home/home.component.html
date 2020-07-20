@@ -126,7 +126,7 @@
     </div>
     <div class="result">
       <div  class="fast-food row" *ngIf="checkSearchText" >
-        <div  *ngFor="let item of foods | foodFilter: searchText as results" class="col-md-3">
+        <div  *ngFor="let item of foods | foodFilter: searchText" class="col-md-3">
           <app-food-card [item] = "item"></app-food-card>
         </div>  
       </div>

@@ -8,6 +8,12 @@
   </mat-toolbar>
   
   <div *ngIf="data.mobileType === 'ios'" class="ios-prompt">
-    <button class="close-ios-inv"  mat-button color="warn" (click)="close()">Fermer</button>
-    <div class="ios">Pour install cette application tapez sur le menu du navigateur et cliquer sur le button 'Ajouter à l'ecran d'accueil'</div>
+    <div class="content">
+      Pour installer l'application. 
+      <br/>Tapez sur l'icon de partage ou share <br/><strong>Sous l'ecran d'accueil ou Add to homescreen</strong>.
+      <div class="full-width"><mat-icon>arrow_downward</mat-icon></div>
+    </div>
+    <button class="btn-close" mat-icon-button (click)="close()" aria-label="Close">
+        <mat-icon>close</mat-icon>
+    </button>
   </div>
