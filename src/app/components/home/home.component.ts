@@ -58,8 +58,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
       this.burkinabeFoods = [];
       data.forEach((element) => {
         // tslint:disable-next-line:no-shadowed-variable
-        const data = element.payload.doc.data();
-        data['docId'] = element.payload.doc.id;
+        const data = element;
+        data['docId'] = element.id;
         if (data['category'] === 'Plat burlinabé' ) {
           this.burkinabeFoods.push(data);
         } else {

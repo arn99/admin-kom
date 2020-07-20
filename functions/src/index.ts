@@ -1,4 +1,4 @@
-import * as functions from 'firebase-functions';
+const functions = require('firebase-functions');
 import * as admin from 'firebase-admin';
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -107,7 +107,6 @@ exports.updateUser = functions.https.onCall((data: any, context: any) => {
   });
 
   /**subscriber to notification v2 */
-  // @ts-expect-error: Let's ignore a single compiler error like this unreachable code
   exports.subscribeToTopicV2 = functions.https.onCall((registrationTokens: any, topic: any, context: any) => {
     return admin.messaging().subscribeToTopic(registrationTokens, topic)
     .then(function(response: any) {

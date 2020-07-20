@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
-
+import * as firebase from 'firebase';
 @Injectable({
   providedIn: 'root'
 })
@@ -37,7 +37,9 @@ export class FoodService {
       });
   }
   getFoods() {
-    return this.firestore.collection('foods').snapshotChanges();
+    return this.firestore.collection('foods').valueChanges({ idField: 'id' });
+    // return this.firestore.collection('foods').get();
+    // return this.firestore.collection('foods').snapshotChanges();
   }
   getFoodById(id) {
     this.firestore.collection('foods').doc(id).get();

@@ -33,32 +33,5 @@
         ]
       }
     }
-  ],
-  "dataGroups": [
-    {
-      "name": "from-api",
-      "version": 1,
-      "urls": ["/order/*", "/food", "order-page", "", "account","my-order", "back-order", "sign-in", "term",
-              "private-policy", "about", "sign-up-resto", "sign-up", "register-user", "forgot-password", "verify-email-address"],
-      "cacheConfig": {
-        "strategy": "freshness",
-        "maxSize": 131072,
-        "maxAge": "1d",
-        "timeout": "5s"
-      }
-      
-    },
-    {
-      "name": "api-freshness",
-    "urls": [
-      "https://firestore.googleapis.com/*"
-    ],
-    "cacheConfig": {
-      "maxSize": 100,
-      "maxAge": "1h",
-      "timeout": "10s",
-      "strategy": "freshness"
-    }
-  }
   ]
 }
