@@ -1,0 +1,35 @@
+.ios {
+    background-color: #f44336;
+}
+.android-prompt {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .ios-prompt {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+        div {
+          text-align: center;
+          padding: 10px 25px 0;
+          background-color: #f44336;
+          
+        }
+        mat-icon {
+            position: relative;
+            top: -7px;
+            color: black;
+          }
+        img {
+          display: inline;
+        }
+  .close-ios-inv {
+    position: absolute;
+    right: 0px;
+    top: 0;
+  }

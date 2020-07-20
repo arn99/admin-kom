@@ -4,7 +4,7 @@ import { StorageService } from './services/storage.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -73,11 +73,15 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { LazyLoadImageModule, ScrollHooks } from 'ng-lazyload-image';
 import { InstallModalComponent } from './components/install-modal/install-modal.component';
-
+import { PwaService } from './services/pwa.service';
+import { PromptComponent } from './components/prompt-component/prompt-component.component';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt();
 
 @NgModule({
   declarations: [
     AppComponent,
+    PromptComponent,
     FoodFilterPipe,
     PriceCalculatePipe,
     BackorderComponent,
@@ -140,6 +144,7 @@ import { InstallModalComponent } from './components/install-modal/install-modal.
     MatInputModule,
     MatCardModule,
     MatToolbarModule,
+    MatBottomSheetModule,
     MatProgressSpinnerModule,
     MatCarouselModule.forRoot(),
     /* AgmCoreModule.forRoot({
@@ -152,7 +157,12 @@ import { InstallModalComponent } from './components/install-modal/install-modal.
     NgbModule,
     ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately'  }),
   ],
-  providers: [OrderService, FoodService, AuthService, StorageService, LocalService],
+  entryComponents: [
+    PromptComponent,
+  ],
+  providers: [OrderService, FoodService, AuthService, StorageService, LocalService,
+    {provide: APP_INITIALIZER, useFactory: initializer, deps: [PwaService], multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

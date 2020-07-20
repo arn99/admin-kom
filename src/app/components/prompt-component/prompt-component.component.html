@@ -1,0 +1,13 @@
+<mat-toolbar *ngIf="data.mobileType === 'android'" color="primary" class="android-prompt">
+    <button mat-raised-button color="warn" (click)="installPwa()">
+      Add to Home screen
+    </button>
+    <button mat-icon-button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+  
+  <div *ngIf="data.mobileType === 'ios'" class="ios-prompt">
+    <button class="close-ios-inv"  mat-button color="warn" (click)="close()">Fermer</button>
+    <div class="ios">Pour install cette application tapez sur le menu du navigateur et cliquer sur le button 'Ajouter à l'ecran d'accueil'</div>
+  </div>
