@@ -20,12 +20,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
-import { AgmCoreModule } from '@agm/core';
-import { AgmDirectionModule } from 'agm-direction';
 import { MapsComponent } from './components/maps/maps.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
 import { firebaseConfig } from './config/firebase-config';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -144,13 +142,13 @@ import { InstallModalComponent } from './components/install-modal/install-modal.
     MatToolbarModule,
     MatProgressSpinnerModule,
     MatCarouselModule.forRoot(),
-    AgmCoreModule.forRoot({
+    /* AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAvw8F1-PrDmQbMm6yzGOteQwM-4w80V5c',
-    }),
-    AgmDirectionModule,
+    }), */
+    /* AgmDirectionModule, */
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     NgbModule,
     ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately'  }),
   ],
