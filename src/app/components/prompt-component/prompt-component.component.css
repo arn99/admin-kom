@@ -1,6 +1,9 @@
 .ios {
     background-color: #f44336;
 }
+.icon-download {
+    color: #f44336;
+}
 .android-prompt {
     display: flex;
     justify-content: space-between;
