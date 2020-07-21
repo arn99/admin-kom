@@ -21,7 +21,7 @@ import { AuthGuard } from './shared/guard/auth.guard';
 
 const routes: Routes = [
   { path: 'order/waiting', component: BackorderComponent, canActivate: [AuthGuard]},
-  { path: 'order/delivered', component: OrderDeliverComponent, canActivate: [AuthGuard] },
+  { path: 'order/deliverer', component: OrderDeliverComponent, canActivate: [AuthGuard] },
   { path: 'food', component: FoodComponent, canActivate: [AuthGuard] },
   { path: 'order-page', component: ShoppingPageComponent },
   { path: '', component: HomeComponent },

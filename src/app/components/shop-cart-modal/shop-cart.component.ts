@@ -38,9 +38,9 @@ export class ShopCartComponent {
       this.list[foodOccurrence]['numberOfItem'] =  this.list[foodOccurrence]['numberOfItem'] +  this.itemNumber;
       this.setLocalStorage(this.list);
     } else {
-          this.list.push(food) ;
-          this.setLocalStorage(this.list);
-      }
+      this.list.push(food) ;
+      this.setLocalStorage(this.list);
+    }
       this.getLocalStorage();
     this.foodService.newUpdate(this.itemTotal);
     this.dialogRef.close();

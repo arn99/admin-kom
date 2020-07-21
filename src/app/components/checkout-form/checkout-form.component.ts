@@ -121,7 +121,10 @@ export class CheckoutFormComponent implements OnInit {
                   state: 'waiting',
                   total: (item.price * item.numberOfItem),
                   livraison: this.livraison,
-                  restaurant: item['user'],
+                  restaurant: {
+                              id : item['user'],
+                              name: item.restaurant
+                            }
               };
               let orderNumber;
               try {

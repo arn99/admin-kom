@@ -41,6 +41,8 @@ export class BackorderComponent implements OnInit {
         // tslint:disable-next-line:no-shadowed-variable
         const data = element.payload.doc.data();
         data['docId'] = element.payload.doc.id;
+        // data.customer.number = data['customer']['number'].toSting();
+        console.log(data);
         this.orders.push(data);
       });
       this.dataSource = new MatTableDataSource(this.orders);
@@ -60,9 +62,6 @@ export class BackorderComponent implements OnInit {
     try {
       this.openLoadDialog();
       this.ordersService.updateOrder(order).then((result) => {
-        this.openDialogSuccess( {message: 'La commande a été traité avec succès',
-        key: '',
-        thanks: 'La commande se trouve maintenant dans la partie traité'});
       }).catch(() => {
         this.dialog.closeAll();
         alert('erreur yoo');

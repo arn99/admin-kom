@@ -12,6 +12,7 @@ export class FoodCardComponent {
   constructor(public dialog: MatDialog) {
   }
   openDialog(data): void {
+    data.price = this.calculatePrice(data.price);
     this.dialog.open(ShopCartComponent, {
       width: '75%',
       data: data
@@ -19,7 +20,7 @@ export class FoodCardComponent {
   }
   calculatePrice(price): number {
     price = 1.1 * price;
-    const multiplier = Math.pow(10, -1 || 0);
+    const multiplier = Math.pow(10, -2 || 0);
     return Math.round(price * multiplier) / multiplier;
   }
 }

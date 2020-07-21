@@ -55,6 +55,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
         this.getTotalCost();
       } else {
         this.list = new MatTableDataSource<Element>([]);
+        this.tab = [];
         this.getTotalCost('buy');
       }
     });
@@ -97,7 +98,6 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   getLocalStorage(): [] {
     // Get the user data
     const foods = this.localService.getJsonValue('test');
-    console.log(foods);
     return foods;
   }
   findWithAttr(array, attr, value): number {

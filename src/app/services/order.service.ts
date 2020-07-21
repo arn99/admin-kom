@@ -22,7 +22,7 @@ export class OrderService {
       'orders', ref => {
         let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
         if (restoId) {
-          query = query.where('restaurant', '==', restoId);
+          query = query.where('restaurant.id', '==', restoId);
         }
         if (restoId) {
           query = query.where('paymentState', '==', 'none');
@@ -34,9 +34,17 @@ export class OrderService {
         return query;
     }).snapshotChanges();
   }
+  getDelivererOrders() {
+    return this.firestore.collection(
+      'orders', ref => {
+        let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+          query = query.where('paymentState', '==', 'none');
+          query = query.where('state', '==', 'ready');
+        return query;
+    }).snapshotChanges();
+  }
 
   async createOrder(data) {
-    console.log(data);
     return this.firestore.collection('orders').add(
       data
       ).then((value) => {
