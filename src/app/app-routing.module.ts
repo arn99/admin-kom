@@ -1,43 +1,66 @@
-import { TermComponent } from './components/term/term.component';
-import { PrivatePolicyComponent } from './components/private-policy/private-policy.component';
-import { AboutComponent } from './components/about/about.component';
-import { CustomerSignUpComponent } from './components/customer-sign-up/customer-sign-up.component';
-import { AccountComponent } from './components/account/account.component';
-import { CustomerOrderComponent } from './components/customer-order/customer-order.component';
-import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component';
-import { HomeComponent } from './components/home/home.component';
-import { MapsComponent } from './components/maps/maps.component';
-import { FoodComponent } from './components/food/food.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BackorderComponent } from './components/backorder/backorder.component';
-import { OrderDeliverComponent } from './components/order-deliver/order-deliver.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { AuthGuard } from './shared/guard/auth.guard';
 
 
 const routes: Routes = [
-  { path: 'order/waiting', component: BackorderComponent, canActivate: [AuthGuard]},
-  { path: 'order/deliverer', component: OrderDeliverComponent, canActivate: [AuthGuard] },
-  { path: 'food', component: FoodComponent, canActivate: [AuthGuard] },
-  { path: 'order-page', component: ShoppingPageComponent },
-  { path: '', component: HomeComponent },
-  { path: 'account', component: AccountComponent },
-  { path: 'my-order', component: CustomerOrderComponent, canActivate: [AuthGuard] },
-  { path: 'back-order', component: BackorderComponent, canActivate: [AuthGuard] },
+  {
+    path: '',
+    loadChildren : () => import('./module/home/home.module').then(m => m.HomeModule), // new dynamic import method
+  },
+  {
+    path: 'order/waiting',
+    loadChildren : () => import('./module/backorder/backorder.module').then(m => m.BackorderModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'order/deliverer',
+    loadChildren : () => import('./module/order-deliver/order-deliver.module').then(m => m.OrderDeliverModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'food',
+    loadChildren : () => import('./module/food/food.module').then(m => m.FoodModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'order-page',
+    loadChildren : () => import('./module/shopping-page/shopping-page.module').then(m => m.ShoppingPageModule), // new dynamic import method
+  },
+  // { path: '', component: HomeComponent },
+  { path: 'account',
+  loadChildren : () => import('./module/account/account.module').then(m => m.AccountModule)
+  },
+  { path: 'my-order',
+    loadChildren : () => import('./module/customer-order/customer-order.module').then(m => m.CustomerOrderModule),
+    canActivate: [AuthGuard] },
+  { path: 'back-order',
+  loadChildren : () => import('./module/backorder/backorder.module').then(m => m.BackorderModule),
+  canActivate: [AuthGuard] },
   /* { path: '', redirectTo: '/sign-in', pathMatch: 'full' }, */
-  { path: 'sign-in', component: SignInComponent },
-  { path: 'term', component: TermComponent },
-  { path: 'private-policy', component: PrivatePolicyComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'sign-up-resto', component: SignUpComponent, canActivate: [AuthGuard] },
-  { path: 'sign-up', component: CustomerSignUpComponent },
-  { path: 'register-user', component: SignUpComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'verify-email-address', component: VerifyEmailComponent },
+  { path: 'sign-in',
+  loadChildren : () => import('./module/sign-in/sign-in.module').then(m => m.SignInModule), },
+  { path: 'term',
+  loadChildren : () => import('./module/term/term.module').then(m => m.TermModule),  },
+  { path: 'private-policy',
+  loadChildren : () => import('./module/private-policy/private-policy.module').then(m => m.PrivatePolicyModule), },
+  { path: 'about',
+  loadChildren : () => import('./module/about/about.module').then(m => m.AboutModule), },
+  { path: 'sign-up-resto',
+  loadChildren : () => import('./module/sign-up/sign-up.module').then(m => m.SignUpModule),
+  canActivate: [AuthGuard] },
+  { path: 'sign-up',
+  loadChildren : () => import('./module/customer-sign-up/customer-sign-up.module').then(m => m.CustomerSignUpModule),
+  },
+  { path: 'register-user',
+  loadChildren : () => import('./module/sign-up/sign-up.module').then(m => m.SignUpModule),
+  },
+  { path: 'forgot-password',
+  loadChildren : () => import('./module/forget-password/forget-password.module').then(m => m.ForgetPasswordModule),
+  },
+  { path: 'verify-email-address',
+  loadChildren : () => import('./module/verify-email-adress/verify-email-adress.module').then(m => m.VerifyEmailAdressModule),
+  },
   { path: '**', redirectTo: '' }
 
 ];
