@@ -12,6 +12,6 @@ import { MaterialModule } from '../shared/material.module';
     CommonModule,
     MaterialModule,
     CheckoutFormRoutingModule
-  ]
+  ],
 })
 export class CheckoutFormModule { }

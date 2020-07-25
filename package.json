@@ -8,10 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev:ssr": "ng run admin-kom:serve-ssr",
-    "serve:ssr": "node dist/admin-kom/server/main.js",
-    "build:ssr": "ng build --prod && ng run admin-kom:server:production",
-    "prerender": "ng run admin-kom:prerender"
+    "dev:ssr": "ng run admin-kom:serve-ssr --bundleDependencies all",
+    "serve:ssr": "node dist/admin-kom/server/main.js --bundleDependencies all",
+    "build:ssr": "ng build --prod && ng run admin-kom:server:production --bundleDependencies all",
+    "prerender": "ng run admin-kom:prerender --bundleDependencies all"
   },
   "private": true,
   "dependencies": {
