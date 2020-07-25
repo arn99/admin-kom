@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProgressBarModalRoutingModule } from './progress-bar-modal-routing.module';
-import { ProgessBarModalComponent } from 'src/app/components/progess-bar-modal/progess-bar-modal.component';
+import { ProgessBarModalComponent } from '../../components/progess-bar-modal/progess-bar-modal.component';
 import { MaterialModule } from '../shared/material.module';
 
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProgressBarComponent } from 'src/app/components/progress-bar/progress-bar.component';
+import { ProgressBarComponent } from '../../components/progress-bar/progress-bar.component';
 
 
 const routes: Routes = [

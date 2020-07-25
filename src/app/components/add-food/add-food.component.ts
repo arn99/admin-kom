@@ -1,12 +1,11 @@
-import { AuthService } from 'src/app/services/auth.service';
 import { LoadingComponent } from './../loading/loading.component';
 import { DataService } from './../../services/data.service';
 import { Component, Inject } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { Food } from 'src/app/models/food.model';
+import { Food } from '../../models/food.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FoodService } from 'src/app/services/food.service';
+import { FoodService } from '../../services/food.service';
 import * as firebase from 'firebase';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
 
@@ -59,7 +58,7 @@ export class AddFoodComponent {
     });
   }
 
-  resetForm(form: FormGroup) {
+  resetForm() {
     this.prepareForm();
   }
   updateFood(food) {
@@ -70,7 +69,7 @@ export class AddFoodComponent {
     this.openDialog();
 
     try {
-      this.foodService.updateFood(this.data).then((result) => {
+      this.foodService.updateFood(this.data).then(() => {
           this.openDialogSuccess( {message: 'Plat mise à jour avec succès',
             key: '',
             thanks: ''});
@@ -118,7 +117,7 @@ export class AddFoodComponent {
     const inputNode: any = document.querySelector('#file');
     if (typeof (FileReader) !== 'undefined') {
       const reader = new FileReader();
-      reader.onload = (e: any) => {
+      reader.onload = () => {
       };
       reader.readAsArrayBuffer(inputNode.files[0]);
     }
@@ -129,7 +128,7 @@ export class AddFoodComponent {
       data: data
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       this.dialog.closeAll();
     });
   }

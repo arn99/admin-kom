@@ -1,8 +1,8 @@
-import { FoodService } from 'src/app/services/food.service';
+import { FoodService } from '../../services/food.service';
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
-import { LocalService } from 'src/app/services/local.service';
+import { LocalService } from '../../services/local.service';
 import { Router } from '@angular/router';
 import * as Category from './../../models/category.model';
 import { MatSidenav } from '@angular/material/sidenav';

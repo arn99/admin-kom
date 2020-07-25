@@ -48,7 +48,7 @@ const routes: Routes = [
   loadChildren : () => import('./module/about/about.module').then(m => m.AboutModule), },
   { path: 'sign-up-resto',
   loadChildren : () => import('./module/sign-up/sign-up.module').then(m => m.SignUpModule),
-  canActivate: [AuthGuard] },
+  /* canActivate: [AuthGuard]  */},
   { path: 'sign-up',
   loadChildren : () => import('./module/customer-sign-up/customer-sign-up.module').then(m => m.CustomerSignUpModule),
   },
