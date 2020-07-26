@@ -44,6 +44,7 @@
     "express": "^4.17.1",
     "firebase": "^7.15.0",
     "firebase-admin": "^8.13.0",
+    "firebase-functions": "^3.8.0",
     "firebase-tools": "^8.4.3",
     "get-google-fonts": "^1.2.2",
     "httpclient": "^0.1.0",
@@ -78,8 +79,10 @@
     "karma-jasmine": "~3.1.1",
     "karma-jasmine-html-reporter": "^1.5.3",
     "protractor": "~5.4.0",
+    "ts-loader": "^8.0.1",
     "ts-node": "~8.10.1",
     "tslint": "~6.1.2",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "webpack-cli": "^3.3.12"
   }
 }

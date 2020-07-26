@@ -1,9 +1,9 @@
 import { UserInterface } from './../../models/user.model';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { District } from 'src/app/models/district.model';
+import { District } from '../../models/district.model';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { startWith, map } from 'rxjs/operators';
 import { LoadingComponent } from '../loading/loading.component';

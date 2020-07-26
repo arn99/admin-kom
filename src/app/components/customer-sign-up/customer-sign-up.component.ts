@@ -1,12 +1,12 @@
 import { UserInterface } from './../../models/user.model';
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { District } from 'src/app/models/district.model';
+import { District } from '../../models/district.model';
 import * as Districts from './../../models/district.model';
 import { startWith, map } from 'rxjs/operators';
-import { MyErrorStateMatcher } from 'src/app/utils/my-error-state-matcher.class';
+import { MyErrorStateMatcher } from '../../utils/my-error-state-matcher.class';
 import { MatDialog } from '@angular/material/dialog';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';

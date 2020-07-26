@@ -1,5 +1,5 @@
 import { InstallModalComponent } from './../install-modal/install-modal.component';
-import { FoodService } from 'src/app/services/food.service';
+import { FoodService } from '../../services/food.service';
 
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';

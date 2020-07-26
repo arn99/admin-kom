@@ -1,9 +1,8 @@
 import { MapsComponent } from '../maps/maps.component';
-import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Order } from '../../models/order.model';
 import { OrderService } from '../../services/order.service';
 import {MatDialog} from '@angular/material/dialog';
-import { AuthService } from 'src/app/services/auth.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -41,7 +40,7 @@ export class BackorderComponent implements OnInit {
   ngOnInit() {
   }
   getOrders() {
-    this.openLoadDialog('Chargement des commandes');
+    this.openLoadDialog();
     const currentUser = JSON.parse(this.localStorage.getItem('user'));
     if (currentUser !== null) {
       this.ordersService.getOrders(currentUser.uid).subscribe((data) => {
@@ -66,11 +65,11 @@ export class BackorderComponent implements OnInit {
   onViewOrder(order) {
     this.order = order;
   }
-  finish(order, index) {
+  finish(order) {
     order['state'] = 'ready';
     try {
       this.openLoadDialog();
-      this.ordersService.updateOrder(order).then((result) => {
+      this.ordersService.updateOrder(order).then(() => {
       }).catch(() => {
         this.dialog.closeAll();
         alert('erreur yoo');
@@ -86,12 +85,12 @@ export class BackorderComponent implements OnInit {
       data: {latitude: location.latitude, longitude: location.longitude}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       this.dialog.closeAll();
     });
   }
 
-  openLoadDialog(message?): void {
+  openLoadDialog(): void {
     this.dialog.open(LoadingComponent, {
     });
   }

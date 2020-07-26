@@ -3,11 +3,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { FoodService } from 'src/app/services/food.service';
-import { LocalService } from 'src/app/services/local.service';
+import { FoodService } from '../../services/food.service';
+import { LocalService } from '../../services/local.service';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
 import { ProgessBarModalComponent } from '../progess-bar-modal/progess-bar-modal.component';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-customer-order',

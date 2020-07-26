@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { CheckoutFormComponent } from '../checkout-form/checkout-form.component';
-import { LocalService } from 'src/app/services/local.service';
+import { LocalService } from '../../services/local.service';
 import { Subscription } from 'rxjs';
-import { FoodService } from 'src/app/services/food.service';
+import { FoodService } from '../../services/food.service';
 import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-shopping-page',
