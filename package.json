@@ -8,10 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev:ssr": "ng run admin-kom:serve-ssr --bundleDependencies all",
-    "serve:ssr": "node dist/admin-kom/server/main.js --bundleDependencies all",
-    "build:ssr": "ng build --prod && ng run admin-kom:server:production --bundleDependencies all",
-    "prerender": "ng run admin-kom:prerender --bundleDependencies all"
+    "dev:ssr": "ng run admin-kom:serve-ssr",
+    "serve:ssr": "node dist/admin-kom/server/main.js",
+    "build:ssr": "ng build --prod && ng run admin-kom:server:production",
+    "prerender": "ng run admin-kom:prerender"
   },
   "private": true,
   "dependencies": {
@@ -21,7 +21,7 @@
     "@angular/common": "~9.1.6",
     "@angular/compiler": "~9.1.6",
     "@angular/core": "~9.1.6",
-    "@angular/fire": "^6.0.0",
+    "@angular/fire": "^6.0.1",
     "@angular/flex-layout": "^10.0.0-beta.32",
     "@angular/forms": "^9.1.6",
     "@angular/localize": "~9.1.6",
@@ -35,7 +35,6 @@
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "@ngmodule/material-carousel": "^0.6.0",
     "@nguniversal/express-engine": "^9.1.1",
-    "@nguniversal/module-map-ngfactory-loader": "^8.2.6",
     "@types/crypto-js": "^3.1.47",
     "agm-direction": "^0.7.9",
     "angular-ng-autocomplete": "^2.0.1",
