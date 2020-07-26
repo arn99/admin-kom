@@ -13,6 +13,8 @@ import { Customer } from 'src/app/models/customer.model';
 import { DataService } from 'src/app/services/data.service';
 import { LocalService } from 'src/app/services/local.service';
 import { District } from './../../models/district.model';
+import { LocalStorage } from 'src/app/utils/local-storage';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-checkout-form',
   templateUrl: './checkout-form.component.html',
@@ -27,7 +29,7 @@ export class CheckoutFormComponent implements OnInit {
   districts: District[]  = Districts.districts;
   district: string;
   livraison = 0;
-
+  private localStorage: Storage;
   constructor(public dialogRef: MatDialogRef<CheckoutFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any [],
     private fb: FormBuilder,
@@ -36,6 +38,12 @@ export class CheckoutFormComponent implements OnInit {
     private localService: LocalService,
     public dialog: MatDialog
     ) {
+      this.localStorage = new LocalStorage();
+    AppComponent.isBrowser.subscribe(isBrowser => {
+      if (isBrowser) {
+        this.localStorage = localStorage;
+      }
+    });
       this.form = this.fb.group({
         username: ['', [Validators.required, Validators.minLength(3)]],
         payment: ['', [Validators.required]],
@@ -110,7 +118,7 @@ export class CheckoutFormComponent implements OnInit {
                                 numberOfItem: 10
                               };
           try {
-            const resto = JSON.parse(localStorage.getItem('user'));
+            const resto = JSON.parse(this.localStorage.getItem('user'));
             this.data.forEach((item) => {
               const data = {
                   clientLocation: clientLocation,

@@ -9,6 +9,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
+import { LocalStorage } from 'src/app/utils/local-storage';
+import { AppComponent } from 'src/app/app.component';
 
 
 @Component({
@@ -25,7 +27,14 @@ export class BackorderComponent implements OnInit {
   dataSource: MatTableDataSource<Order>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  private localStorage: Storage;
   constructor(private ordersService: OrderService, public dialog: MatDialog) {
+    this.localStorage = new LocalStorage();
+    AppComponent.isBrowser.subscribe(isBrowser => {
+      if (isBrowser) {
+        this.localStorage = localStorage;
+      }
+    });
     this.getOrders();
   }
 
@@ -33,7 +42,7 @@ export class BackorderComponent implements OnInit {
   }
   getOrders() {
     this.openLoadDialog('Chargement des commandes');
-    const currentUser = JSON.parse(localStorage.getItem('user'));
+    const currentUser = JSON.parse(this.localStorage.getItem('user'));
     if (currentUser !== null) {
       this.ordersService.getOrders(currentUser.uid).subscribe((data) => {
       this.orders = [];

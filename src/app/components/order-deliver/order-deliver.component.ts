@@ -1,13 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Order } from 'src/app/models/order.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { OrderService } from 'src/app/services/order.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MapsComponent } from '../maps/maps.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
+import { LocalStorage } from 'src/app/utils/local-storage';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-order-deliver',
@@ -23,12 +24,19 @@ export class OrderDeliverComponent {
   dataSource: MatTableDataSource<Order>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  private localStorage: Storage;
   constructor(private ordersService: OrderService, public dialog: MatDialog) {
+    this.localStorage = new LocalStorage();
+                AppComponent.isBrowser.subscribe(isBrowser => {
+                  if (isBrowser) {
+                    this.localStorage = localStorage;
+                  }
+                });
     this.getOrders();
   }
   getOrders() {
-    this.openLoadDialog('Chargement des commandes');
-    const currentUser = JSON.parse(localStorage.getItem('user'));
+    this.openLoadDialog();
+    const currentUser = JSON.parse(this.localStorage.getItem('user'));
     if (currentUser !== null) {
       this.ordersService.getDelivererOrders().subscribe((data) => {
       this.orders = [];
@@ -50,11 +58,11 @@ export class OrderDeliverComponent {
   onViewOrder(order) {
     this.order = order;
   }
-  finish(order, index) {
+  finish(order) {
     order['state'] = 'delivering';
     try {
       this.openLoadDialog();
-      this.ordersService.updateOrder(order).then((result) => {
+      this.ordersService.updateOrder(order).then(() => {
       }).catch(() => {
         this.dialog.closeAll();
         alert('erreur yoo');
@@ -65,7 +73,7 @@ export class OrderDeliverComponent {
     }
   }
 
-  openLoadDialog(message?): void {
+  openLoadDialog(): void {
     this.dialog.open(LoadingComponent, {
     });
   }

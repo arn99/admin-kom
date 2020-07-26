@@ -9,6 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FoodService } from 'src/app/services/food.service';
 import * as firebase from 'firebase';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
+import { LocalStorage } from 'src/app/utils/local-storage';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-add-food',
@@ -25,10 +27,17 @@ export class AddFoodComponent {
   file: any;
   storage = firebase.storage();
   loadDialog: any;
+  private localStorage: Storage;
   constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
     private foodService: FoodService, public dataService: DataService,
     public dialogRef: MatDialogRef<AddFoodComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
+      this.localStorage = new LocalStorage();
+    AppComponent.isBrowser.subscribe(isBrowser => {
+      if (isBrowser) {
+        this.localStorage = localStorage;
+      }
+    });
       this.prepareForm();
       if (this.data) {
         this.updateForm(data);
@@ -91,7 +100,7 @@ export class AddFoodComponent {
           return snapshot.ref.getDownloadURL();   // Will return a promise with the download link
       })
       .then(downloadURL => {
-        const currentUser = JSON.parse(localStorage.getItem('user'));
+        const currentUser = JSON.parse(this.localStorage.getItem('user'));
         if (currentUser !== null) {
           const food = {
           category : customerData['category'],

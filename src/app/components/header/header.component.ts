@@ -1,3 +1,4 @@
+import { UserInterface } from './../../models/user.model';
 import { FoodService } from 'src/app/services/food.service';
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
@@ -7,6 +8,8 @@ import { Router } from '@angular/router';
 import * as Category from './../../models/category.model';
 import { MatSidenav } from '@angular/material/sidenav';
 import { BottomNavItem } from 'ngx-bottom-nav';
+import { LocalStorage } from 'src/app/utils/local-storage';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -23,10 +26,22 @@ export class HeaderComponent implements  OnDestroy {
   currentUserSubscription: Subscription;
   @ViewChild('sidenav') sidenav: MatSidenav;
   items: BottomNavItem[];
+  private localStorage: Storage;
   constructor(public authService: AuthService, public foodService: FoodService,
               private router: Router,
               private localService: LocalService) {
-                const userProfile = localStorage.getItem('user');
+                this.localStorage = new LocalStorage();
+                AppComponent.isBrowser.subscribe(isBrowser => {
+                  if (isBrowser) {
+                    this.localStorage = localStorage;
+                  }
+                });
+                let userProfile: UserInterface;
+                if (this.localStorage.getItem('user') !== undefined) {
+                  userProfile = JSON.parse(this.localStorage.getItem('user'));
+                } else {
+                  userProfile = null;
+                }
                 this.checkRole(userProfile);
     this.itemNumber = this.getOrderItemNumberFromFoodList(this.localService.getJsonValue('test'));
     this.categories = Category.categories;
@@ -38,6 +53,11 @@ export class HeaderComponent implements  OnDestroy {
     });
     this.currentUserSubscription = authService.getCurrentNotification().subscribe( message => {
       this.currentUser = message;
+      if (message !== undefined) {
+        message = JSON.parse(message);
+      } else {
+        message = null;
+      }
       this.checkRole(message);
     });
    }

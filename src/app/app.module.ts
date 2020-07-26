@@ -115,7 +115,7 @@ const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt()
   ],
   imports: [
     LazyLoadImageModule.forRoot(ScrollHooks),
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     FormsModule,
     BottomNavModule,
