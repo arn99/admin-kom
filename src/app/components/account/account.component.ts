@@ -1,5 +1,5 @@
 import { UserInterface } from './../../models/user.model';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { District } from 'src/app/models/district.model';
 import { Observable } from 'rxjs';
@@ -17,7 +17,7 @@ import { AppComponent } from 'src/app/app.component';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
-export class AccountComponent {
+export class AccountComponent implements OnInit {
   user: UserInterface;
   loadDialog: any;
   form: FormGroup;
@@ -29,12 +29,26 @@ export class AccountComponent {
   private formSubmitAttempt: boolean;
   private localStorage: Storage;
   constructor(public authService: AuthService, public router: Router, private fb: FormBuilder, public dialog: MatDialog) {
+    console.log('testera');
     this.localStorage = new LocalStorage();
     AppComponent.isBrowser.subscribe(isBrowser => {
       if (isBrowser) {
         this.localStorage = localStorage;
       }
     });
+    this.form = this.fb.group({
+      restoName: ['', [Validators.required, Validators.minLength(3)]],
+      numero: ['', [Validators.required, Validators.maxLength(9), Validators.pattern('[0-9]{8}')]]
+    });
+    this.districtControl.setValidators([Validators.required]);
+    this.filteredDistricts = this.districtControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value.name),
+      map(name => name ? this._filterDistricts(name) : this.districts.slice())
+    );
+  }
+  ngOnInit(): void {
     const userData = this.localStorage.getItem('user');
     console.log(userData);
     console.log('userData');
@@ -49,26 +63,17 @@ export class AccountComponent {
         emailVerified: userData['emailVerified'],
       };
     } else {
-      
       console.log('toast');
       this.router.navigate(['sign-up']);
     }
-    this.form = this.fb.group({
-      restoName: ['', [Validators.required, Validators.minLength(3)]],
-      numero: ['', [Validators.required, Validators.maxLength(9), Validators.pattern('[0-9]{8}')]]
-    });
-    this.districtControl.setValidators([Validators.required]);
-    this.filteredDistricts = this.districtControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => typeof value === 'string' ? value : value.name),
-      map(name => name ? this._filterDistricts(name) : this.districts.slice())
-    );
   }
 
   private _filterDistricts(value: string): District[] {
-    const filterValue = value.toLowerCase();
-    return this.districts.filter(district => district.name.toLowerCase().indexOf(filterValue) === 0);
+    if (value !== undefined || value !== null) {
+      const filterValue = value.toLowerCase();
+      return this.districts.filter(district => district.name.toLowerCase().indexOf(filterValue) === 0);
+    }
+
   }
   getDistrict(district: District) {
     try {

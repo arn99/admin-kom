@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { LocalService } from 'src/app/services/local.service';
 import { FoodService } from 'src/app/services/food.service';
@@ -17,6 +17,7 @@ export class ShopCartComponent {
   food: any;
   private localStorage: Storage;
   constructor(public dialogRef: MatDialogRef<ShopCartComponent>,
+                      @Inject(PLATFORM_ID) private platformId: Object,
                       @Inject(MAT_DIALOG_DATA) public data,
                       private localService: LocalService,
                       private foodService: FoodService) {

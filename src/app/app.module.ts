@@ -34,8 +34,6 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderService } from './services/order.service';
 import { FoodService } from './services/food.service';
-import {NgxPaginationModule} from 'ngx-pagination';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularFireModule } from '@angular/fire';
@@ -59,11 +57,8 @@ const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt()
     AppComponent,
   ],
   imports: [
-    LazyLoadImageModule.forRoot(ScrollHooks),
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
-    NgxPaginationModule,
-    Ng2SearchPipeModule,
     HttpClientModule,
     BrowserAnimationsModule,
     HeaderModule,
@@ -109,8 +104,10 @@ const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt()
     CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [OrderService, FoodService, AuthService, StorageService, LocalService,
-    {provide: APP_INITIALIZER, useFactory: initializer, deps: [PwaService], multi: true}
+    {provide: APP_INITIALIZER, useFactory: initializer, deps: [PwaService], multi: true},
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
+

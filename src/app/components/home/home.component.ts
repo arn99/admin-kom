@@ -1,13 +1,13 @@
 import { InstallModalComponent } from './../install-modal/install-modal.component';
 import { FoodService } from 'src/app/services/food.service';
 
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { ShopCartComponent } from '../shop-cart-modal/shop-cart.component';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as Category from './../../models/category.model';
-import { OwlOptions } from 'ngx-owl-carousel-o';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +15,13 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
-  constructor(public dialog: MatDialog,
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    public dialog: MatDialog,
     private route: ActivatedRoute,
-    private router: Router,
     private foodService: FoodService,
-    private cdr: ChangeDetectorRef) {
+    private cdr: ChangeDetectorRef,
+    ) {
     this.getFoods();
     this.searchText = '';
     this.checkSearchText = false;
@@ -28,6 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
     });
     this.categories = Category.categories;
    }
+   autoPlay: boolean;
   checkSearchText: boolean;
   searchText: string;
   foods: any[];
@@ -39,36 +42,17 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
   categories: Category.Category[];
   deferredPrompt: any;
   images: any;
-  customOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
-    dots: true,
-    autoplay: true,
-    navSpeed: 3500,
-    nav: true,
-    navText: ['pre', 'nex'],
-    responsive: {
-      0: {
-        items: 1
-      },
-      400: {
-        items: 1
-      },
-      740: {
-        items: 1
-      },
-      940: {
-        items: 1
-      }
-    },
-  };
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+     this.autoPlay = true;
+
+    } else {
+    this.autoPlay = false;
+   }
     this.subscriptionRout = this.route
       .queryParams
       .subscribe(params => {
@@ -121,7 +105,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
   }
   getNotificaton(item) {
     this.searchText = item.name;
-    console.log(this.foods);
   }
   onBeforeinstallprompt(ev) {
     this.deferredPrompt = ev;

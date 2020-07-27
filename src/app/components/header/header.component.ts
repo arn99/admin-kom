@@ -54,8 +54,6 @@ export class HeaderComponent implements  OnDestroy {
     this.currentUserSubscription = authService.getCurrentNotification().subscribe( message => {
       this.currentUser = message;
       if (message !== undefined || message !== null) {
-        console.log(message);
-        console.log('yoo');
         message = message;
       } else {
         message = null;

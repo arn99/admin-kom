@@ -8,8 +8,7 @@ import { FoodFilterPipe } from '../../pipes/filter.pipe';
 import { MaterialModule } from '../shared/material.module';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import {MatMenuModule} from '@angular/material/menu';
-import { CarouselModule } from 'ngx-owl-carousel-o';
-
+import { LazyLoadImageModule, ScrollHooks } from 'ng-lazyload-image';
 @NgModule({
   declarations: [HomeComponent,
                 FoodCardComponent,
@@ -19,10 +18,12 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
   imports: [
     CommonModule,
     MatMenuModule,
-    CarouselModule,
+    LazyLoadImageModule,
+    LazyLoadImageModule.forRoot(ScrollHooks),
     MatCarouselModule.forRoot(),
     MaterialModule,
     HomeRoutingModule,
-  ]
+  ],
+
 })
 export class HomeModule { }

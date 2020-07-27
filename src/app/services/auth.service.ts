@@ -33,7 +33,6 @@ export class AuthService {
       if (user) {
         this.getUser(user.uid);
         this.userData = user;
-        console.log(user.uid);
         this.getUser(user.uid);
       } else {
         await this.localStorage.setItem('user', null);
@@ -50,7 +49,6 @@ export class AuthService {
           this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
           this.router.navigate(['back-order']));
         });
-        console.log(result.user);
         this.SetUserData(result.user);
       }).catch((error) => {
         window.alert('email ou mot de passe incorrecte');
@@ -74,8 +72,6 @@ export class AuthService {
           roles: data.roles,
           district: data.district
         };
-        console.log(result.user.displayName);
-        console.log(user);
         result.user.updateProfile({
           displayName: data.displayName
         });
@@ -148,11 +144,10 @@ export class AuthService {
   }
   getUser (uid) {
     return this.afs.collection('users').doc(uid).valueChanges().subscribe( async result => {
-      console.log(result);
+
        /*  const data = changes.payload.data();
       const id = changes.payload.id;
       data['uid'] = id; */
-      console.log(result);
       await this.localStorage.setItem('user', JSON.stringify(result));
       const self = this;
       setTimeout(async function() {
@@ -174,7 +169,6 @@ export class AuthService {
   }
   getCurrentUser(): String {
     const user = this.afAuth.currentUser.then((value) => {
-      console.log(value);
       return value.uid;
     });
     return null;
