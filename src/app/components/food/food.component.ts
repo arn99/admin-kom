@@ -34,10 +34,10 @@ export class FoodComponent implements OnInit {
   }
 
   ngOnInit() {
-    const currentUser = JSON.parse(this.localStorage.getItem('user'));
+    const currentUser = this.localStorage.getItem('user');
     if (currentUser !== null) {
       this.openLoadDialog();
-      this.foodService.getFood(currentUser.uid).subscribe((data) => {
+      this.foodService.getFood(currentUser['uid']).subscribe((data) => {
       this.foods = [];
       data.forEach((element) => {
         // tslint:disable-next-line:no-shadowed-variable

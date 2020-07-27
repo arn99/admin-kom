@@ -218,10 +218,9 @@ strong {
     }
 }
 
-:host ::ng-deep .carousel-indicators.ng-star-inserted {
-    box-shadow: 0 1px 3px 0 #f44336, 0 1px 1px 0 #f44336, 0 2px 1px -1px #f44336;
-    overflow: visible;
-    height: 40px;
-    border-radius: 100px;
-    left: 35%;
+:host ::ng-deep .owl-carousel .owl-item img {
+    display: block;
+    width: 100%;
+    max-width: 75%;
+    max-height: 300px;
 }

@@ -1,15 +1,17 @@
 import { UserInterface } from './../../models/user.model';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { District } from '../../models/district.model';
+import { District } from 'src/app/models/district.model';
 import { Observable } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { startWith, map } from 'rxjs/operators';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
 import * as Districts from './../../models/district.model';
 import { Router } from '@angular/router';
+import { LocalStorage } from 'src/app/utils/local-storage';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -25,9 +27,19 @@ export class AccountComponent {
   districts: District[]  = Districts.districts;
   district: string;
   private formSubmitAttempt: boolean;
+  private localStorage: Storage;
   constructor(public authService: AuthService, public router: Router, private fb: FormBuilder, public dialog: MatDialog) {
-    const userData = JSON.parse(localStorage.getItem('user'));
-    if (userData !== null) {
+    this.localStorage = new LocalStorage();
+    AppComponent.isBrowser.subscribe(isBrowser => {
+      if (isBrowser) {
+        this.localStorage = localStorage;
+      }
+    });
+    const userData = this.localStorage.getItem('user');
+    console.log(userData);
+    console.log('userData');
+    if (userData !== null || userData !== undefined) {
+      console.log(userData);
       this.user = {
         uid: userData['uid'],
         email: userData['email'],
@@ -37,6 +49,8 @@ export class AccountComponent {
         emailVerified: userData['emailVerified'],
       };
     } else {
+      
+      console.log('toast');
       this.router.navigate(['sign-up']);
     }
     this.form = this.fb.group({

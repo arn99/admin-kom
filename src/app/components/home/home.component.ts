@@ -1,5 +1,5 @@
 import { InstallModalComponent } from './../install-modal/install-modal.component';
-import { FoodService } from '../../services/food.service';
+import { FoodService } from 'src/app/services/food.service';
 
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
@@ -7,23 +7,14 @@ import { ShopCartComponent } from '../shop-cart-modal/shop-cart.component';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as Category from './../../models/category.model';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
-  checkSearchText: boolean;
-  searchText: string;
-  foods: any[];
-  specialFoods: any[];
-  burkinabeFoods: any[];
-  keyword = 'name';
-  subscription: Subscription;
-  subscriptionRout: Subscription;
-  categories: Category.Category[];
-  deferredPrompt: any;
-
   constructor(public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
@@ -37,6 +28,42 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
     });
     this.categories = Category.categories;
    }
+  checkSearchText: boolean;
+  searchText: string;
+  foods: any[];
+  specialFoods: any[];
+  burkinabeFoods: any[];
+  keyword = 'name';
+  subscription: Subscription;
+  subscriptionRout: Subscription;
+  categories: Category.Category[];
+  deferredPrompt: any;
+  images: any;
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
+    autoplay: true,
+    navSpeed: 3500,
+    nav: true,
+    navText: ['pre', 'nex'],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      }
+    },
+  };
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

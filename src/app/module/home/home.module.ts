@@ -8,6 +8,7 @@ import { FoodFilterPipe } from '../../pipes/filter.pipe';
 import { MaterialModule } from '../shared/material.module';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import {MatMenuModule} from '@angular/material/menu';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [HomeComponent,
@@ -18,6 +19,7 @@ import {MatMenuModule} from '@angular/material/menu';
   imports: [
     CommonModule,
     MatMenuModule,
+    CarouselModule,
     MatCarouselModule.forRoot(),
     MaterialModule,
     HomeRoutingModule,

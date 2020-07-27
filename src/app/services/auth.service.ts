@@ -4,9 +4,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
-
-import { AppComponent } from '../app.component';
 import { LocalStorage } from '../utils/local-storage';
+import { AppComponent } from '../app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -106,7 +105,7 @@ export class AuthService {
 
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
-    const user = JSON.parse(this.localStorage.getItem('user'));
+    const user = this.localStorage.getItem('user');
     return (user !== null) ? true : false;
   }
   // Auth logic to run providers

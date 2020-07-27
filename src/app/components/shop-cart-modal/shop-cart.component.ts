@@ -2,8 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { LocalService } from 'src/app/services/local.service';
 import { FoodService } from 'src/app/services/food.service';
-import { AppComponent } from 'src/app/app.component';
 import { LocalStorage } from 'src/app/utils/local-storage';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-shop-cart',
   templateUrl: './shop-cart.component.html',

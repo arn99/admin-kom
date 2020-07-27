@@ -1,11 +1,12 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { LoadingComponent } from './../loading/loading.component';
 import { DataService } from './../../services/data.service';
 import { Component, Inject } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { Food } from '../../models/food.model';
+import { Food } from 'src/app/models/food.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FoodService } from '../../services/food.service';
+import { FoodService } from 'src/app/services/food.service';
 import * as firebase from 'firebase';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
 import { LocalStorage } from 'src/app/utils/local-storage';
@@ -67,7 +68,7 @@ export class AddFoodComponent {
     });
   }
 
-  resetForm() {
+  resetForm(form: FormGroup) {
     this.prepareForm();
   }
   updateFood(food) {
@@ -78,7 +79,7 @@ export class AddFoodComponent {
     this.openDialog();
 
     try {
-      this.foodService.updateFood(this.data).then(() => {
+      this.foodService.updateFood(this.data).then((result) => {
           this.openDialogSuccess( {message: 'Plat mise à jour avec succès',
             key: '',
             thanks: ''});
@@ -99,7 +100,7 @@ export class AddFoodComponent {
           return snapshot.ref.getDownloadURL();   // Will return a promise with the download link
       })
       .then(downloadURL => {
-        const currentUser = JSON.parse(this.localStorage.getItem('user'));
+        const currentUser = this.localStorage.getItem('user');
         if (currentUser !== null) {
           const food = {
           category : customerData['category'],
@@ -108,8 +109,8 @@ export class AddFoodComponent {
           price : customerData['price'],
           id : this.dataService.Genkey(8),
           imagePath: downloadURL,
-          restaurant: currentUser.displayName,
-          user: currentUser.uid
+          restaurant: currentUser['displayName'],
+          user: currentUser['uid']
         };
           this.foodService.createFood(food);
           this.openDialogSuccess( {message: 'Plat ajouter avec succès',
@@ -126,7 +127,7 @@ export class AddFoodComponent {
     const inputNode: any = document.querySelector('#file');
     if (typeof (FileReader) !== 'undefined') {
       const reader = new FileReader();
-      reader.onload = () => {
+      reader.onload = (e: any) => {
       };
       reader.readAsArrayBuffer(inputNode.files[0]);
     }
@@ -137,7 +138,7 @@ export class AddFoodComponent {
       data: data
     });
 
-    dialogRef.afterClosed().subscribe(() => {
+    dialogRef.afterClosed().subscribe(result => {
       this.dialog.closeAll();
     });
   }
