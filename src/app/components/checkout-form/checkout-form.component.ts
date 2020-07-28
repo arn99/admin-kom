@@ -160,24 +160,26 @@ export class CheckoutFormComponent implements OnInit {
                     }
                     this.localService.setJsonValue('orders', orderTab);
                   } else {
-                    alert('Erreur dela commander reessayez');
+                    alert('Erreur dela commander 1 reessayez');
                   }
-                }).catch(() => {
-                  alert('Erreur dela commander reessayez');
+                }).catch((e) => {
+                  console.log(e);
+                  alert('Erreur dela commander 2 reessayez');
                 }) ;
               } catch (error) {
                 console.log(error);
-                alert('Erreur dela commander reessayez');
+                alert('Erreur dela commander 3 reessayez');
               }
             });
             this.localService.setJsonValue('test', []);
+            console.log(this.localService.getJsonValue('orders'));
             this.openDialog( {message: 'Commande effectuer avec succes! Lidentifiant de votre commande: ',
             key: this.localService.getJsonValue('orders')[this.localService.getJsonValue('orders').length - 1].id,
             thanks: 'Merci pour la confiance'});
             this.foodService.newUpdate2(0);
           } catch (error) {
             console.log(error);
-            alert('Erreur dela commander reessayez');
+            alert('Erreur de la 4 commander reessayez');
           }
         }
       } catch (err) {
