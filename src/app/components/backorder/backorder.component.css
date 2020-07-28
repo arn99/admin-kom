@@ -5,3 +5,7 @@ table {
   tr.mat-footer-row {
     font-weight: bold;
   }
+  .container {
+    margin-top: 10%;
+    margin-bottom: 10%;
+}

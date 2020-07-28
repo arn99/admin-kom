@@ -39,15 +39,15 @@
               </mat-error> 
             </mat-form-field>
             <mat-form-field class="full">
-                <input matInput type="password" placeholder="Confirmez voter mot de passe" formControlName="confirmPassword" [errorStateMatcher]="matcher">
+                <input matInput type="password" placeholder="Confirmez votre mot de passe" formControlName="confirmPassword" [errorStateMatcher]="matcher">
                   <mat-error *ngIf="form.hasError('notSame')">
-                    Le mot de passe doit etre identique
+                    Le mot de passe doit être identique
                 </mat-error>  
             </mat-form-field>
           </div>
-                <button mat-raised-button color="warn">Creer</button>
+                <button mat-raised-button color="warn">Créer</button>
                 <div class="sigin-link">
-                  <a routerLink="/sign-in">J'ai deja un compte?</a>
+                  <a routerLink="/sign-in">J'ai déja un compte ?</a>
                 </div>
                 <br>
                 <div>
