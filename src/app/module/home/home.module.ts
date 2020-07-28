@@ -8,6 +8,7 @@ import { FoodFilterPipe } from 'src/app/pipes/filter.pipe';
 import { MaterialModule } from '../shared/material.module';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import {MatMenuModule} from '@angular/material/menu';
+import {LazyLoadImageModule} from 'ng-lazyload-image';
 
 @NgModule({
   declarations: [HomeComponent,
@@ -16,6 +17,7 @@ import {MatMenuModule} from '@angular/material/menu';
                 PriceCalculatePipe
   ],
   imports: [
+    LazyLoadImageModule,
     CommonModule,
     MatMenuModule,
     MatCarouselModule.forRoot(),

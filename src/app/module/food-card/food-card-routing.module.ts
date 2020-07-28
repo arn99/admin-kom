@@ -1,6 +1,6 @@
-import { FoodCardComponent } from './../../components/food-card/food-card.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { FoodCardComponent } from 'src/app/components/food-card/food-card.component';
 
 
 const routes: Routes = [
