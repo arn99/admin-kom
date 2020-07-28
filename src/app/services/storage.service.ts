@@ -10,11 +10,9 @@ const SECRET_KEY = 'm key secret';
 })
 export class StorageService {
 
-  private storage: any;
   public secureStorage: any;
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
-      this.storage = localStorage;
         this.secureStorage = new SecureStorage(localStorage, {
           hash: function hash(key) {
             key = CryptoJS.SHA256(key, SECRET_KEY);

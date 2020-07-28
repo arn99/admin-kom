@@ -37,7 +37,7 @@ export class OrderDeliverComponent {
   }
   getOrders() {
     this.openLoadDialog('Chargement des commandes');
-    const currentUser = this.localStorage.getItem('user');
+    const currentUser = JSON.parse(this.localStorage.getItem('user'));
     if (currentUser !== null) {
       this.ordersService.getDelivererOrders().subscribe((data) => {
       this.orders = [];

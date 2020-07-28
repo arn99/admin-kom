@@ -1,6 +1,6 @@
 import { UserInterface } from './../../models/user.model';
 import { FoodService } from 'src/app/services/food.service';
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { LocalService } from 'src/app/services/local.service';
@@ -10,6 +10,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { BottomNavItem } from 'ngx-bottom-nav';
 import { LocalStorage } from 'src/app/utils/local-storage';
 import { AppComponent } from 'src/app/app.component';
+import { isPlatformBrowser } from '@angular/common';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -27,7 +28,8 @@ export class HeaderComponent implements  OnDestroy {
   @ViewChild('sidenav') sidenav: MatSidenav;
   items: BottomNavItem[];
   private localStorage: Storage;
-  constructor(public authService: AuthService, public foodService: FoodService,
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,
+              public authService: AuthService, public foodService: FoodService,
               private router: Router,
               private localService: LocalService) {
                 this.localStorage = new LocalStorage();
@@ -37,10 +39,20 @@ export class HeaderComponent implements  OnDestroy {
                   }
                 });
                 let userProfile: UserInterface;
-                if (this.localStorage.getItem('user') !== undefined) {
-                  userProfile = JSON.parse(this.localStorage.getItem('user'));
-                } else {
-                  userProfile = null;
+                if (isPlatformBrowser(this.platformId)) {
+                    if (this.localStorage.getItem('user') !== undefined || this.localStorage.getItem('user') !== null) {
+                      console.log(this.localStorage.getItem('user'));
+                      userProfile = JSON.parse(this.localStorage.getItem('user'));
+                    } else {
+                      userProfile = null;
+                    }
+                  } else {
+                      if (this.localStorage.getItem('user') === undefined || this.localStorage.getItem('user') === 'null') {
+                        userProfile = null;
+                      } else {
+                        console.log(this.localStorage.getItem('user'));
+                        userProfile = JSON.parse(this.localStorage.getItem('user'));
+                      }
                 }
                 this.checkRole(userProfile);
     this.itemNumber = this.getOrderItemNumberFromFoodList(this.localService.getJsonValue('test'));

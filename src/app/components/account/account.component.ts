@@ -29,7 +29,6 @@ export class AccountComponent implements OnInit {
   private formSubmitAttempt: boolean;
   private localStorage: Storage;
   constructor(public authService: AuthService, public router: Router, private fb: FormBuilder, public dialog: MatDialog) {
-    console.log('testera');
     this.localStorage = new LocalStorage();
     AppComponent.isBrowser.subscribe(isBrowser => {
       if (isBrowser) {
@@ -49,10 +48,8 @@ export class AccountComponent implements OnInit {
     );
   }
   ngOnInit(): void {
-    const userData = this.localStorage.getItem('user');
-    console.log(userData);
-    console.log('userData');
-    if (userData !== null || userData !== undefined) {
+    const userData = JSON.parse(this.localStorage.getItem('user'));
+    if (userData !== null ) {
       console.log(userData);
       this.user = {
         uid: userData['uid'],
@@ -63,7 +60,6 @@ export class AccountComponent implements OnInit {
         emailVerified: userData['emailVerified'],
       };
     } else {
-      console.log('toast');
       this.router.navigate(['sign-up']);
     }
   }

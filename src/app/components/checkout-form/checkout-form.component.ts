@@ -15,6 +15,7 @@ import { LocalService } from 'src/app/services/local.service';
 import { District } from './../../models/district.model';
 import { LocalStorage } from 'src/app/utils/local-storage';
 import { AppComponent } from 'src/app/app.component';
+import { FoodService } from 'src/app/services/food.service';
 @Component({
   selector: 'app-checkout-form',
   templateUrl: './checkout-form.component.html',
@@ -31,6 +32,7 @@ export class CheckoutFormComponent implements OnInit {
   livraison = 0;
   private localStorage: Storage;
   constructor(public dialogRef: MatDialogRef<CheckoutFormComponent>,
+    public foodService: FoodService,
     @Inject(MAT_DIALOG_DATA) public data: any [],
     private fb: FormBuilder,
     private orderService: OrderService,
@@ -172,7 +174,7 @@ export class CheckoutFormComponent implements OnInit {
             this.openDialog( {message: 'Commande effectuer avec succes! Lidentifiant de votre commande: ',
             key: this.localService.getJsonValue('orders')[this.localService.getJsonValue('orders').length - 1].id,
             thanks: 'Merci pour la confiance'});
-             // this.dialog.closeAll();
+            this.foodService.newUpdate2(0);
           } catch (error) {
             console.log(error);
             alert('Erreur dela commander reessayez');
