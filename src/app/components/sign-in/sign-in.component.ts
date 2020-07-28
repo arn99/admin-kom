@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LoadingComponent } from '../loading/loading.component';
 
@@ -13,6 +13,8 @@ import { LoadingComponent } from '../loading/loading.component';
 export class SignInComponent implements OnInit {
   form: FormGroup;
   public loginInvalid: boolean;
+  private formSubmitAttempt: boolean;
+  private returnUrl: string;
   loadDialog: any;
   constructor(private fb: FormBuilder,
     public dialog: MatDialog,
@@ -31,6 +33,7 @@ export class SignInComponent implements OnInit {
   }
   async onSubmit() {
     this.loginInvalid = false;
+    this.formSubmitAttempt = false;
     if (this.form.valid) {
       try {
         this.openDialog();
@@ -43,6 +46,7 @@ export class SignInComponent implements OnInit {
         this.dialog.closeAll();
       }
     } else {
+      this.formSubmitAttempt = true;
       this.dialog.closeAll();
     }
   }

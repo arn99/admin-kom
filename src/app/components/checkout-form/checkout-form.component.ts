@@ -1,17 +1,20 @@
 import { SuccessModalComponent } from './../success-modal/success-modal.component';
 import { OrderService } from './../../services/order.service';
-import { Food } from '../../models/food.model';
+import { Food } from 'src/app/models/food.model';
 import { LocationData } from './../../models/location-data';
 import * as Districts from './../../models/district.model';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import { Customer } from '../../models/customer.model';
-import { DataService } from '../../services/data.service';
-import { LocalService } from '../../services/local.service';
+import { Customer } from 'src/app/models/customer.model';
+import { DataService } from 'src/app/services/data.service';
+import { LocalService } from 'src/app/services/local.service';
 import { District } from './../../models/district.model';
+import { LocalStorage } from 'src/app/utils/local-storage';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-checkout-form',
   templateUrl: './checkout-form.component.html',
@@ -26,7 +29,7 @@ export class CheckoutFormComponent implements OnInit {
   districts: District[]  = Districts.districts;
   district: string;
   livraison = 0;
-
+  private localStorage: Storage;
   constructor(public dialogRef: MatDialogRef<CheckoutFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any [],
     private fb: FormBuilder,
@@ -35,6 +38,12 @@ export class CheckoutFormComponent implements OnInit {
     private localService: LocalService,
     public dialog: MatDialog
     ) {
+      this.localStorage = new LocalStorage();
+    AppComponent.isBrowser.subscribe(isBrowser => {
+      if (isBrowser) {
+        this.localStorage = localStorage;
+      }
+    });
       this.form = this.fb.group({
         username: ['', [Validators.required, Validators.minLength(3)]],
         payment: ['', [Validators.required]],
@@ -109,7 +118,6 @@ export class CheckoutFormComponent implements OnInit {
                                 numberOfItem: 10
                               };
           try {
-            const resto = JSON.parse(localStorage.getItem('user'));
             this.data.forEach((item) => {
               const data = {
                   clientLocation: clientLocation,

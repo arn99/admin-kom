@@ -1,18 +1,36 @@
 import { InstallModalComponent } from './../install-modal/install-modal.component';
-import { FoodService } from '../../services/food.service';
+import { FoodService } from 'src/app/services/food.service';
 
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { ShopCartComponent } from '../shop-cart-modal/shop-cart.component';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as Category from './../../models/category.model';
+import { isPlatformBrowser } from '@angular/common';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private foodService: FoodService,
+    private cdr: ChangeDetectorRef,
+    ) {
+    this.getFoods();
+    this.searchText = '';
+    this.checkSearchText = false;
+    this.subscription = this.foodService.getCategorySelectNotification().subscribe(message => {
+     this.searchText = message;
+    });
+    this.categories = Category.categories;
+   }
+   autoPlay: boolean;
   checkSearchText: boolean;
   searchText: string;
   foods: any[];
@@ -23,25 +41,18 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
   subscriptionRout: Subscription;
   categories: Category.Category[];
   deferredPrompt: any;
-
-  constructor(public dialog: MatDialog,
-    private route: ActivatedRoute,
-    private router: Router,
-    private foodService: FoodService,
-    private cdr: ChangeDetectorRef) {
-    this.getFoods();
-    this.searchText = '';
-    this.checkSearchText = false;
-    this.subscription = this.foodService.getCategorySelectNotification().subscribe(message => {
-     this.searchText = message;
-    });
-    this.categories = Category.categories;
-   }
+  images: any;
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+     this.autoPlay = true;
+
+    } else {
+    this.autoPlay = false;
+   }
     this.subscriptionRout = this.route
       .queryParams
       .subscribe(params => {
@@ -94,7 +105,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
   }
   getNotificaton(item) {
     this.searchText = item.name;
-    console.log(this.foods);
   }
   onBeforeinstallprompt(ev) {
     this.deferredPrompt = ev;

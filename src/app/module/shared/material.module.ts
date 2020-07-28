@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import {FormsModule} from '@angular/forms';
-import {LazyLoadImageModule,  ScrollHooks } from 'ng-lazyload-image';
 import { MatIconModule } from '@angular/material/icon';
 import {ReactiveFormsModule} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -37,7 +36,6 @@ const materialModules = [
     MatProgressSpinnerModule,
   ReactiveFormsModule,
   MatAutocompleteModule,
-  LazyLoadImageModule.forRoot(ScrollHooks)
 ];
 
 @NgModule({

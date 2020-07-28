@@ -1,21 +1,23 @@
 import { UserInterface } from './../../models/user.model';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { District } from '../../models/district.model';
+import { District } from 'src/app/models/district.model';
 import { Observable } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { startWith, map } from 'rxjs/operators';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
 import * as Districts from './../../models/district.model';
 import { Router } from '@angular/router';
+import { LocalStorage } from 'src/app/utils/local-storage';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
-export class AccountComponent {
+export class AccountComponent implements OnInit {
   user: UserInterface;
   loadDialog: any;
   form: FormGroup;
@@ -25,20 +27,15 @@ export class AccountComponent {
   districts: District[]  = Districts.districts;
   district: string;
   private formSubmitAttempt: boolean;
+  private localStorage: Storage;
   constructor(public authService: AuthService, public router: Router, private fb: FormBuilder, public dialog: MatDialog) {
-    const userData = JSON.parse(localStorage.getItem('user'));
-    if (userData !== null) {
-      this.user = {
-        uid: userData['uid'],
-        email: userData['email'],
-        phoneNumber: userData['phoneNumber'],
-        displayName: userData['displayName'],
-        district: userData['district'],
-        emailVerified: userData['emailVerified'],
-      };
-    } else {
-      this.router.navigate(['sign-up']);
-    }
+    console.log('testera');
+    this.localStorage = new LocalStorage();
+    AppComponent.isBrowser.subscribe(isBrowser => {
+      if (isBrowser) {
+        this.localStorage = localStorage;
+      }
+    });
     this.form = this.fb.group({
       restoName: ['', [Validators.required, Validators.minLength(3)]],
       numero: ['', [Validators.required, Validators.maxLength(9), Validators.pattern('[0-9]{8}')]]
@@ -51,10 +48,32 @@ export class AccountComponent {
       map(name => name ? this._filterDistricts(name) : this.districts.slice())
     );
   }
+  ngOnInit(): void {
+    const userData = this.localStorage.getItem('user');
+    console.log(userData);
+    console.log('userData');
+    if (userData !== null || userData !== undefined) {
+      console.log(userData);
+      this.user = {
+        uid: userData['uid'],
+        email: userData['email'],
+        phoneNumber: userData['phoneNumber'],
+        displayName: userData['displayName'],
+        district: userData['district'],
+        emailVerified: userData['emailVerified'],
+      };
+    } else {
+      console.log('toast');
+      this.router.navigate(['sign-up']);
+    }
+  }
 
   private _filterDistricts(value: string): District[] {
-    const filterValue = value.toLowerCase();
-    return this.districts.filter(district => district.name.toLowerCase().indexOf(filterValue) === 0);
+    if (value !== undefined || value !== null) {
+      const filterValue = value.toLowerCase();
+      return this.districts.filter(district => district.name.toLowerCase().indexOf(filterValue) === 0);
+    }
+
   }
   getDistrict(district: District) {
     try {

@@ -1,13 +1,16 @@
 import { MapsComponent } from '../maps/maps.component';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Order } from '../../models/order.model';
 import { OrderService } from '../../services/order.service';
 import {MatDialog} from '@angular/material/dialog';
+import { AuthService } from 'src/app/services/auth.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
+import { LocalStorage } from 'src/app/utils/local-storage';
+import { AppComponent } from 'src/app/app.component';
 
 
 @Component({
@@ -24,17 +27,24 @@ export class BackorderComponent implements OnInit {
   dataSource: MatTableDataSource<Order>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  private localStorage: Storage;
   constructor(private ordersService: OrderService, public dialog: MatDialog) {
+    this.localStorage = new LocalStorage();
+    AppComponent.isBrowser.subscribe(isBrowser => {
+      if (isBrowser) {
+        this.localStorage = localStorage;
+      }
+    });
     this.getOrders();
   }
 
   ngOnInit() {
   }
   getOrders() {
-    this.openLoadDialog();
-    const currentUser = JSON.parse(localStorage.getItem('user'));
+    this.openLoadDialog('Chargement des commandes');
+    const currentUser = this.localStorage.getItem('user');
     if (currentUser !== null) {
-      this.ordersService.getOrders(currentUser.uid).subscribe((data) => {
+      this.ordersService.getOrders(currentUser['uid']).subscribe((data) => {
       this.orders = [];
       data.forEach((element) => {
         // tslint:disable-next-line:no-shadowed-variable
@@ -56,11 +66,11 @@ export class BackorderComponent implements OnInit {
   onViewOrder(order) {
     this.order = order;
   }
-  finish(order) {
+  finish(order, index) {
     order['state'] = 'ready';
     try {
       this.openLoadDialog();
-      this.ordersService.updateOrder(order).then(() => {
+      this.ordersService.updateOrder(order).then((result) => {
       }).catch(() => {
         this.dialog.closeAll();
         alert('erreur yoo');
@@ -76,12 +86,12 @@ export class BackorderComponent implements OnInit {
       data: {latitude: location.latitude, longitude: location.longitude}
     });
 
-    dialogRef.afterClosed().subscribe(() => {
+    dialogRef.afterClosed().subscribe(result => {
       this.dialog.closeAll();
     });
   }
 
-  openLoadDialog(): void {
+  openLoadDialog(message?): void {
     this.dialog.open(LoadingComponent, {
     });
   }

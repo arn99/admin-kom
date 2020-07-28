@@ -8,6 +8,8 @@ import {MatDialog} from '@angular/material/dialog';
 import { AddFoodComponent } from '../add-food/add-food.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
+import { AppComponent } from 'src/app/app.component';
+import { LocalStorage } from 'src/app/utils/local-storage';
 
 @Component({
   selector: 'app-food',
@@ -21,14 +23,21 @@ export class FoodComponent implements OnInit {
   foods: any[];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  private localStorage: Storage;
   constructor(private foodService: FoodService, public dialog: MatDialog) {
+    this.localStorage = new LocalStorage();
+    AppComponent.isBrowser.subscribe(isBrowser => {
+      if (isBrowser) {
+        this.localStorage = localStorage;
+      }
+    });
   }
 
   ngOnInit() {
-    const currentUser = JSON.parse(localStorage.getItem('user'));
+    const currentUser = this.localStorage.getItem('user');
     if (currentUser !== null) {
       this.openLoadDialog();
-      this.foodService.getFood(currentUser.uid).subscribe((data) => {
+      this.foodService.getFood(currentUser['uid']).subscribe((data) => {
       this.foods = [];
       data.forEach((element) => {
         // tslint:disable-next-line:no-shadowed-variable

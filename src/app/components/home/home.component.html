@@ -19,8 +19,8 @@
         <div *ngFor="let item of categories" >
           <div class="row btn-item-cat" (click)="getNotificaton(item)">
               <div class="col-md-6 col-4 cat-img justify-content-center">
-                <img [lazyLoad]="item.image"
-                            alt="food" class="rounded-circle img-fluid">
+                <img [lazyLoad] ="item.image | async"
+                            alt="food" class="rounded-circle img-fluid" >
                             <span> {{item.name}} </span>
               </div>
               
@@ -31,8 +31,8 @@
       <div class="carde border-dark">
         <mat-carousel
           timings="250ms ease-in"
-          [autoplay]="true"
-          interval="3500"
+          [autoplay]="autoPlay"
+          interval="5000"
           color="warn"
           maxWidth="auto"
           proportion="49"
@@ -103,7 +103,7 @@
       <div class="offre">
         <div ><h3 class="speciale">Offres spéciales</h3></div>
         <div  class="fast-food row">
-            <div *ngFor="let item of specialFoods | slice:0:8 | foodFilter: searchText" class="col-md-3">
+            <div *ngFor="let item of specialFoods | foodFilter: searchText" class="col-md-3">
               <app-food-card [item] = "item"></app-food-card>
             </div>  
         </div>
@@ -111,7 +111,7 @@
       <div class="offre">
         <div><h3 class="burkinabe">Cuisine burkinabe</h3> </div>
         <div class="fast-food row">
-          <div *ngFor="let item of burkinabeFoods | slice:0:4 | foodFilter: searchText" class="col-md-3">
+          <div *ngFor="let item of burkinabeFoods | foodFilter: searchText" class="col-md-3">
             <app-food-card [item] = "item"></app-food-card>
         </div>    
         </div>

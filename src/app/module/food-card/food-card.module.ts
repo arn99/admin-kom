@@ -1,7 +1,7 @@
 import { MaterialModule } from './../shared/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { LazyLoadImageModule, ScrollHooks } from 'ng-lazyload-image';
 import { FoodCardRoutingModule } from './food-card-routing.module';
 
 
@@ -10,6 +10,7 @@ import { FoodCardRoutingModule } from './food-card-routing.module';
   imports: [
     CommonModule,
     MaterialModule,
+    LazyLoadImageModule,
     FoodCardRoutingModule
   ]
 })

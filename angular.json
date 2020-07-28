@@ -111,7 +111,9 @@
           "options": {
             "outputPath": "dist/admin-kom/server",
             "main": "server.ts",
-            "tsConfig": "src/tsconfig.server.json"
+            "tsConfig": "src/tsconfig.server.json",
+            "externalDependencies": [
+              "@firebase/firestore"]
           },
           "configurations": {
             "production": {

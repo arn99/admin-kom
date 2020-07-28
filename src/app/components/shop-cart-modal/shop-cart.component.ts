@@ -1,7 +1,9 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { LocalService } from '../../services/local.service';
-import { FoodService } from '../../services/food.service';
+import { LocalService } from 'src/app/services/local.service';
+import { FoodService } from 'src/app/services/food.service';
+import { LocalStorage } from 'src/app/utils/local-storage';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-shop-cart',
   templateUrl: './shop-cart.component.html',
@@ -13,10 +15,18 @@ export class ShopCartComponent {
   itemTotal = 0;
   list = [];
   food: any;
+  private localStorage: Storage;
   constructor(public dialogRef: MatDialogRef<ShopCartComponent>,
+                      @Inject(PLATFORM_ID) private platformId: Object,
                       @Inject(MAT_DIALOG_DATA) public data,
                       private localService: LocalService,
                       private foodService: FoodService) {
+                        this.localStorage = new LocalStorage();
+                        AppComponent.isBrowser.subscribe(isBrowser => {
+                          if (isBrowser) {
+                            this.localStorage = localStorage;
+                          }
+                        });
       this.food = data;
       this.foodService.getNotification().subscribe(message => {
       this.itemTotal = message;
