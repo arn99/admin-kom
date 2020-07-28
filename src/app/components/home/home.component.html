@@ -19,7 +19,7 @@
         <div *ngFor="let item of categories" >
           <div class="row btn-item-cat" (click)="getNotificaton(item)">
               <div class="col-md-6 col-4 cat-img justify-content-center">
-                <img [lazyLoad] ="item.image | async"
+                <img [lazyLoad] ="item.image"
                             alt="food" class="rounded-circle img-fluid" >
                             <span> {{item.name}} </span>
               </div>
