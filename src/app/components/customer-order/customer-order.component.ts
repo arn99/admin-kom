@@ -18,7 +18,7 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
 
   displayedColumns = ['Identifiant', 'action'];
   list: MatTableDataSource<any>;
-  tab: any [];
+  tab = [];
   subscription: Subscription;
   currentUser = false;
   currentUserSubscription: Subscription;
