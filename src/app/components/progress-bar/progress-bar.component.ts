@@ -9,6 +9,7 @@ export class ProgressBarComponent {
   @Input() firstStep: string;
   @Input() secondStep: string;
   @Input() thirdStep: string;
+  @Input() fourth: string;
   constructor() {
   }
 
