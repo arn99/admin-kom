@@ -107,16 +107,16 @@ export class AuthService {
     const user = this.localStorage.getItem('user');
     console.log(user);
     if (isPlatformBrowser(this.platformId)) {
-      if (user !== undefined || user !== null ) {
-        return false ;
-      } else {
+      if (user !== undefined && user !== null ) {
         return true ;
+      } else {
+        return false ;
       }
     } else {
         if (user === undefined || user === null ) {
-          return true ;
-        } else {
           return false ;
+        } else {
+          return true ;
         }
 
     }
