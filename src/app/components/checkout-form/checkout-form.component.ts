@@ -16,6 +16,7 @@ import { District } from './../../models/district.model';
 import { LocalStorage } from 'src/app/utils/local-storage';
 import { AppComponent } from 'src/app/app.component';
 import { FoodService } from 'src/app/services/food.service';
+import { LoadingComponent } from '../loading/loading.component';
 @Component({
   selector: 'app-checkout-form',
   templateUrl: './checkout-form.component.html',
@@ -120,6 +121,7 @@ export class CheckoutFormComponent implements OnInit {
                                 numberOfItem: 10
                               };
           try {
+            this.openLoadDialog();
             this.data.forEach((item) => {
               const data = {
                   clientLocation: clientLocation,
@@ -172,11 +174,14 @@ export class CheckoutFormComponent implements OnInit {
               }
             });
             this.localService.setJsonValue('test', []);
-            console.log(this.localService.getJsonValue('orders'));
-            this.openDialog( {message: 'Commande effectuer avec succes! Lidentifiant de votre commande: ',
-            key: this.localService.getJsonValue('orders')[this.localService.getJsonValue('orders').length - 1].id,
-            thanks: 'Merci pour la confiance'});
-            this.foodService.newUpdate2(0);
+            const self = this;
+            setTimeout(function() {
+              console.log(self.localService.getJsonValue('orders'));
+              self.openDialog( {message: 'Commande effectuer avec succes! Lidentifiant de votre commande: ',
+              key: self.localService.getJsonValue('orders')[self.localService.getJsonValue('orders').length - 1].id,
+              thanks: 'Merci pour la confiance'});
+              self.foodService.newUpdate2(0);
+            }, 2000);
           } catch (error) {
             console.log(error);
             alert('Erreur de la 4 commander reessayez');
@@ -197,6 +202,10 @@ export class CheckoutFormComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialog.closeAll();
+    });
+  }
+  openLoadDialog(): void {
+    this.dialog.open(LoadingComponent, {
     });
   }
 }

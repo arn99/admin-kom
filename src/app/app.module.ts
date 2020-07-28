@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {  NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderModule } from './module/header/header.module';
 import { AboutModule } from './module/about/about.module';
 import { AccountModule } from './module/account/account.module';
@@ -56,7 +56,7 @@ const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt()
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    NoopAnimationsModule,
     HeaderModule,
     AboutModule,
     AccountModule,

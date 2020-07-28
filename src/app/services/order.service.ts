@@ -65,9 +65,6 @@ export class OrderService {
         return false;
       });
   }
-  saveOrders() {
-    firebase.database().ref('/orders').set(this.orders);
-  }
   getOrderById (id) {
     return this.firestore.collection('orders').doc(id).valueChanges();
   }

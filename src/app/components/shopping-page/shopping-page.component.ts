@@ -14,7 +14,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
 
   displayedColumns = ['item', 'cost', 'number', 'action'];
   list: MatTableDataSource<any>;
-  tab: any [];
+  tab = [];
   livraison = 0;
   subscription: Subscription;
   constructor(public dialog: MatDialog, public foodService: FoodService, private localService: LocalService) {

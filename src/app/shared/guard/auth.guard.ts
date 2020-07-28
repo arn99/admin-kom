@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
       isLogggedIn = this.authService.isLoggedIn;
       const self = this;
       setTimeout(function() {
-        if (self.authService.isLoggedIn !== true) {
+        if (isLogggedIn !== true) {
           self
           .router.navigate(['sign-in']);
         }

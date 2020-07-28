@@ -1,11 +1,12 @@
 import { UserInterface } from './../models/user.model';
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, Inject, PLATFORM_ID } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
 import { LocalStorage } from '../utils/local-storage';
 import { AppComponent } from '../app.component';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class AuthService {
   currentUserSubject = new Subject<any>();
   private localStorage: Storage;
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
@@ -34,6 +36,7 @@ export class AuthService {
         this.getUser(user.uid);
         this.userData = user;
         this.getUser(user.uid);
+        console.log(this.userData);
       } else {
         await this.localStorage.setItem('user', null);
         this.newCurrentUserNotification(null);
@@ -102,7 +105,21 @@ export class AuthService {
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = this.localStorage.getItem('user');
-    return (user !== null) ? true : false;
+    console.log(user);
+    if (isPlatformBrowser(this.platformId)) {
+      if (user !== undefined || user !== null ) {
+        return false ;
+      } else {
+        return true ;
+      }
+    } else {
+        if (user === undefined || user === null ) {
+          return true ;
+        } else {
+          return false ;
+        }
+
+    }
   }
   // Auth logic to run providers
   AuthLogin(provider) {
