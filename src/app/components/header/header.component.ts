@@ -16,6 +16,9 @@ export class HeaderComponent implements  OnDestroy {
 
   subscription: Subscription;
   subscriptionMinus: Subscription;
+  isResto: boolean;
+  isDeliver: boolean;
+  isUser: boolean;
   itemNumber = 0;
   categories = [];
   isShowing: boolean;
@@ -68,6 +71,9 @@ export class HeaderComponent implements  OnDestroy {
  }
  checkRole(message) {
   if (message !== null && message.roles && message.roles.includes('resto')) {
+    this.isResto = true;
+    this.isDeliver = false;
+    this.isUser = false;
     this.items = [
       {icon: 'home', label: 'Accueil', routerLink: ''},
       {icon: 'restaurant', label: 'Mes plats', routerLink: 'food'},
@@ -75,6 +81,9 @@ export class HeaderComponent implements  OnDestroy {
       {icon: 'account_circle', label: 'Compte', routerLink: 'account'},
     ];
   } else if (message !== null && message.roles && message.roles.includes('deliverer')) {
+    this.isResto = false;
+    this.isDeliver = true;
+    this.isUser = false;
     this.items = [
       {icon: 'home', label: 'Accueil', routerLink: ''},
       {icon: 'menu_book', label: 'Livraison', routerLink: 'order/deliverer'},
@@ -82,6 +91,9 @@ export class HeaderComponent implements  OnDestroy {
       {icon: 'library_books', label: 'A Propos', routerLink: 'about'},
     ];
   } else {
+    this.isResto = false;
+    this.isDeliver = false;
+    this.isUser = true;
     this.items = [
       {icon: 'home', label: 'Accueil', routerLink: ''},
       {icon: 'restaurant', label: 'Mes Commandes', routerLink: 'my-order'},

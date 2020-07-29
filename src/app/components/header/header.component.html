@@ -15,7 +15,7 @@
         <a mat-button   [routerLink]="['order/waiting']" *ngIf="currentUser !== null"> Commande  <span class="sr-only">(current)</span> </a>
         <!-- <a mat-button  [routerLink]="['order/delivered']" *ngIf="currentUser !== null"> Livrer </a> -->
         
-          <a mat-button  [routerLink]="['my-order']" *ngIf="currentUser === null"> 
+          <a mat-button  [routerLink]="['my-order']" *ngIf="isUser"> 
           Mes commandes 
           </a> 
           <a mat-button  [routerLink]="['sign-up']" *ngIf="currentUser === null"> 
@@ -24,10 +24,10 @@
           <a mat-button  [routerLink]="['about']" *ngIf="currentUser === null"> 
           A propos
           </a> 
-          <a mat-button  [routerLink]="['food']" *ngIf="currentUser !== null"> 
+          <a mat-button  [routerLink]="['food']" *ngIf="isResto"> 
           Mes plats 
           </a> 
-          <a mat-button  [routerLink]="['order/deliverer']" *ngIf="currentUser !== null"> 
+          <a mat-button  [routerLink]="['order/deliverer']" *ngIf="isDeliver"> 
           Livraison 
           </a> 
           <a mat-button  [routerLink]="['account']" *ngIf="currentUser !== null"> 
