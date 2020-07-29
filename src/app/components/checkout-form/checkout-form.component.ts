@@ -164,9 +164,11 @@ export class CheckoutFormComponent implements OnInit {
               }
             });
             this.localService.setJsonValue('test', []);
+            const self = this;
+            const orders = this.localService.getJsonValue('orders');
             setTimeout(function() {
-              this.openDialog( {message: 'Commande effectuer avec succes! Lidentifiant de votre commande: ',
-              key: this.localService.getJsonValue('orders')[this.localService.getJsonValue('orders').length - 1].id,
+              self.openDialog( {message: 'Commande effectuer avec succes! Lidentifiant de votre commande: ',
+              key: orders[orders.length - 1].id,
               thanks: 'Merci pour la confiance'});
             }, 1500);
              // this.dialog.closeAll();
