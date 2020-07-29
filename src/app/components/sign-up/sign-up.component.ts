@@ -84,13 +84,13 @@ export class SignUpComponent implements OnInit {
             password: password,
             district: district,
             phoneNumber: phoneNumber,
-            roles: ['resto']
+            roles: ['resto-waiting']
           };
           try {
             this.authService.SignUp(user).then( result => {
               this.openDialogSuccess( {message: 'Votre compte a été creé avec succès',
               key: '',
-              thanks: 'Nous allons vous recontacter au plus vite afin de finaliser le partenariat'});
+              thanks: 'Nous vous contacterons dès que possible pour finaliser le partenariat'});
             }).catch( error => {
               console.log(error);
               this.dialog.closeAll();

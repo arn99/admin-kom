@@ -5,7 +5,7 @@
         <mat-icon>menu</mat-icon>
       </button>
       <a class="a-logo" mat-button href=""><img class="logo" src="assets/logos/miam/miam2.png" alt="" ></a>
-      <a mat-list-item class="shop-mobile" *ngIf="currentUser === null"  > 
+      <a mat-list-item class="shop-mobile" *ngIf="isUser"  > 
         <mat-icon matBadge={{itemNumber}} [routerLink] = "['order-page']" matBadgeColor="warn">shopping_cart</mat-icon>
       </a> 
       <span class="menu-spacer"></span>
@@ -37,7 +37,7 @@
           <a mat-button   (click)="authService.SignOut()" *ngIf="currentUser !== null" > 
             Deconnexion
           </a>
-            <mat-icon *ngIf="currentUser === null" matBadge={{itemNumber}} [routerLink] = "['order-page']" matBadgeColor="warn">shopping_cart</mat-icon>
+            <mat-icon *ngIf="isUser" matBadge={{itemNumber}} [routerLink] = "['order-page']" matBadgeColor="warn">shopping_cart</mat-icon>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -47,8 +47,8 @@
   <mat-sidenav #sidenav [opened]="isShowing"  >
     <mat-nav-list>
       <a (click)="sidenav.toggle()" href="" class="btn-back" mat-list-item>Retour</a>
-      <div class="restaurant" *ngIf="currentUser === null">
-        <button color="warn" class="btn-resto" mat-menu-item [matMenuTriggerFor]="restaurants" >
+      <div class="restaurant" *ngIf="isUser">
+        <!--<button color="warn" class="btn-resto" mat-menu-item [matMenuTriggerFor]="restaurants" >
           Nos Restaurants
           <span class="material-icons arrow-resto">
             arrow_right_alt
@@ -61,6 +61,7 @@
           <button class="btn-item" mat-menu-item>Birds</button>
           <button class="btn-item" mat-menu-item>Mammals</button>
         </mat-menu>
+        !-->
       </div>
       <div class="restaurant" *ngIf="currentUser === null">
         <button color="warn" class="btn-resto" mat-menu-item [matMenuTriggerFor]="Categories" >

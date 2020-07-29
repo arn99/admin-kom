@@ -1,37 +1,40 @@
-<mat-card>
-    <mat-card-content>
-      <div class="row justify-content-center">
+<div class="container">
 
-        <form  class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-          <div class="form-field">
-
-            <mat-form-field class="full">
-               <mat-label>Nom</mat-label>
-               <input  matInput  placeholder="Nom du restaurant" formControlName="restoName"  name="restoName" [(ngModel)]="user.displayName"  required>
-            </mat-form-field>
-            <mat-form-field class="fill">
-                <mat-label>Numero de téléphone</mat-label>
-                <input matInput type="number" placeholder="Numero" [(ngModel)]="user.phoneNumber" formControlName="numero" required>
-                <mat-error>
-                  Le numero doit avoir 8 chiffres
-                </mat-error>
+  <mat-card>
+      <mat-card-content>
+        <div class="row justify-content-center">
+  
+          <form  class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-field">
+  
+              <mat-form-field class="full">
+                 <mat-label>Nom</mat-label>
+                 <input  matInput  placeholder="Nom du restaurant" formControlName="restoName"  name="restoName" [(ngModel)]="user.displayName"  required>
               </mat-form-field>
-              <br>
-            <mat-form-field class="fill">
-                <mat-label>Adresse</mat-label>
-                <input type="text" matInput [(ngModel)]="district"  [formControl]="districtControl" [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete"  [displayWith]="getDistrict">
-                  <mat-option *ngFor="let option of filteredDistricts | async" [value]="option">
-                    {{option.name}}
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-          </div>
-            <div class="row justify-content-center">
-              <button class="back" mat-raised-button routerLink=''> Annuler </button>
-              <button class="submit" mat-raised-button color="warn">Modifier</button>
+              <mat-form-field class="fill">
+                  <mat-label>Numero de téléphone</mat-label>
+                  <input matInput type="number" placeholder="Numero" [(ngModel)]="user.phoneNumber" formControlName="numero" required>
+                  <mat-error>
+                    Le numero doit avoir 8 chiffres
+                  </mat-error>
+                </mat-form-field>
+                <br>
+              <mat-form-field class="fill">
+                  <mat-label>Adresse</mat-label>
+                  <input type="text" matInput [(ngModel)]="district"  [formControl]="districtControl" [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete"  [displayWith]="getDistrict">
+                    <mat-option *ngFor="let option of filteredDistricts | async" [value]="option">
+                      {{option.name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
             </div>
-         </form>
-      </div>
-    </mat-card-content>
-</mat-card>
+              <div class="row justify-content-center">
+                <button class="back" mat-raised-button routerLink=''> Annuler </button>
+                <button class="submit" mat-raised-button color="warn">Modifier</button>
+              </div>
+           </form>
+        </div>
+      </mat-card-content>
+  </mat-card>
+</div>

@@ -88,7 +88,7 @@ export class CustomerSignUpComponent {
 
               this.openDialogSuccess( {message: 'Votre compte a été creé avec succès',
               key: '',
-              thanks: 'Nous allons vous recontacter au plus vite afin de finaliser le partenariat'});
+              thanks: 'Vous pouvez vous connecter maintenant'});
             }).catch( error => {
               console.log(error);
               this.dialog.closeAll();

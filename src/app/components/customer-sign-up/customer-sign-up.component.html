@@ -6,7 +6,7 @@
           <div class="form-field">
 
             <mat-form-field class="full">
-               <mat-label>Nom du restaurant</mat-label>
+               <mat-label>Nom d'utilisateur</mat-label>
                <input  matInput  placeholder="Nom du restaurant" formControlName="restoName"  name="restoName"  required>
             </mat-form-field>
             <mat-form-field class="fill">
@@ -46,6 +46,9 @@
             </mat-form-field>
           </div>
                 <button mat-raised-button color="warn">Créer</button>
+                <div class="partenaire">
+                  <a mat-raised-button class="part-a" routerLink="/sign-up-resto"> Devenir partenaire</a>
+                </div>
                 <div class="sigin-link">
                   <a routerLink="/sign-in">J'ai déja un compte ?</a>
                 </div>

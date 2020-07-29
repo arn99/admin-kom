@@ -21,13 +21,13 @@ mat-card {
 @media ( max-width: 576px ) {
   .form-field {
     overflow: auto;
-    height: 400px;
+    height: 250px;
   }
 }
 @media all and ( min-width:576px ) {
   .form-field {
     overflow: auto;
-    height: 400px;
+    height: 250px;
   }
 }
 form{
@@ -35,6 +35,15 @@ form{
 }
 .sigin-link {
   margin-top: 10px;
+}
+.partenaire {
+  margin-top: 3%;
+}
+.part-a {
+  background-color: black;
+    font-size: 120%;
+    font-weight: bold;
+    color: white;
 }
 .mat-form-field-appearance-legacy .mat-form-field-infix {
   margin: 10%;
