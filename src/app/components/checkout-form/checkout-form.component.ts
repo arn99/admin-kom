@@ -13,6 +13,7 @@ import { Customer } from 'src/app/models/customer.model';
 import { DataService } from 'src/app/services/data.service';
 import { LocalService } from 'src/app/services/local.service';
 import { District } from './../../models/district.model';
+import { LoadingComponent } from '../loading/loading.component';
 @Component({
   selector: 'app-checkout-form',
   templateUrl: './checkout-form.component.html',
@@ -110,6 +111,7 @@ export class CheckoutFormComponent implements OnInit {
                                 numberOfItem: 10
                               };
           try {
+            this.openLoadDialog();
             const resto = JSON.parse(localStorage.getItem('user'));
             this.data.forEach((item) => {
               const data = {
@@ -162,9 +164,11 @@ export class CheckoutFormComponent implements OnInit {
               }
             });
             this.localService.setJsonValue('test', []);
-            this.openDialog( {message: 'Commande effectuer avec succes! Lidentifiant de votre commande: ',
-            key: this.localService.getJsonValue('orders')[this.localService.getJsonValue('orders').length - 1].id,
-            thanks: 'Merci pour la confiance'});
+            setTimeout(function() {
+              this.openDialog( {message: 'Commande effectuer avec succes! Lidentifiant de votre commande: ',
+              key: this.localService.getJsonValue('orders')[this.localService.getJsonValue('orders').length - 1].id,
+              thanks: 'Merci pour la confiance'});
+            }, 1500);
              // this.dialog.closeAll();
           } catch (error) {
             console.log(error);
@@ -186,6 +190,10 @@ export class CheckoutFormComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialog.closeAll();
+    });
+  }
+  openLoadDialog(message?): void {
+    this.dialog.open(LoadingComponent, {
     });
   }
 }
