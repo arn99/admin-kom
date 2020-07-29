@@ -61,7 +61,10 @@ const routes: Routes = [
   { path: 'verify-email-address',
   loadChildren : () => import('./module/verify-email-adress/verify-email-adress.module').then(m => m.VerifyEmailAdressModule),
   },
-  { path: '**', redirectTo: '' }
+  { path: '404',
+  loadChildren : () => import('./module/not-found/not-found.module').then(m => m.NotFoundModule),
+  },
+ {path: '**', redirectTo: '/404'}
 
 ];
 
