@@ -22,14 +22,6 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   currentUser = false;
   currentUserSubscription: Subscription;
-  transactions = [
-    {item: 'Beach ball', cost: 4},
-    {item: 'Towel', cost: 5},
-    {item: 'Frisbee', cost: 2},
-    {item: 'Sunscreen', cost: 4},
-    {item: 'Cooler', cost: 25},
-    {item: 'Swim suit', cost: 15},
-  ];
   constructor(public authService: AuthService,
     public dialog: MatDialog, public foodService: FoodService, private localService: LocalService) {
     if (this.getLocalStorage() !== null) {
@@ -44,8 +36,6 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
         this.list = message;
       }
     });
-  }
-  ngOnInit(): void {
     this.currentUserSubscription = this.authService.getCurrentNotification().subscribe( message => {
       if (message !== null && message.roles && message.roles.includes('customer')) {
         this.currentUser = true;
@@ -53,6 +43,8 @@ export class CustomerOrderComponent implements OnInit, OnDestroy {
         this.currentUser = false;
       }
     });
+  }
+  ngOnInit(): void {
   }
   ngOnDestroy(): void {
     if (this.subscription) {

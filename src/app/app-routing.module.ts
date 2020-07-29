@@ -33,7 +33,7 @@ const routes: Routes = [
   },
   { path: 'my-order',
     loadChildren : () => import('./module/customer-order/customer-order.module').then(m => m.CustomerOrderModule),
-    canActivate: [AuthGuard] },
+    },
   { path: 'back-order',
   loadChildren : () => import('./module/backorder/backorder.module').then(m => m.BackorderModule),
   canActivate: [AuthGuard] },

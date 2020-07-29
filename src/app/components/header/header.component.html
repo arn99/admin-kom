@@ -12,7 +12,7 @@
       <div fxShow="true" fxHide.lt-md>
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
         <a mat-button   [routerLink]="['/']"> Accueil  <span class="sr-only">(current)</span> </a>
-        <a mat-button   [routerLink]="['order/waiting']" *ngIf="currentUser !== null"> Commande  <span class="sr-only">(current)</span> </a>
+        <a mat-button   [routerLink]="['order/waiting']" *ngIf="isResto"> Commande  <span class="sr-only">(current)</span> </a>
         <!-- <a mat-button  [routerLink]="['order/delivered']" *ngIf="currentUser !== null"> Livrer </a> -->
         
           <a mat-button  [routerLink]="['my-order']" *ngIf="isUser"> 
