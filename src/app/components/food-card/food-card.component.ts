@@ -9,8 +9,8 @@ import { ShopCartComponent } from '../shop-cart-modal/shop-cart.component';
 })
 export class FoodCardComponent {
   @Input() item: any;
+
   constructor(public dialog: MatDialog) {
-    console.log('yoo');
   }
   openDialog(data): void {
     data.price = this.calculatePrice(data.price);

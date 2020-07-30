@@ -1,9 +1,12 @@
+import { AppComponent } from './../app.component';
 import { UserInterface } from './../models/user.model';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
+import * as firebase from 'firebase/app';
+import 'firebase/messaging';
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +25,7 @@ export class AuthService {
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(async user => {
       if (user) {
-        this.getUser(user.uid);
         this.userData = user;
-        console.log(user.uid);
         this.getUser(user.uid);
       } else {
         await localStorage.setItem('user', null);
@@ -40,9 +41,12 @@ export class AuthService {
       .then((result) => {
         this.ngZone.run(() => {
           this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
-          this.router.navigate(['back-order']));
+          this.router.navigate(['/back-order']));
         });
-        console.log(result.user);
+        this.SetUserData(result.user);
+        if (result.user['token'] === undefined) {
+          this.permitToNotify(result.user);
+        }
         this.SetUserData(result.user);
       }).catch((error) => {
         window.alert('email ou mot de passe incorrecte');
@@ -66,8 +70,6 @@ export class AuthService {
           roles: data.roles,
           district: data.district
         };
-        console.log(result.user.displayName);
-        console.log(user);
         result.user.updateProfile({
           displayName: data.displayName
         });
@@ -108,6 +110,9 @@ export class AuthService {
           this.router.navigate(['back-order']);
         });
       this.SetUserData(result.user);
+      if (result.user['token'] === undefined) {
+        this.permitToNotify(result.user);
+      }
     }).catch((error) => {
       window.alert(error);
     });
@@ -116,6 +121,20 @@ export class AuthService {
   /* Setting up user data when sign in with username/password
   sign up with username/password and sign in with social
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
+  SetUserToken(user, token) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const userData: UserInterface = {
+      uid: user.uid,
+      email: user.email,
+      emailVerified: user.emailVerified
+    };
+    if (user.uid) {
+      userData['token'] = token;
+    }
+    return userRef.set(userData, {
+      merge: true
+    });
+  }
   SetUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: UserInterface = {
@@ -129,6 +148,8 @@ export class AuthService {
       userData['photoURL'] = user['photoURL'];
     } if (user['phoneNumber'] ) {
       userData['phoneNumber'] = user['phoneNumber'];
+    } if (user['token'] ) {
+      userData['token'] = user['token'];
     } if (user['district'] && user['district'] !== '') {
       userData['district'] = user['district'];
     } if (user['roles'] && user['roles'] !== '') {
@@ -140,11 +161,6 @@ export class AuthService {
   }
   getUser (uid) {
     return this.afs.collection('users').doc(uid).valueChanges().subscribe( async result => {
-      console.log(result);
-       /*  const data = changes.payload.data();
-      const id = changes.payload.id;
-      data['uid'] = id; */
-      console.log(result);
       await localStorage.setItem('user', JSON.stringify(result));
       const self = this;
       setTimeout(async function() {
@@ -167,7 +183,6 @@ export class AuthService {
   }
   getCurrentUser(): String {
     const user = this.afAuth.currentUser.then((value) => {
-      console.log(value);
       return value.uid;
     });
     return null;
@@ -180,4 +195,15 @@ export class AuthService {
   public newCurrentUserNotification(value): any {
     this.currentUserSubject.next(value);
   }
+  public permitToNotify(user) {
+    const messaging = firebase.messaging();
+    messaging.requestPermission()
+      .then(() => messaging.getToken().then(token => {
+        this.SetUserToken(user, token);
+      }))
+      .catch(err => {
+        console.log('Unable to get permission to notify.', err);
+      });
+  }
+
 }

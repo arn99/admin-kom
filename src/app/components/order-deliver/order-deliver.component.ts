@@ -8,23 +8,28 @@ import { MatDialog } from '@angular/material/dialog';
 import { MapsComponent } from '../maps/maps.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
+import { NotificatonService } from 'src/app/services/notificaton.service';
 
 @Component({
   selector: 'app-order-deliver',
   templateUrl: './order-deliver.component.html',
   styleUrls: ['./order-deliver.component.css']
 })
-export class OrderDeliverComponent {
+export class OrderDeliverComponent implements OnInit {
 
   id: number;
   order: any = {};
   orders: any[];
+  currentUser: any;
   displayedColumns: string[] = ['name', 'adresse', 'restaurant', 'Action'];
   dataSource: MatTableDataSource<Order>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  constructor(private ordersService: OrderService, public dialog: MatDialog) {
+  constructor(private ordersService: OrderService, public dialog: MatDialog, private notificationService: NotificatonService) {
     this.getOrders();
+  }
+  ngOnInit(): void {
+    this.currentUser = JSON.parse(localStorage.getItem('user'));
   }
   getOrders() {
     this.openLoadDialog('Chargement des commandes');
@@ -55,6 +60,19 @@ export class OrderDeliverComponent {
     try {
       this.openLoadDialog();
       this.ordersService.updateOrder(order).then((result) => {
+        if (order.customer.token) {
+          const mess = {
+            payload: {
+              notification: {
+                title: 'Miam!',
+                body: 'Le livreur est en route avec votre commande. Environ 10mns',
+                icon: 'http://the-link-to-image/icon.png'
+              }
+            },
+            registrationTokens: order.customer.token
+          };
+          this.notificationService.sendNotificationToDevice(mess);
+        }
       }).catch(() => {
         this.dialog.closeAll();
         alert('erreur yoo');

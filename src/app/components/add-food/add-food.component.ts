@@ -84,35 +84,40 @@ export class AddFoodComponent {
     }
   }
   onSubmit(customerData) {
-    this.openDialog();
-    this.file = (<HTMLInputElement>document.getElementById('file')).files[0];
-    const thisRef = this.storage.ref('foods/images/' + this.file.name);
-    thisRef.put(this.file).then(snapshot => {
-          return snapshot.ref.getDownloadURL();   // Will return a promise with the download link
-      })
-      .then(downloadURL => {
-        const currentUser = JSON.parse(localStorage.getItem('user'));
-        if (currentUser !== null) {
-          const food = {
-          category : customerData['category'],
-          name : customerData['name'],
-          description : customerData['description'],
-          price : customerData['price'],
-          id : this.dataService.Genkey(8),
-          imagePath: downloadURL,
-          restaurant: currentUser.displayName,
-          user: currentUser.uid
-        };
-          this.foodService.createFood(food);
-          this.openDialogSuccess( {message: 'Plat ajouter avec succès',
-            key: '',
-            thanks: ''});
-          this.foodForm.reset();
-        } else {
-        }
-      }).catch(error => {
-        console.log(error);
-      });
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    if (currentUser['token'] === undefined) {
+      alert('Activez la notification avant de continuer');
+    } else {
+      this.openDialog();
+      this.file = (<HTMLInputElement>document.getElementById('file')).files[0];
+      const thisRef = this.storage.ref('foods/images/' + this.file.name);
+      thisRef.put(this.file).then(snapshot => {
+            return snapshot.ref.getDownloadURL();   // Will return a promise with the download link
+        })
+        .then(downloadURL => {
+          if (currentUser !== null) {
+            const food = {
+            category : customerData['category'],
+            name : customerData['name'],
+            description : customerData['description'],
+            price : customerData['price'],
+            id : this.dataService.Genkey(8),
+            imagePath: downloadURL,
+            restaurant: currentUser.displayName,
+            token: currentUser['token'],
+            user: currentUser.uid
+          };
+            this.foodService.createFood(food);
+            this.openDialogSuccess( {message: 'Plat ajouter avec succès',
+              key: '',
+              thanks: ''});
+            this.foodForm.reset();
+          } else {
+          }
+        }).catch(error => {
+          console.log(error);
+        });
+    }
     }
   onFileSelected() {
     const inputNode: any = document.querySelector('#file');

@@ -9,6 +9,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessModalComponent } from '../success-modal/success-modal.component';
+import { NotificatonService } from 'src/app/services/notificaton.service';
 
 
 @Component({
@@ -21,21 +22,22 @@ export class BackorderComponent implements OnInit {
   id: number;
   order: any = {};
   orders: any[];
+  currentUser: any;
   displayedColumns: string[] = ['name', 'adresse', 'Action'];
   dataSource: MatTableDataSource<Order>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  constructor(private ordersService: OrderService, public dialog: MatDialog) {
+  constructor(private ordersService: OrderService, public dialog: MatDialog, private notificationService: NotificatonService) {
     this.getOrders();
   }
 
   ngOnInit() {
+    this.currentUser = JSON.parse(localStorage.getItem('user'));
   }
   getOrders() {
     this.openLoadDialog('Chargement des commandes');
-    const currentUser = JSON.parse(localStorage.getItem('user'));
-    if (currentUser !== null) {
-      this.ordersService.getOrders(currentUser.uid).subscribe((data) => {
+    if (this.currentUser !== null) {
+      this.ordersService.getOrders(this.currentUser.uid).subscribe((data) => {
       this.orders = [];
       data.forEach((element) => {
         // tslint:disable-next-line:no-shadowed-variable
@@ -62,6 +64,30 @@ export class BackorderComponent implements OnInit {
     try {
       this.openLoadDialog();
       this.ordersService.updateOrder(order).then((result) => {
+        if (order.customer.token) {
+          const customer = {
+            payload: {
+              notification: {
+                title: 'Miam!',
+                body: 'Votre commande a été validé par le restaurant',
+                icon: 'http://the-link-to-image/icon.png'
+              }
+            },
+            registrationTokens: order.customer.token
+          };
+          this.notificationService.sendNotificationToDevice(customer);
+        }
+        const deliver = {
+          payload: {
+            notification: {
+              title: 'Miam!',
+              body: 'Une commande a été validé veuillez verifier pour la livraison',
+              icon: 'http://the-link-to-image/icon.png'
+            }
+          },
+          registrationTokens: ['deliver']
+        };
+        this.notificationService.sendNotificationToDevice(deliver);
       }).catch(() => {
         this.dialog.closeAll();
         alert('erreur yoo');

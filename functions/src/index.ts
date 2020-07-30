@@ -65,7 +65,7 @@ exports.updateUser = functions.https.onCall((data: any, context: any) => {
     });
   });
   /** send notification to device */
-  exports.sendNotificationByTopic = functions.https.onCall((data: any, context: any) => {
+  exports.sendNotificationByDevice = functions.https.onCall((data: any, context: any) => {
     return admin.messaging().sendToDevice(data.registrationTokens, data.payload)
     .then((response: any) => {
       // Response is a message ID string.

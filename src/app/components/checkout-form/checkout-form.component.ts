@@ -14,28 +14,23 @@ import { DataService } from 'src/app/services/data.service';
 import { LocalService } from 'src/app/services/local.service';
 import { District } from './../../models/district.model';
 import { LoadingComponent } from '../loading/loading.component';
+import { NotificatonService } from 'src/app/services/notificaton.service';
 @Component({
   selector: 'app-checkout-form',
   templateUrl: './checkout-form.component.html',
   styleUrls: ['./checkout-form.component.css']
 })
 export class CheckoutFormComponent implements OnInit {
-  form: FormGroup;
-  public checkOutInvalid: boolean;
-  private formSubmitAttempt: boolean;
-  districtControl = new FormControl();
-  filteredDistricts: Observable<District[]>;
-  districts: District[]  = Districts.districts;
-  district: string;
-  livraison = 0;
 
+  currentUser: any;
   constructor(public dialogRef: MatDialogRef<CheckoutFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any [],
     private fb: FormBuilder,
     private orderService: OrderService,
     public dataService: DataService,
     private localService: LocalService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private notificationService: NotificatonService
     ) {
       this.form = this.fb.group({
         username: ['', [Validators.required, Validators.minLength(3)]],
@@ -50,8 +45,17 @@ export class CheckoutFormComponent implements OnInit {
         map(name => name ? this._filterDistricts(name) : this.districts.slice())
       );
     }
+  form: FormGroup;
+  public checkOutInvalid: boolean;
+  private formSubmitAttempt: boolean;
+  districtControl = new FormControl();
+  filteredDistricts: Observable<District[]>;
+  districts: District[]  = Districts.districts;
+  district: string;
+  livraison = 0;
 
   ngOnInit(): void {
+    this.currentUser = JSON.parse(localStorage.getItem('user'));
     this.getLivraisonPrice();
   }
   private _filterDistricts(value: string): District[] {
@@ -101,18 +105,8 @@ export class CheckoutFormComponent implements OnInit {
           // send order
           const customer: Customer = { name: username, numero: numero };
           const clientLocation: LocationData = { latitude: 0, longitude: 0, district: district };
-          const food: Food = {
-                                id: this.dataService.Genkey(11),
-                                name: '', price: 2,
-                                imagePath: 'yoo',
-                                category: 'test',
-                                description: 'test',
-                                restaurant: 'resto',
-                                numberOfItem: 10
-                              };
           try {
             this.openLoadDialog();
-            const resto = JSON.parse(localStorage.getItem('user'));
             this.data.forEach((item) => {
               const data = {
                   clientLocation: clientLocation,
@@ -125,7 +119,8 @@ export class CheckoutFormComponent implements OnInit {
                   livraison: this.livraison,
                   restaurant: {
                               id : item['user'],
-                              name: item.restaurant
+                              name: item.restaurant,
+                              token: item.token
                             }
               };
               let orderNumber;
@@ -152,6 +147,19 @@ export class CheckoutFormComponent implements OnInit {
                       orderTab.push({'id': orderNumber, 'date': todayString});
                     }
                     this.localService.setJsonValue('orders', orderTab);
+                    if (data.restaurant.token) {
+                      const mess = {
+                        payload: {
+                          notification: {
+                            title: 'Miam',
+                            body: 'Connectez vous pour voir votre nouvelle commande',
+                            icon: 'http://the-link-to-image/icon.png'
+                          }
+                        },
+                        registrationTokens: data.restaurant.token
+                      };
+                      this.notificationService.sendNotificationToDevice(mess);
+                    }
                   } else {
                     alert('Erreur dela commander reessayez');
                   }

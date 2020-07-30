@@ -22,6 +22,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { PwaService } from './services/pwa.service';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { NotificatonService } from './services/notificaton.service';
+
 
 const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt();
 
@@ -41,6 +44,7 @@ const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt()
     /* AgmDirectionModule, */
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
+    AngularFireMessagingModule,
     AngularFirestoreModule.enablePersistence(),
     NgbModule,
     ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately'  }),
@@ -49,7 +53,7 @@ const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt()
     // PromptComponent,
     // PromptModule
   ],
-  providers: [OrderService, FoodService, AuthService, StorageService, LocalService,
+  providers: [OrderService, FoodService, AuthService, StorageService, LocalService, NotificatonService,
     {provide: APP_INITIALIZER, useFactory: initializer, deps: [PwaService], multi: true}
   ],
   bootstrap: [AppComponent]
