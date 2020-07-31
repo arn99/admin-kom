@@ -18,7 +18,7 @@ import { NotificatonService } from 'src/app/services/notificaton.service';
   styleUrls: ['./backorder.component.css']
 })
 export class BackorderComponent implements OnInit {
-
+  cardBool = false;
   id: number;
   order: any = {};
   orders: any[];
@@ -58,6 +58,7 @@ export class BackorderComponent implements OnInit {
   }
   onViewOrder(order) {
     this.order = order;
+    this.cardBool = true;
   }
   finish(order, index) {
     order['state'] = 'ready';
@@ -66,28 +67,18 @@ export class BackorderComponent implements OnInit {
       this.ordersService.updateOrder(order).then((result) => {
         if (order.customer.token) {
           const customer = {
-            payload: {
-              notification: {
-                title: 'Miam!',
                 body: 'Votre commande a été validé par le restaurant',
-                icon: 'http://the-link-to-image/icon.png'
-              }
-            },
-            registrationTokens: order.customer.token
+                tokens: order.customer.token
           };
-          this.notificationService.sendNotificationToDevice(customer);
+          this.notificationService.sendHttpNotificationToDevice(customer);
         }
+        /** get deliver token here */
         const deliver = {
-          payload: {
-            notification: {
-              title: 'Miam!',
-              body: 'Une commande a été validé veuillez verifier pour la livraison',
-              icon: 'http://the-link-to-image/icon.png'
-            }
-          },
-          registrationTokens: ['deliver']
+            body: 'Une commande a été validé veuillez verifier pour la livraison',
+            tokens: ['deliver']
         };
-        this.notificationService.sendNotificationToDevice(deliver);
+        this.notificationService.sendHttpNotificationToDevice(deliver);
+
       }).catch(() => {
         this.dialog.closeAll();
         alert('erreur yoo');
@@ -96,6 +87,7 @@ export class BackorderComponent implements OnInit {
       this.dialog.closeAll();
       alert('erreur');
     }
+    this.cardBool = false;
   }
   openDialogLocation(location): void {
     const dialogRef = this.dialog.open(MapsComponent, {

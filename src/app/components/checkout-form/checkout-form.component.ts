@@ -149,16 +149,10 @@ export class CheckoutFormComponent implements OnInit {
                     this.localService.setJsonValue('orders', orderTab);
                     if (data.restaurant.token) {
                       const mess = {
-                        payload: {
-                          notification: {
-                            title: 'Miam',
-                            body: 'Connectez vous pour voir votre nouvelle commande',
-                            icon: 'http://the-link-to-image/icon.png'
-                          }
-                        },
-                        registrationTokens: data.restaurant.token
+                        body: 'Connectez vous pour voir votre nouvelle commande',
+                        tokens: data.restaurant.token
                       };
-                      this.notificationService.sendNotificationToDevice(mess);
+                      this.notificationService.sendHttpNotificationToDevice(mess);
                     }
                   } else {
                     alert('Erreur dela commander reessayez');

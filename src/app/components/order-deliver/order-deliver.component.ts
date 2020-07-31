@@ -16,7 +16,7 @@ import { NotificatonService } from 'src/app/services/notificaton.service';
   styleUrls: ['./order-deliver.component.css']
 })
 export class OrderDeliverComponent implements OnInit {
-
+  cardBool = false;
   id: number;
   order: any = {};
   orders: any[];
@@ -54,6 +54,7 @@ export class OrderDeliverComponent implements OnInit {
   }
   onViewOrder(order) {
     this.order = order;
+    this.cardBool = true;
   }
   finish(order, index) {
     order['state'] = 'delivering';
@@ -62,16 +63,10 @@ export class OrderDeliverComponent implements OnInit {
       this.ordersService.updateOrder(order).then((result) => {
         if (order.customer.token) {
           const mess = {
-            payload: {
-              notification: {
-                title: 'Miam!',
-                body: 'Le livreur est en route avec votre commande. Environ 10mns',
-                icon: 'http://the-link-to-image/icon.png'
-              }
-            },
-            registrationTokens: order.customer.token
+            body: 'Le livreur est en route avec votre commande. Environ 10mns',
+            tokens: order.customer.token
           };
-          this.notificationService.sendNotificationToDevice(mess);
+          this.notificationService.sendHttpNotificationToDevice(mess);
         }
       }).catch(() => {
         this.dialog.closeAll();
@@ -81,6 +76,7 @@ export class OrderDeliverComponent implements OnInit {
       this.dialog.closeAll();
       alert('erreur');
     }
+    this.cardBool = false;
   }
 
   openLoadDialog(message?): void {

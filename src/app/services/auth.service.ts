@@ -59,7 +59,7 @@ export class AuthService {
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
-        // this.SendVerificationMail();
+        this.SendVerificationMail();
         const user =  {
           uid: result.user.uid,
           email: result.user.email,
@@ -79,13 +79,13 @@ export class AuthService {
       });
   }
 
-  /* // Send email verfificaiton when new user sign up
+  // Send email verfificaiton when new user sign up
   SendVerificationMail() {
-    return this.afAuth.currentUser.sendEmailVerification()
+    return this.afAuth.currentUser.then(u => u.sendEmailVerification())
     .then(() => {
       this.router.navigate(['verify-email-address']);
-    })
-  } */
+    });
+  }
 
   // Reset Forggot password
   ForgotPassword(passwordResetEmail) {
@@ -100,7 +100,7 @@ export class AuthService {
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null) ? true : false;
+    return (user !== null && user.emailVerified !== false) ? true : false;
   }
   // Auth logic to run providers
   AuthLogin(provider) {
