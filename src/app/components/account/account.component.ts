@@ -37,7 +37,7 @@ export class AccountComponent {
         emailVerified: userData['emailVerified'],
       };
     } else {
-      this.router.navigate(['sign-up']);
+      this.router.navigate(['sign-in']);
     }
     this.form = this.fb.group({
       restoName: ['', [Validators.required, Validators.minLength(3)]],

@@ -39,14 +39,6 @@ export class AuthService {
   SignIn(email, password) {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
-          this.router.navigate(['/back-order']));
-        });
-        this.SetUserData(result.user);
-        if (result.user['token'] === undefined) {
-          this.permitToNotify(result.user);
-        }
         this.SetUserData(result.user);
       }).catch((error) => {
         window.alert('email ou mot de passe incorrecte');
@@ -165,7 +157,21 @@ export class AuthService {
       const self = this;
       setTimeout(async function() {
         await self.newCurrentUserNotification(result);
-        JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user.roles.includes('resto')) {
+          self.ngZone.run(() => {
+            self.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+            self.router.navigate(['/back-order']));
+          });
+        } else {
+            self.ngZone.run(() => {
+              self.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+              self.router.navigate(['']));
+            });
+        }
+        if (user['token'] === undefined) {
+          self.permitToNotify(user);
+        }
       }, 1500);
     });
   }

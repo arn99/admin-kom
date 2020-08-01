@@ -28,11 +28,17 @@ export class BackorderComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(private ordersService: OrderService, public dialog: MatDialog, private notificationService: NotificatonService) {
-    this.getOrders();
+    this.currentUser = JSON.parse(localStorage.getItem('user'));
+    console.log(this.currentUser);
   }
 
   ngOnInit() {
-    this.currentUser = JSON.parse(localStorage.getItem('user'));
+    this.getOrders();
+    const self = this;
+    setTimeout(async function() {
+       self.currentUser = await JSON.parse(localStorage.getItem('user'));
+    }, 1500);
+    console.log(this.currentUser);
   }
   getOrders() {
     this.openLoadDialog('Chargement des commandes');
