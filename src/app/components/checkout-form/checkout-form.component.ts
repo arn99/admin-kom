@@ -150,7 +150,7 @@ export class CheckoutFormComponent implements OnInit {
                     if (data.restaurant.token) {
                       const mess = {
                         body: 'Connectez vous pour voir votre nouvelle commande',
-                        tokens: data.restaurant.token
+                        token: data.restaurant.token
                       };
                       this.notificationService.sendHttpNotificationToDevice(mess);
                     }
@@ -170,7 +170,7 @@ export class CheckoutFormComponent implements OnInit {
             const orders = this.localService.getJsonValue('orders');
             setTimeout(function() {
               self.openDialog( {message: 'Commande effectuer avec succes! Lidentifiant de votre commande: ',
-              key: orders[orders.length - 1].id,
+              key: '',
               thanks: 'Merci pour la confiance'});
             }, 1500);
              // this.dialog.closeAll();
