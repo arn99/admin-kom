@@ -9,10 +9,12 @@ import { MaterialModule } from '../shared/material.module';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import {MatMenuModule} from '@angular/material/menu';
 import {LazyLoadImageModule} from 'ng-lazyload-image';
+import { ShopCartComponent } from 'src/app/components/shop-cart-modal/shop-cart.component';
 
 @NgModule({
   declarations: [HomeComponent,
                 FoodCardComponent,
+                ShopCartComponent,
                 FoodFilterPipe,
                 PriceCalculatePipe
   ],

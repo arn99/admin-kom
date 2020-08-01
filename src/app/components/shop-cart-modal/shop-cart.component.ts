@@ -17,6 +17,7 @@ export class ShopCartComponent {
                       @Inject(MAT_DIALOG_DATA) public data,
                       private localService: LocalService,
                       private foodService: FoodService) {
+                        console.log(data);
       this.food = data;
       this.foodService.getNotification().subscribe(message => {
       this.itemTotal = message;
@@ -28,12 +29,14 @@ export class ShopCartComponent {
   addFood() {
     this.itemTotal =  this.itemNumber;
     this.food['numberOfItem'] = this.itemNumber;
+    this.food.price = this.calculatePrice(this.food.price);
     const food = this.food;
     if (this.getLocalStorage() !== null) {
       this.list = this.getLocalStorage();
     }
     let foodOccurrence: number;
         foodOccurrence = this.findWithAttr(this.list, 'name', food['name']);
+        console.log(food);
     if (foodOccurrence  >= 0 ) {
       this.list[foodOccurrence]['numberOfItem'] =  this.list[foodOccurrence]['numberOfItem'] +  this.itemNumber;
       this.setLocalStorage(this.list);
@@ -76,4 +79,9 @@ export class ShopCartComponent {
     // Clear the localStorage
     this.localService.clearToken();
   } */
+  calculatePrice(price): number {
+    price = 1.1 * price;
+    const multiplier = Math.pow(10, -2 || 0);
+    return Math.round(price * multiplier) / multiplier;
+  }
 }

@@ -7,7 +7,7 @@ import { MaterialModule } from '../shared/material.module';
 
 
 @NgModule({
-  declarations: [ShopCartComponent],
+  declarations: [],
   imports: [
     CommonModule,
     MaterialModule,
