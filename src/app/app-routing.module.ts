@@ -30,7 +30,6 @@ const routes: Routes = [
   // { path: '', component: HomeComponent },
   { path: 'account',
   loadChildren : () => import('./module/account/account.module').then(m => m.AccountModule),
-  canActivate: [AuthGuard]
   },
   { path: 'my-order',
     loadChildren : () => import('./module/customer-order/customer-order.module').then(m => m.CustomerOrderModule),

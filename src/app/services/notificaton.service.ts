@@ -36,7 +36,7 @@ export class NotificatonService {
            'title': 'Miam!',
            'body': mess.body,
            // 'click_action': 'http://127.0.0.1:4007/account',
-           'icon': 'http://the-link-to-image/icon.png'
+           'icon': 'https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/logos%2Fmiam1-min.png?alt=media&token=9ebe4ebf-ff1e-461e-ae40-b3e0294e7bd6'
        },
 
        'to': mess.token

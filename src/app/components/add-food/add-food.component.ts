@@ -85,7 +85,7 @@ export class AddFoodComponent {
   }
   onSubmit(customerData) {
     const currentUser = JSON.parse(localStorage.getItem('user'));
-    if (currentUser['token'] === undefined) {
+    if (currentUser['token'] === undefined && currentUser['token'] === null) {
       alert('Activez la notification avant de continuer');
     } else {
       this.openDialog();

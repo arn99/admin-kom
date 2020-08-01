@@ -15,6 +15,7 @@ import { LocalService } from 'src/app/services/local.service';
 import { District } from './../../models/district.model';
 import { LoadingComponent } from '../loading/loading.component';
 import { NotificatonService } from 'src/app/services/notificaton.service';
+import { FoodService } from 'src/app/services/food.service';
 @Component({
   selector: 'app-checkout-form',
   templateUrl: './checkout-form.component.html',
@@ -29,6 +30,7 @@ export class CheckoutFormComponent implements OnInit {
     private orderService: OrderService,
     public dataService: DataService,
     private localService: LocalService,
+    public foodService: FoodService,
     public dialog: MatDialog,
     private notificationService: NotificatonService
     ) {
@@ -174,6 +176,7 @@ export class CheckoutFormComponent implements OnInit {
               thanks: 'Merci pour la confiance'});
             }, 1500);
              // this.dialog.closeAll();
+             this.foodService.newUpdate2(0);
           } catch (error) {
             console.log(error);
             alert('Erreur dela commander reessayez');
