@@ -17,13 +17,17 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
   tab: any [];
   livraison = 0;
   subscription: Subscription;
+  displayTable = true;
   constructor(public dialog: MatDialog, public foodService: FoodService, private localService: LocalService) {
 
     if (this.getLocalStorage() !== null) {
       this.list = new MatTableDataSource<Element>(this.getLocalStorage());
       this.tab = this.getLocalStorage();
-      if (!this.tab) {
+      if (!this.tab || this.tab === null || this.tab === undefined || this.tab.length === 0) {
         this.tab = [];
+        this.displayTable = false;
+      } else {
+        this.displayTable = true;
       }
     }
     this.subscription = this.foodService.getFoodFromlocal().subscribe(message => {
@@ -56,6 +60,7 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
       } else {
         this.list = new MatTableDataSource<Element>([]);
         this.tab = [];
+        this.displayTable = false;
         this.getTotalCost('buy');
       }
     });
@@ -84,6 +89,9 @@ export class ShoppingPageComponent implements OnInit, OnDestroy {
     }
     this.foodService.newUpdate2(this.getNumberOfItem());
     this.list = new MatTableDataSource<Element>(this.tab);
+    if (this.tab.length === 0) {
+      this.displayTable = false;
+    }
 
     // tab = this.list;
     this.getLivraisonPrice();

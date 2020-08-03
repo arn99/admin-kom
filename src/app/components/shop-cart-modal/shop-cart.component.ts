@@ -17,7 +17,6 @@ export class ShopCartComponent {
                       @Inject(MAT_DIALOG_DATA) public data,
                       private localService: LocalService,
                       private foodService: FoodService) {
-                        console.log(data);
       this.food = data;
       this.foodService.getNotification().subscribe(message => {
       this.itemTotal = message;

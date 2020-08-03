@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
             console.log(message);
           }
         ).catch(m => {
-          location.reload();
+          // location.reload();
         });
       }
   }
