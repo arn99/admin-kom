@@ -11,7 +11,6 @@ export class FoodCardComponent {
   @Input() item: any;
 
   constructor(public dialog: MatDialog) {
-    console.log(this.item);
   }
   openDialog(data): void {
     // data.price = this.calculatePrice(data.price);

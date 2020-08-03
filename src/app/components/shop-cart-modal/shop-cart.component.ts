@@ -36,7 +36,6 @@ export class ShopCartComponent {
     }
     let foodOccurrence: number;
         foodOccurrence = this.findWithAttr(this.list, 'name', food['name']);
-        console.log(food);
     if (foodOccurrence  >= 0 ) {
       this.list[foodOccurrence]['numberOfItem'] =  this.list[foodOccurrence]['numberOfItem'] +  this.itemNumber;
       this.setLocalStorage(this.list);
