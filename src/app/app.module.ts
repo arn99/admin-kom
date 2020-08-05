@@ -24,7 +24,7 @@ import { environment } from '../environments/environment';
 import { PwaService } from './services/pwa.service';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { NotificatonService } from './services/notificaton.service';
-
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 
 const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt();
 
@@ -43,6 +43,7 @@ const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt()
     }), */
     /* AgmDirectionModule, */
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAnalyticsModule,
     AngularFireAuthModule,
     AngularFireMessagingModule,
     AngularFirestoreModule.enablePersistence(),
