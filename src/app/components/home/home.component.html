@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row row-cotainer">
     <div class="col-md-3 category flex-row flex-nowrap">
-        <div class="restaurant">
+        <!--<div class="restaurant">
             <button color="warn" class="btn-resto" mat-menu-item [matMenuTriggerFor]="vertebrates" >
               Nos Rostaurants
               <span class="material-icons arrow-resto">
@@ -15,7 +15,7 @@
               <button class="btn-item" mat-menu-item>Birds</button>
               <button class="btn-item" mat-menu-item>Mammals</button>
             </mat-menu>
-        </div>
+        </div> !-->
         <div *ngFor="let item of categories" >
           <div class="row btn-item-cat" (click)="getNotificaton(item)">
               <div class="col-md-6 col-4 cat-img justify-content-center">
@@ -100,7 +100,7 @@
       <div class="offre">
         <div ><h3 class="speciale">Offres spéciales</h3></div>
         <div  class="fast-food row">
-            <div *ngFor="let item of specialFoods | foodFilter: searchText" class="col-md-3">
+            <div *ngFor="let item of specialFoods | slice:0:8 | foodFilter: searchText ; let i=index" class="col-md-3">
               <app-food-card [item] = "item"></app-food-card>
             </div>  
         </div>
@@ -108,7 +108,7 @@
       <div class="offre">
         <div><h3 class="burkinabe">Cuisine burkinabe</h3> </div>
         <div class="fast-food row">
-          <div *ngFor="let item of burkinabeFoods | foodFilter: searchText" class="col-md-3">
+          <div *ngFor="let item of burkinabeFoods | slice:0:8 | foodFilter: searchText ; let i=index" class="col-md-3">
             <app-food-card [item] = "item"></app-food-card>
         </div>    
         </div>

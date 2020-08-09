@@ -90,7 +90,8 @@ export class SignUpComponent implements OnInit {
             this.authService.SignUp(user).then( result => {
               this.openDialogSuccess( {message: 'Votre compte a été creé avec succès',
               key: '',
-              thanks: 'Nous vous contacterons dès que possible pour finaliser le partenariat'});
+              thanks: 'Verifiez votre boite email pour activer votre compte' +
+                      ' Nous vous contacterons dès que possible pour finaliser le partenariat'});
             }).catch( error => {
               console.log(error);
               this.dialog.closeAll();
