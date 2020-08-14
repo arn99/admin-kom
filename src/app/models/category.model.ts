@@ -7,8 +7,8 @@ export  const categories = [
       alt: 'poulet',
       image: 'https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/categories%2Fpoulet.jpg?alt=media&token=29474916-7f54-49f3-84be-1d30e6337947'
     },
-    { name: 'Plat burkinabe',
-      alt: 'Plat burkinabe',
+    { name: 'Plat burkinabè',
+      alt: 'Plat burkinabè',
       image: 'https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/categories%2Fgonre.png?alt=media&token=59d9e297-ca48-48ce-a75b-a7c880081764'
     },
     { name: 'Fastfood',
@@ -31,8 +31,8 @@ export  const categories = [
       alt: 'Vennoiserie',
       image: 'https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/categories%2Fvenoiserie.png?alt=media&token=ffcbd454-c567-4df1-bea2-297aa0036638'
     },
-    { name: 'Plat africaine',
-      alt: 'Plat africaine',
+    { name: 'Plat africain',
+      alt: 'Plat africain',
       image: 'https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/categories%2Fafricain.png?alt=media&token=5a0232f4-323d-4c7b-81d0-9caafb7f7617'
     },
 ];

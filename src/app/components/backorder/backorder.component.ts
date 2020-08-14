@@ -81,9 +81,19 @@ export class BackorderComponent implements OnInit {
         /** get deliver token here */
         const deliver = {
             body: 'Une commande a été validé veuillez verifier pour la livraison',
-            tokens: ['deliver']
+            token: ''
         };
+        // send notification to admin
+        const azisToken = deliver;
+        const ramsToken = deliver;
+        const canutToken = deliver;
         this.notificationService.sendHttpNotificationToDevice(deliver);
+                      ramsToken.token = 'fjdQUWvjsUh93klCaLDcJ1:APA91bEhSboGx30THZoe-9htnY42LJa4RQaWZkqolVMcWkVGkTeskkbgpnAq_Z5lD7CYS-hVAZMcrizgpJP-mDplVoDcyz9jxPfsJHQlOugZBzAlk65fHJrqiKiFfHYzUJ9ILYVd-lVX';
+                      this.notificationService.sendHttpNotificationToDevice(ramsToken);
+                      azisToken.token = 'f1j1iQ312w5uMvfGUp6Ap_:APA91bFWvdZOqQlfRm95uckMBwj826pSrj4rILe5RxcozwyNVlDW-fuukM6RDCi-1FXSANf7-woEtcBsLozF8vckCA0x05yrvGt1e3k2Q2rZ1ySW11WElbpkpeJ_lMzm0VfA59svIdb9';
+                      this.notificationService.sendHttpNotificationToDevice(azisToken);
+                      canutToken.token = 'efmprM4Q_rIwJInTpEpxlE:APA91bE86G8PvuP9lSuagRNpd4YVlLIH0YYvwEcqWD8mELrZuztoO8OfWb0Xoib_zxMQEaNsr2Kw_5AF2EKeRadkAib4_DQUIKspI4dWIdCq4WrzIRwf5iurukOq4HZMYob6mQecOloX';
+                      this.notificationService.sendHttpNotificationToDevice(canutToken);
 
       }).catch(() => {
         this.dialog.closeAll();

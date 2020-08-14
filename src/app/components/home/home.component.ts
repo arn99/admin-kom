@@ -94,7 +94,11 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
   }
   getNotificaton(item) {
     this.searchText = item.name;
-    console.log(this.foods);
+    if (item !== '') {
+      this.checkSearchText = true;
+    } else {
+      this.checkSearchText = false;
+    }
   }
   onBeforeinstallprompt(ev) {
     this.deferredPrompt = ev;

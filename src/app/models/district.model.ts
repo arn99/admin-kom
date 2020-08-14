@@ -10,7 +10,7 @@ export interface District {
         },
         {
           name: 'Bilbalogo',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Boassa',
@@ -22,7 +22,7 @@ export interface District {
         },
         {
           name: 'Cite AN II & III',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Cite AN IV',
@@ -42,11 +42,11 @@ export interface District {
         },
         {
           name: 'Dagnoen',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Dapoya',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Dassasgo',
@@ -54,7 +54,7 @@ export interface District {
         },
         {
           name: 'Gounghin Nord',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Gounghin Sud',
@@ -62,15 +62,15 @@ export interface District {
         },
         {
           name: 'Hamdalaye',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Kalgondin',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Kamsonghin',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Karpala',
@@ -90,7 +90,7 @@ export interface District {
         },
         {
           name: 'Koulouba',
-          prix: 500
+          prix: 1000
         },
         {
           name: 'Kouritenga',
@@ -98,7 +98,7 @@ export interface District {
         },
         {
           name: 'Larle',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Nagrin',
@@ -106,7 +106,7 @@ export interface District {
         },
         {
           name: 'Nemnin',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Nioko 1 & 2',
@@ -122,11 +122,11 @@ export interface District {
         },
         {
           name: 'Ouidi',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Paspanga',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Patte d\'oie',
@@ -142,11 +142,11 @@ export interface District {
         },
         {
           name: 'Saint Leon',
-          prix: 500
+          prix: 1000
         },
         {
           name: 'Samandin',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Sandogo',
@@ -186,7 +186,7 @@ export interface District {
         },
         {
           name: 'Wemtenga',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Yamtenga',
@@ -198,7 +198,7 @@ export interface District {
         },
         {
           name: 'Zogona',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Zone industrielle kossodo',
@@ -206,7 +206,7 @@ export interface District {
         },
         {
           name: 'Zone industrielle Gounghin',
-          prix: 700
+          prix: 1000
         },
         {
           name: 'Zongo',

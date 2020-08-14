@@ -64,9 +64,20 @@ export class OrderDeliverComponent implements OnInit {
         if (order.customer.token) {
           const mess = {
             body: 'Le livreur est en route avec votre commande. Environ 10mns',
-            tokens: order.customer.token
+            token: order.customer.token
           };
+          // send notification to admin and user
           this.notificationService.sendHttpNotificationToDevice(mess);
+          const azisToken = mess;
+          const ramsToken = mess;
+          const canutToken = mess;
+          this.notificationService.sendHttpNotificationToDevice(mess);
+          ramsToken.token = 'fjdQUWvjsUh93klCaLDcJ1:APA91bEhSboGx30THZoe-9htnY42LJa4RQaWZkqolVMcWkVGkTeskkbgpnAq_Z5lD7CYS-hVAZMcrizgpJP-mDplVoDcyz9jxPfsJHQlOugZBzAlk65fHJrqiKiFfHYzUJ9ILYVd-lVX';
+          this.notificationService.sendHttpNotificationToDevice(ramsToken);
+                      azisToken.token = 'f1j1iQ312w5uMvfGUp6Ap_:APA91bFWvdZOqQlfRm95uckMBwj826pSrj4rILe5RxcozwyNVlDW-fuukM6RDCi-1FXSANf7-woEtcBsLozF8vckCA0x05yrvGt1e3k2Q2rZ1ySW11WElbpkpeJ_lMzm0VfA59svIdb9';
+                      this.notificationService.sendHttpNotificationToDevice(azisToken);
+                      canutToken.token = 'efmprM4Q_rIwJInTpEpxlE:APA91bE86G8PvuP9lSuagRNpd4YVlLIH0YYvwEcqWD8mELrZuztoO8OfWb0Xoib_zxMQEaNsr2Kw_5AF2EKeRadkAib4_DQUIKspI4dWIdCq4WrzIRwf5iurukOq4HZMYob6mQecOloX';
+                      this.notificationService.sendHttpNotificationToDevice(canutToken);
         }
       }).catch(() => {
         this.dialog.closeAll();
