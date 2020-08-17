@@ -83,7 +83,7 @@
               </tr>
             </table>
             
-            <h2>Prix: <span> {{order.food.price}}</span></h2>
+            <h2>Prix: <span> {{order.food.price | priceMinusProfite}}</span></h2>
           </div>
           <h5 class="card-title text-center"> <button mat-raised-button color="warn"   (click)="finish(order,dataSource.filteredData.indexOf(order))"> Traiter </button></h5>
         </div>
