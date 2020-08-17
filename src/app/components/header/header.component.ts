@@ -18,6 +18,7 @@ export class HeaderComponent implements  OnDestroy {
   subscriptionMinus: Subscription;
   isResto: boolean;
   isDeliver: boolean;
+  isAdmin: boolean;
   isUser: boolean;
   itemNumber = 0;
   categories = [];
@@ -70,9 +71,21 @@ export class HeaderComponent implements  OnDestroy {
    this.toggleSidenav();
  }
  checkRole(message) {
-  if (message !== null && message.roles && message.roles.includes('resto')) {
+  if (message !== null && message.roles && message.roles.includes('aacn')) {
+    this.isResto = false;
+    this.isDeliver = false;
+    this.isAdmin = true;
+    this.isUser = false;
+    this.items = [
+      {icon: 'home', label: 'Accueil', routerLink: ''},
+      {icon: 'menu_book', label: 'Commande', routerLink: 'order/admin'},
+      {icon: 'menu_book', label: 'Livraison', routerLink: 'order/deliverer'},
+      {icon: 'account_circle', label: 'Compte', routerLink: 'account'},
+    ];
+  } else if (message !== null && message.roles && message.roles.includes('resto')) {
     this.isResto = true;
     this.isDeliver = false;
+    this.isAdmin = false;
     this.isUser = false;
     this.items = [
       {icon: 'home', label: 'Accueil', routerLink: ''},
@@ -83,6 +96,7 @@ export class HeaderComponent implements  OnDestroy {
   } else if (message !== null && message.roles && message.roles.includes('deliverer')) {
     this.isResto = false;
     this.isDeliver = true;
+    this.isAdmin = false;
     this.isUser = false;
     this.items = [
       {icon: 'home', label: 'Accueil', routerLink: ''},
@@ -90,10 +104,11 @@ export class HeaderComponent implements  OnDestroy {
       {icon: 'account_circle', label: 'Compte', routerLink: 'account'},
       {icon: 'library_books', label: 'A Propos', routerLink: 'about'},
     ];
-  } else {
+  }  else {
     this.isResto = false;
     this.isDeliver = false;
     this.isUser = true;
+    this.isAdmin = false;
     this.items = [
       {icon: 'home', label: 'Accueil', routerLink: ''},
       {icon: 'restaurant', label: 'Mes Commandes', routerLink: 'my-order'},

@@ -34,6 +34,15 @@ export class OrderService {
         return query;
     }).snapshotChanges();
   }
+  getOrdersAdmin() {
+    return this.firestore.collection(
+      'orders', ref => {
+        let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+          query = query.where('paymentState', '==', 'none');
+          query = query.where('state', '==', 'waiting');
+        return query;
+    }).snapshotChanges();
+  }
   getDelivererOrders() {
     return this.firestore.collection(
       'orders', ref => {

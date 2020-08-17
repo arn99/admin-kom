@@ -15,10 +15,11 @@ export class FoodFilterPipe implements PipeTransform {
       return items;
     }
     if (typeof searchText === 'string') {
-      searchText = searchText.toLocaleLowerCase();
+      searchText = searchText.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase() ;
+      console.log(searchText);
       return items.filter(it => {
-        if (it.name.toLocaleLowerCase().includes(searchText)) {
-          return it.name.toLocaleLowerCase().includes(searchText);
+        if (it.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase().includes(searchText)) {
+          return it.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase().includes(searchText);
         } else {
           return it.category.toLocaleLowerCase().includes(searchText);
         }

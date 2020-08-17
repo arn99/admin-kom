@@ -13,6 +13,7 @@
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
         <a mat-button   [routerLink]="['/']"> Accueil  <span class="sr-only">(current)</span> </a>
         <a mat-button   [routerLink]="['order/waiting']" *ngIf="isResto"> Commande  <span class="sr-only">(current)</span> </a>
+        <a mat-button   [routerLink]="['order/admin']" *ngIf="isAdmin"> Les commandes  <span class="sr-only">(current)</span> </a>
         <!-- <a mat-button  [routerLink]="['order/delivered']" *ngIf="currentUser !== null"> Livrer </a> -->
         
           <a mat-button  [routerLink]="['my-order']" *ngIf="isUser"> 
@@ -27,7 +28,7 @@
           <a mat-button  [routerLink]="['food']" *ngIf="isResto"> 
           Mes plats 
           </a> 
-          <a mat-button  [routerLink]="['order/deliverer']" *ngIf="isDeliver"> 
+          <a mat-button  [routerLink]="['order/deliverer']" *ngIf="isDeliver || isAdmin"> 
           Livraison 
           </a> 
           <a mat-button  [routerLink]="['account']" *ngIf="currentUser !== null"> 

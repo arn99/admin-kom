@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AppComponent implements OnInit {
   title = 'admin-kom';
-  constructor(private swUpdate: SwUpdate, private push: SwPush) {
+  constructor(private swUpdate: SwUpdate, private push: SwPush, ) {
     if (this.swUpdate.isEnabled) {
       this.swUpdate.available.subscribe(() => {
           if (confirm('New version available. Load New Version?')) {
@@ -24,7 +24,6 @@ export class AppComponent implements OnInit {
         firebase.initializeApp(environment.firebase);
         navigator.serviceWorker.getRegistration().then(swr => firebase.messaging().useServiceWorker(swr)).then(
           message => {
-            console.log(message);
           }
         ).catch(m => {
           // location.reload();

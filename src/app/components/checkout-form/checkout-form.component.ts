@@ -110,12 +110,15 @@ export class CheckoutFormComponent implements OnInit {
           try {
             this.openLoadDialog();
             this.data.forEach((item) => {
+              const todayHeure = new Date();
+              const heure = todayHeure.getHours + ':' + todayHeure.getMinutes;
               const data = {
                   clientLocation: clientLocation,
                   customer: customer,
                   food: item,
                   paymentState: payment,
                   date: Date.now(),
+                  heure: heure,
                   state: 'waiting',
                   total: (item.price * item.numberOfItem),
                   livraison: this.livraison,

@@ -9,6 +9,7 @@ export class NotificatonService {
   notify: any;
   constructor(private http: HttpClient) {
     this.notify = firebase.functions().httpsCallable('sendNotificationByTopic');
+
   }
   /* const mess = {
     payload: {
@@ -31,12 +32,14 @@ export class NotificatonService {
     });
   }
   sendHttpNotificationToDevice(mess) {
+    console.log('sound');
     const messages =  {
       'notification': {
            'title': 'Miam!',
            'body': mess.body,
            'click_action': 'http://miambf.com',
-           'icon': 'https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/logos%2Fmiam1-min.png?alt=media&token=9ebe4ebf-ff1e-461e-ae40-b3e0294e7bd6'
+           'icon': 'https://firebasestorage.googleapis.com/v0/b/flutterfoodapp-aa0df.appspot.com/o/logos%2Fmiam1-min.png?alt=media&token=9ebe4ebf-ff1e-461e-ae40-b3e0294e7bd6',
+           'sound' : '../../../assets/audio/Alarm.mp3'
        },
 
        'to': mess.token
@@ -49,4 +52,26 @@ export class NotificatonService {
       console.log('yes new');
     });
   }
+  /* sendEmail(data) {
+    const mailOptions = {
+      from: 'arnaudrams37@gmail.com',
+      to: data.email,
+      subject: data.subject,
+      text: data.text
+    };
+    this.transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  } */
+
+  /* playAudio() {
+    const audio = new Audio();
+    audio.src = '../../../assets/audio/Alarm.mp3';
+    audio.load();
+    audio.play();
+    } */
 }
