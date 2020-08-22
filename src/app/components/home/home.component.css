@@ -193,6 +193,7 @@ strong {
 }
 .img-fluid {
     max-width: 50%; 
+    max-height: 51.7px;
 }
 @media ( max-width: 576px ) {
     .category {
