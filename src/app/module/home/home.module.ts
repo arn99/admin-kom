@@ -10,6 +10,7 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
 import {MatMenuModule} from '@angular/material/menu';
 import {LazyLoadImageModule} from 'ng-lazyload-image';
 import { ShopCartComponent } from 'src/app/components/shop-cart-modal/shop-cart.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [HomeComponent,
@@ -20,6 +21,7 @@ import { ShopCartComponent } from 'src/app/components/shop-cart-modal/shop-cart.
   ],
   imports: [
     LazyLoadImageModule,
+    FlexLayoutModule,
     CommonModule,
     MatMenuModule,
     MatCarouselModule.forRoot(),

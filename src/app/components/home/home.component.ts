@@ -76,13 +76,14 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
     });
   }
   selectEvent(item) {
-    this.searchText = 'Benga';
     if (item.name !== '') {
       this.checkSearchText = true;
     } else {
       this.checkSearchText = false;
     }
-    this.getNotificaton(item);
+    this.onChangeSearch(item.name);
+    // this.foods = this.foods.filter(food => food.name === item.name);
+    console.log(this.foods);
   }
   onChangeSearch(item) {
     this.searchText = item;
