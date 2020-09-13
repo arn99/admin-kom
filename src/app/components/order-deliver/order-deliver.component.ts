@@ -71,6 +71,8 @@ export class OrderDeliverComponent implements OnInit {
           const azisToken = mess;
           const ramsToken = mess;
           const canutToken = mess;
+          const josiasToken = mess;
+          this.notificationService.sendHttpNotificationTelegramGroup();
           this.notificationService.sendHttpNotificationToDevice(mess);
           ramsToken.token = 'fjdQUWvjsUh93klCaLDcJ1:APA91bEhSboGx30THZoe-9htnY42LJa4RQaWZkqolVMcWkVGkTeskkbgpnAq_Z5lD7CYS-hVAZMcrizgpJP-mDplVoDcyz9jxPfsJHQlOugZBzAlk65fHJrqiKiFfHYzUJ9ILYVd-lVX';
           this.notificationService.sendHttpNotificationToDevice(ramsToken);
@@ -78,6 +80,8 @@ export class OrderDeliverComponent implements OnInit {
                       this.notificationService.sendHttpNotificationToDevice(azisToken);
                       canutToken.token = 'efmprM4Q_rIwJInTpEpxlE:APA91bE86G8PvuP9lSuagRNpd4YVlLIH0YYvwEcqWD8mELrZuztoO8OfWb0Xoib_zxMQEaNsr2Kw_5AF2EKeRadkAib4_DQUIKspI4dWIdCq4WrzIRwf5iurukOq4HZMYob6mQecOloX';
                       this.notificationService.sendHttpNotificationToDevice(canutToken);
+                      josiasToken.token = 'cbEtTnVurbBc61WVeitNuE:APA91bFF9XiJjUd8YcTs3iZ1ah1-y83Ax-6wmWHCc6TY0G_8mPVvSPQ5NhlQT8RpN0KYOX4yhl9ggOSi-_8C4hrDw1A5uFexLezYMM3Yx5snZlLDM0z3Gtuks9fhK6JEexuVrA1wvysA';
+                      this.notificationService.sendHttpNotificationToDevice(josiasToken);
         }
       }).catch(() => {
         this.dialog.closeAll();

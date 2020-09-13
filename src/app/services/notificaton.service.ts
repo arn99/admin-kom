@@ -52,6 +52,14 @@ export class NotificatonService {
       console.log('yes new');
     });
   }
+  sendHttpNotificationTelegramGroup() {
+    const messages = 'Yoo il ya une nouvelle commande';
+    this.http.post<any>('https://api.telegram.org/bot1009741128:AAFPida0OHDLCgFjThbdZPMEVdXvqDpV7J0/sendMessage?chat_id=-456312332&text=' +
+    messages, '').subscribe(function(result) {
+      console.log(result);
+      console.log('yes new');
+    });
+  }
   /* sendEmail(data) {
     const mailOptions = {
       from: 'arnaudrams37@gmail.com',
