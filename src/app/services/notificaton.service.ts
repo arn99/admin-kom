@@ -1,3 +1,4 @@
+import { environment } from './../../environments/config';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { HttpClient } from '@angular/common/http';
@@ -54,7 +55,7 @@ export class NotificatonService {
   }
   sendHttpNotificationTelegramGroup() {
     const messages = 'Yoo il ya une nouvelle commande';
-    this.http.post<any>('https://api.telegram.org/bot1009741128:AAFPida0OHDLCgFjThbdZPMEVdXvqDpV7J0/sendMessage?chat_id=-456312332&text=' +
+    this.http.post<any>('https:/' + environment.tele + '/api.telegram.org//sendMessage?chat_id=-456312332&text=' +
     messages, '').subscribe(function(result) {
       console.log(result);
       console.log('yes new');
