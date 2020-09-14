@@ -7,13 +7,19 @@ export class FoodFilterPipe implements PipeTransform {
    @param {string} searchText
    @returns {any[]}
    */
-  transform(items: any[], searchText: string): any[] {
+  transform(items: any[], searchText: any): any[] {
     if (!items) {
       return [];
     }
     if (!searchText) {
       return items;
     }
+    console.log(searchText.name);
+    if (typeof searchText === 'object') {
+      searchText = searchText.name;
+    }
+   
+    console.log(typeof searchText);
     if (typeof searchText === 'string') {
       searchText = searchText.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase() ;
       console.log(searchText);

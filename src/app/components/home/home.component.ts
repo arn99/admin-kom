@@ -76,14 +76,18 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
     });
   }
   selectEvent(item) {
-    if (item.name !== '') {
+   /*  if (item.name !== '') {
+      // this.searchText = item.name;
       this.checkSearchText = true;
+      console.log(this.searchText);
     } else {
       this.checkSearchText = false;
-    }
-    this.onChangeSearch(item.name);
+    } */
+    // this.getNotificaton(item);
     // this.foods = this.foods.filter(food => food.name === item.name);
-    console.log(this.foods);
+  }
+  trim (item) {
+    return item.toString().substring(1, item.length - 1);
   }
   onChangeSearch(item) {
     this.searchText = item;
@@ -94,6 +98,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit  {
     }
   }
   getNotificaton(item) {
+    console.log(item);
     this.searchText = item.name;
     if (item !== '') {
       this.checkSearchText = true;
