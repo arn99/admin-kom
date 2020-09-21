@@ -88,7 +88,7 @@ export class BackorderComponent implements OnInit {
         const ramsToken = deliver;
         const canutToken = deliver;
         const josias = deliver;
-        this.notificationService.sendHttpNotificationTelegramGroup();
+        // this.notificationService.sendHttpNotificationTelegramGroup();
         this.notificationService.sendHttpNotificationToDevice(deliver);
                       ramsToken.token = 'fjdQUWvjsUh93klCaLDcJ1:APA91bEhSboGx30THZoe-9htnY42LJa4RQaWZkqolVMcWkVGkTeskkbgpnAq_Z5lD7CYS-hVAZMcrizgpJP-mDplVoDcyz9jxPfsJHQlOugZBzAlk65fHJrqiKiFfHYzUJ9ILYVd-lVX';
                       this.notificationService.sendHttpNotificationToDevice(ramsToken);

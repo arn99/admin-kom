@@ -77,7 +77,7 @@ export class HeaderComponent implements  OnDestroy {
     this.isAdmin = true;
     this.isUser = false;
     this.items = [
-      {icon: 'home', label: 'Accueil', routerLink: ''},
+      {icon: 'restaurant', label: 'Mes plats', routerLink: 'food'},
       {icon: 'menu_book', label: 'Commande', routerLink: 'order/admin'},
       {icon: 'menu_book', label: 'Livraison', routerLink: 'order/deliverer'},
       {icon: 'account_circle', label: 'Compte', routerLink: 'account'},

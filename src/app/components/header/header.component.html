@@ -25,7 +25,7 @@
           <a mat-button  [routerLink]="['about']" *ngIf="currentUser === null"> 
           A propos
           </a> 
-          <a mat-button  [routerLink]="['food']" *ngIf="isResto"> 
+          <a mat-button  [routerLink]="['food']" *ngIf="isResto || isAdmin"> 
           Mes plats 
           </a> 
           <a mat-button  [routerLink]="['order/deliverer']" *ngIf="isDeliver || isAdmin"> 

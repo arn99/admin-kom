@@ -19,11 +19,13 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import {MatButtonModule} from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 const materialModules = [
   MatIconModule,
       MatButtonModule,
     MatDialogModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,

@@ -72,7 +72,7 @@ export class OrderDeliverComponent implements OnInit {
           const ramsToken = mess;
           const canutToken = mess;
           const josiasToken = mess;
-          this.notificationService.sendHttpNotificationTelegramGroup();
+          // this.notificationService.sendHttpNotificationTelegramGroup();
           this.notificationService.sendHttpNotificationToDevice(mess);
           ramsToken.token = 'fjdQUWvjsUh93klCaLDcJ1:APA91bEhSboGx30THZoe-9htnY42LJa4RQaWZkqolVMcWkVGkTeskkbgpnAq_Z5lD7CYS-hVAZMcrizgpJP-mDplVoDcyz9jxPfsJHQlOugZBzAlk65fHJrqiKiFfHYzUJ9ILYVd-lVX';
           this.notificationService.sendHttpNotificationToDevice(ramsToken);
