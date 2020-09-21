@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { LocalService } from 'src/app/services/local.service';
 import { FoodService } from 'src/app/services/food.service';
+import { SuccessModalComponent } from '../success-modal/success-modal.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-shop-cart',
   templateUrl: './shop-cart.component.html',
@@ -16,6 +18,8 @@ export class ShopCartComponent {
   constructor(public dialogRef: MatDialogRef<ShopCartComponent>,
                       @Inject(MAT_DIALOG_DATA) public data,
                       private localService: LocalService,
+                      public dialog: MatDialog,
+                      public router: Router,
                       private foodService: FoodService) {
       this.food = data;
       this.foodService.getNotification().subscribe(message => {
@@ -33,18 +37,31 @@ export class ShopCartComponent {
     if (this.getLocalStorage() !== null) {
       this.list = this.getLocalStorage();
     }
-    let foodOccurrence: number;
+    /**test if food is for order or preorder */
+    if (this.list[0] == null || this.list[0]['category'] === this.food['category'] ) {
+      let foodOccurrence: number;
         foodOccurrence = this.findWithAttr(this.list, 'name', food['name']);
-    if (foodOccurrence  >= 0 ) {
-      this.list[foodOccurrence]['numberOfItem'] =  this.list[foodOccurrence]['numberOfItem'] +  this.itemNumber;
-      this.setLocalStorage(this.list);
+      if (foodOccurrence  >= 0 ) {
+        this.list[foodOccurrence]['numberOfItem'] =  this.list[foodOccurrence]['numberOfItem'] +  this.itemNumber;
+        this.setLocalStorage(this.list);
+      } else {
+        this.list.push(food) ;
+        this.setLocalStorage(this.list);
+      }
+        this.getLocalStorage();
+      this.foodService.newUpdate(this.itemTotal);
+      this.dialogRef.close();
     } else {
-      this.list.push(food) ;
-      this.setLocalStorage(this.list);
+      if (this.food['category'] === 'Vennoiserie') {
+        this.openDialog( {message: 'Veuillez valider votre pre-commande avant de continuez!',
+        key: '',
+        thanks: ''});
+      } else {
+        this.openDialog( {message: 'Veuillez valider votre pre-commande avant de continuez!!',
+        key: '',
+        thanks: ''});
+      }
     }
-      this.getLocalStorage();
-    this.foodService.newUpdate(this.itemTotal);
-    this.dialogRef.close();
   }
   removeItem() {
     if (this.itemNumber > 1) {
@@ -81,5 +98,16 @@ export class ShopCartComponent {
     price = 1.1 * price;
     const multiplier = Math.pow(10, -2 || 0);
     return Math.round(price * multiplier) / multiplier;
+  }
+  openDialog(data): void {
+    const dialogRef = this.dialog.open(SuccessModalComponent, {
+      width: '85%',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialog.closeAll();
+      this.router.navigate(['order-page']);
+    });
   }
 }
