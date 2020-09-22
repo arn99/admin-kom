@@ -42,8 +42,11 @@
         <h4> Livraison: {{ livraison }} CFA </h4>
         <strong> Prix total avec la livraison: {{ getTotalCost()+ livraison }}CFA </strong>
     </div>
-    <div class="checkout">
+    <div *ngIf="tab[0] !== undefined && tab[0].category !=='Vennoiserie'" class="checkout">
         <button mat-raised-button color="warn" (click)="checkout()" > Payer </button>
+    </div>
+    <div *ngIf="tab[0] !== undefined && tab[0].category==='Vennoiserie'" class="checkout">
+        <button mat-raised-button color="warn" (click)="checkout()" > Précommande </button>
     </div>
 </div>
 <div class="container" *ngIf="!displayTable">

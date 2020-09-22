@@ -20,10 +20,13 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import {MatButtonModule} from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 const materialModules = [
   MatIconModule,
       MatButtonModule,
+      MatDatepickerModule,
+      MatNativeDateModule,
     MatDialogModule,
     MatCheckboxModule,
     MatFormFieldModule,

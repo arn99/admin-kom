@@ -2,6 +2,7 @@
     <div mat-dialog-content>
         <mat-card>
             <mat-card-content>
+              <div *ngIf="data[0] !== undefined && data[0].category !=='Vennoiserie'" class="checkout">
               <form class="example-form" [formGroup]="form" (ngSubmit)="onSubmit()">
                 <h2>Finalisez votre commande</h2>
                 <div class="form-field">
@@ -38,10 +39,71 @@
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
+                  <br>
+                  </div>
+                <button class="back-btn" mat-button (click)="onNoClick()"  cdkFocusInitial>Retour</button>
+                <button mat-raised-button color="warn">Finaliser</button>
+              </form>
+            </div>
+            <div *ngIf="data[0] !== undefined && data[0].category ==='Vennoiserie'" class="checkout">
+              <form class="example-form" [formGroup]="preorderForm" (ngSubmit)="onSubmitPreorder()">
+                <h2>Finalisez votre commande</h2>
+                <div class="form-field">
+                  
+                  <mat-error *ngIf="checkOutInvalid">
+                    Renseignez correctement les champs
+                  </mat-error>
+                  <mat-form-field class="fill">
+                    <input matInput placeholder="Nom" formControlName="username" required>
+                    <mat-error>
+                      Nom incorrect
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="fill">
+                    <input matInput type="number" placeholder="Numero" formControlName="numero" required>
+                    <mat-error>
+                      Le numero doit avoir 8 chiffres
+                    </mat-error>
+                  </mat-form-field>
+                  <br>
+                  <mat-form-field class="fill">
+                      <mat-label>Type de payment</mat-label>
+                      <mat-select formControlName="payment">
+                        <mat-option value="none">Payer à la livraison</mat-option>
+                        <!--<mat-option value="option">Option</mat-option>-->
+                      </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="fill">
+                    <mat-label>Selectionnez votre lieu de livraison</mat-label>
+                    <input type="text"  matInput [(ngModel)]="district" [formControl]="districtControl" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete"  [displayWith]="getDistrict">
+                      <mat-option *ngFor="let option of filteredDistricts | async" [value]="option">
+                        {{option.name}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <br>
+                  <div *ngIf="data[0] !== undefined && data[0].category==='Vennoiserie'" class="checkout">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                      <mat-label>Choisissez la date</mat-label>
+                      <input formControlName="orderDate"  matInput [matDatepicker]="picker">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker touchUi #picker></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Heure</mat-label>
+                      <mat-select [(ngModel)]="hours" [formControl]="hoursControl" name="hours">
+                        <mat-option *ngFor="let item of selectHours" [value]="item.value">
+                          {{item.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
                 </div>
                 <button class="back-btn" mat-button (click)="onNoClick()"  cdkFocusInitial>Retour</button>
                 <button mat-raised-button color="warn">Finaliser</button>
               </form>
+            </div>
             </mat-card-content>
         </mat-card>
     </div>

@@ -53,11 +53,11 @@ export class ShopCartComponent {
       this.dialogRef.close();
     } else {
       if (this.food['category'] === 'Vennoiserie') {
-        this.openDialog( {message: 'Veuillez valider votre pre-commande avant de continuez!',
+        this.openDialog( {message: 'Veuillez finaliser votre commande avant de continuez!',
         key: '',
         thanks: ''});
       } else {
-        this.openDialog( {message: 'Veuillez valider votre pre-commande avant de continuez!!',
+        this.openDialog( {message: 'Veuillez finaliser votre pré-commande avant de continuez!!',
         key: '',
         thanks: ''});
       }
