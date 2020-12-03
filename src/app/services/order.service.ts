@@ -1,8 +1,16 @@
 import { Order } from './../models/order.model';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import { Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
+
+const apiUrl = 'http://d0403a7ae217.ngrok.io/';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +20,17 @@ export class OrderService {
   orders: Order[] = [];
   ordersSubject = new Subject<Order[]>();
 
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore, private http: HttpClient) {
+  }
+  // handel error of api
+  // tslint:disable-next-line:typedef
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
   emitOrders() {
     this.ordersSubject.next(this.orders);
@@ -53,6 +71,37 @@ export class OrderService {
     }).snapshotChanges();
   }
 
+  /**create order data */
+  createCompte(orderData): Observable<Order> {
+    return this.http.post<Order>(apiUrl, orderData).pipe(
+      tap(order => console.log(`Order`)),
+      catchError(this.handleError<Order>('order'))
+    );
+  }
+  /* uapdate order */
+  updateCompte (orderData: Order): Observable<Order> {
+    const url = `${apiUrl}/${orderData.id}`;
+    return this.http.put<Order>(url, orderData, httpOptions).pipe(
+      tap(operation => console.log(`order-update`)),
+      catchError(this.handleError<Order>('order-update'))
+    );
+  }
+  /** get order */
+  getCompte (): Observable<Order[]> {
+    return this.http.get<Order[]>(apiUrl)
+      .pipe(
+        tap(heroes => console.log('fetched order')),
+        catchError(this.handleError('getOrder', []))
+      );
+  }
+
+  getCompteById(id: string): Observable<Order> {
+    const url = `${apiUrl}/${id}`;
+    return this.http.get<Order>(url).pipe(
+      tap(_ => console.log(`fetched Order id=${id}`)),
+      catchError(this.handleError<Order>(`getOrder id=${id}`))
+    );
+  }
   async createOrder(data) {
     return this.firestore.collection('orders').add(
       data
@@ -91,5 +140,18 @@ export class OrderService {
     this.orders.splice(orderIndexToRemove, 1);
     this.saveOrders();
     this.emitOrders();
+  }
+
+   // tslint:disable-next-line:typedef
+   /**generateur de id */
+   /**length est la taille de l'id */
+   generateCode(length) {
+    let result           = '';
+    const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
   }
 }
