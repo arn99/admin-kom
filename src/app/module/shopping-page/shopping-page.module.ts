@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 
 import { ShoppingPageRoutingModule } from './shopping-page-routing.module';
 import { MaterialModule } from '../shared/material.module';
+import { CheckoutFormComponent } from 'src/app/components/checkout-form/checkout-form.component';
 
 
 @NgModule({
-  declarations: [ShoppingPageComponent],
+  declarations: [ShoppingPageComponent, CheckoutFormComponent],
   imports: [
     CommonModule,
     MaterialModule,

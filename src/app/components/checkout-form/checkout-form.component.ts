@@ -127,15 +127,17 @@ export class CheckoutFormComponent implements OnInit {
               const todayHeure = new Date();
               const heure = todayHeure.getHours + ':' + todayHeure.getMinutes;
               const data = {
+                  id: this.orderService.generateCode(8),
                   clientLocation: clientLocation,
                   customer: customer,
                   food: item,
                   paymentState: payment,
                   date: Date.now(),
                   heure: heure,
-                  state: 'waiting',
+                  etat: 'waiting',
                   total: (item.price * item.numberOfItem),
                   livraison: this.livraison,
+                  restoId: item['user'],
                   restaurant: {
                               id : item['user'],
                               name: item.restaurant,
@@ -144,9 +146,10 @@ export class CheckoutFormComponent implements OnInit {
               };
               let orderNumber;
               try {
-                 this.orderService.createOrder(data).then((result) => {
+                console.log(data);
+                 this.orderService.createCNOrder(data).subscribe((result) => {
                   orderNumber =  result;
-                  if (orderNumber !== null) {
+                  if (orderNumber.success) {
                     let orderTab = [];
                     if (this.localService.getJsonValue('orders') !== null) {
                       orderTab = this.localService.getJsonValue('orders');
@@ -173,7 +176,7 @@ export class CheckoutFormComponent implements OnInit {
                       };
                        // send notification to admin and deliverer
                       // this.notificationService.sendHttpNotificationToDevice(mess);
-                      const azisToken = mess;
+                      /* const azisToken = mess;
                       const ramsToken = mess;
                       const canutToken = mess;
                       const josias = mess;
@@ -186,29 +189,29 @@ export class CheckoutFormComponent implements OnInit {
                       canutToken.token = 'efmprM4Q_rIwJInTpEpxlE:APA91bE86G8PvuP9lSuagRNpd4YVlLIH0YYvwEcqWD8mELrZuztoO8OfWb0Xoib_zxMQEaNsr2Kw_5AF2EKeRadkAib4_DQUIKspI4dWIdCq4WrzIRwf5iurukOq4HZMYob6mQecOloX';
                       this.notificationService.sendHttpNotificationToDevice(canutToken);
                       josias.token = 'cbEtTnVurbBc61WVeitNuE:APA91bFF9XiJjUd8YcTs3iZ1ah1-y83Ax-6wmWHCc6TY0G_8mPVvSPQ5NhlQT8RpN0KYOX4yhl9ggOSi-_8C4hrDw1A5uFexLezYMM3Yx5snZlLDM0z3Gtuks9fhK6JEexuVrA1wvysA';
-                      this.notificationService.sendHttpNotificationToDevice(josias);
+                      this.notificationService.sendHttpNotificationToDevice(josias); */
                     }
+                    this.localService.setJsonValue('test', []);
+                    const self = this;
+                    const orders = this.localService.getJsonValue('orders');
+                    setTimeout(function() {
+                      self.openDialog( {message: 'Commande effectués avec succes! L\'identifiant de votre commande: ',
+                      key: '',
+                      thanks: 'Merci pour la confiance'});
+                    }, 1500);
+                     // this.dialog.closeAll();
+                     this.foodService.newUpdate2(0);
                   } else {
                     alert('Erreur dela commander reessayez');
                   }
-                }).catch(() => {
-                  alert('Erreur dela commander reessayez');
-                }) ;
+                }, err => {
+                  console.log(err);
+                });
               } catch (error) {
                 console.log(error);
                 alert('Erreur dela commander reessayez');
               }
             });
-            this.localService.setJsonValue('test', []);
-            const self = this;
-            const orders = this.localService.getJsonValue('orders');
-            setTimeout(function() {
-              self.openDialog( {message: 'Commande effectués avec succes! L\'identifiant de votre commande: ',
-              key: '',
-              thanks: 'Merci pour la confiance'});
-            }, 1500);
-             // this.dialog.closeAll();
-             this.foodService.newUpdate2(0);
           } catch (error) {
             console.log(error);
             alert('Erreur dela commander reessayez');

@@ -7,7 +7,7 @@ import { MaterialModule } from '../shared/material.module';
 
 
 @NgModule({
-  declarations: [CheckoutFormComponent],
+  declarations: [],
   imports: [
     CommonModule,
     MaterialModule,

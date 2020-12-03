@@ -10,7 +10,7 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 
-const apiUrl = 'http://d0403a7ae217.ngrok.io/';
+const apiUrl = 'http://localhost:4545/api/';
 
 @Injectable({
   providedIn: 'root'
@@ -72,31 +72,55 @@ export class OrderService {
   }
 
   /**create order data */
-  createCompte(orderData): Observable<Order> {
-    return this.http.post<Order>(apiUrl, orderData).pipe(
+  createCNOrder(orderData): Observable<Order> {
+    return this.http.post<Order>(apiUrl + 'order', orderData).pipe(
       tap(order => console.log(`Order`)),
       catchError(this.handleError<Order>('order'))
     );
   }
   /* uapdate order */
-  updateCompte (orderData: Order): Observable<Order> {
-    const url = `${apiUrl}/${orderData.id}`;
+  updateCNOrder (orderData: Order): Observable<Order> {
+    const url = `${apiUrl}order/${orderData.id}`;
     return this.http.put<Order>(url, orderData, httpOptions).pipe(
       tap(operation => console.log(`order-update`)),
       catchError(this.handleError<Order>('order-update'))
     );
   }
-  /** get order */
-  getCompte (): Observable<Order[]> {
-    return this.http.get<Order[]>(apiUrl)
+  /** get orders */
+  getCNOrder (): Observable<Order[]> {
+    return this.http.get<Order[]>(apiUrl + 'order')
+      .pipe(
+        tap(heroes => console.log('fetched order')),
+        catchError(this.handleError('getOrder', []))
+      );
+  }
+  /** get admin order */
+  getAdminCNOrder (): Observable<Order[]> {
+    return this.http.get<Order[]>(apiUrl + 'admin/order')
+      .pipe(
+        tap(heroes => console.log('fetched order')),
+        catchError(this.handleError('getOrder', []))
+      );
+  }
+  /** get delivery order */
+  getDeliveryCNOrder (): Observable<Order[]> {
+    return this.http.get<Order[]>(apiUrl + 'deliveries/order')
       .pipe(
         tap(heroes => console.log('fetched order')),
         catchError(this.handleError('getOrder', []))
       );
   }
 
-  getCompteById(id: string): Observable<Order> {
-    const url = `${apiUrl}/${id}`;
+/* get restaurant all orders which aren't threat */
+  getRestoCNOrderById(id: string): Observable<Order> {
+    const url = `${apiUrl}resto/order/${id}`;
+    return this.http.get<Order>(url).pipe(
+      tap(_ => console.log(`fetched Order id=${id}`)),
+      catchError(this.handleError<Order>(`getOrder id=${id}`))
+    );
+  }
+  getCNOrderById(id: string): Observable<Order> {
+    const url = `${apiUrl}order/${id}`;
     return this.http.get<Order>(url).pipe(
       tap(_ => console.log(`fetched Order id=${id}`)),
       catchError(this.handleError<Order>(`getOrder id=${id}`))
