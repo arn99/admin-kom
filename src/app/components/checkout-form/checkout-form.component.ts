@@ -174,6 +174,7 @@ export class CheckoutFormComponent implements OnInit {
                         body: 'Connectez vous pour voir votre nouvelle commande',
                         token: data.restaurant.token
                       };
+                      this.notificationService.sendHttpNotificationTelegramGroup();
                     }
                     this.localService.setJsonValue('test', []);
                     const self = this;
