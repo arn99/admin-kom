@@ -280,6 +280,7 @@ export class CheckoutFormComponent implements OnInit {
                         body: 'Connectez vous pour voir votre nouvelle commande',
                         token: data.restaurant.token
                       };
+                      this.notificationService.sendHttpNotificationTelegramGroup();
                        // send notification to admin and deliverer
                       // this.notificationService.sendHttpNotificationToDevice(mess);
                       /* const azisToken = mess;
