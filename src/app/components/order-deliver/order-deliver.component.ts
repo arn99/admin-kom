@@ -35,14 +35,15 @@ export class OrderDeliverComponent implements OnInit {
     this.openLoadDialog('Chargement des commandes');
     const currentUser = JSON.parse(localStorage.getItem('user'));
     if (currentUser !== null) {
-      this.ordersService.getDelivererOrders().subscribe((data) => {
-      this.orders = [];
-      data.forEach((element) => {
-        // tslint:disable-next-line:no-shadowed-variable
-        const data = element.payload.doc.data();
-        data['docId'] = element.payload.doc.id;
-        this.orders.push(data);
-      });
+      this.ordersService.getDeliveryCNOrder().subscribe((data) => {
+        this.orders = [];
+        data.orders.forEach((element) => {
+          const order = element;
+          order['id'] = element.id;
+          order.customer.number = order['customer']['numero'];
+          console.log(element);
+          this.orders.push(order);
+        });
       this.dataSource = new MatTableDataSource(this.orders);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -57,10 +58,18 @@ export class OrderDeliverComponent implements OnInit {
     this.cardBool = true;
   }
   finish(order, index) {
-    order['state'] = 'delivering';
+    order['etat'] = 'delivering';
     try {
       this.openLoadDialog();
-      this.ordersService.updateOrder(order).then((result) => {
+      console.log(order);
+      this.ordersService.updateCNDelivery(order).subscribe((result) => {
+        console.log(result);
+        if (result.success) {
+          this.dialog.closeAll();
+          this.openDialog( {message: 'Commande livré avec succes! L\'identifiant de votre commande: ',
+              key: '',
+              thanks: 'Merci pour la confiance'});
+        }
         if (order.customer.token) {
           const mess = {
             body: 'Le livreur est en route avec votre commande. Environ 10mns',
@@ -68,25 +77,11 @@ export class OrderDeliverComponent implements OnInit {
           };
           // send notification to admin and user
           this.notificationService.sendHttpNotificationToDevice(mess);
-          const azisToken = mess;
-          const ramsToken = mess;
-          const canutToken = mess;
-          const josiasToken = mess;
-          // this.notificationService.sendHttpNotificationTelegramGroup();
-          this.notificationService.sendHttpNotificationToDevice(mess);
-          ramsToken.token = 'fjdQUWvjsUh93klCaLDcJ1:APA91bEhSboGx30THZoe-9htnY42LJa4RQaWZkqolVMcWkVGkTeskkbgpnAq_Z5lD7CYS-hVAZMcrizgpJP-mDplVoDcyz9jxPfsJHQlOugZBzAlk65fHJrqiKiFfHYzUJ9ILYVd-lVX';
-          this.notificationService.sendHttpNotificationToDevice(ramsToken);
-                      azisToken.token = 'f1j1iQ312w5uMvfGUp6Ap_:APA91bFWvdZOqQlfRm95uckMBwj826pSrj4rILe5RxcozwyNVlDW-fuukM6RDCi-1FXSANf7-woEtcBsLozF8vckCA0x05yrvGt1e3k2Q2rZ1ySW11WElbpkpeJ_lMzm0VfA59svIdb9';
-                      this.notificationService.sendHttpNotificationToDevice(azisToken);
-                      canutToken.token = 'efmprM4Q_rIwJInTpEpxlE:APA91bE86G8PvuP9lSuagRNpd4YVlLIH0YYvwEcqWD8mELrZuztoO8OfWb0Xoib_zxMQEaNsr2Kw_5AF2EKeRadkAib4_DQUIKspI4dWIdCq4WrzIRwf5iurukOq4HZMYob6mQecOloX';
-                      this.notificationService.sendHttpNotificationToDevice(canutToken);
-                      josiasToken.token = 'cbEtTnVurbBc61WVeitNuE:APA91bFF9XiJjUd8YcTs3iZ1ah1-y83Ax-6wmWHCc6TY0G_8mPVvSPQ5NhlQT8RpN0KYOX4yhl9ggOSi-_8C4hrDw1A5uFexLezYMM3Yx5snZlLDM0z3Gtuks9fhK6JEexuVrA1wvysA';
-                      this.notificationService.sendHttpNotificationToDevice(josiasToken);
         }
-      }).catch(() => {
+      }, err => {
         this.dialog.closeAll();
-        alert('erreur yoo');
-      }) ;
+        console.log('erreur yoo');
+      });
     } catch (error) {
       this.dialog.closeAll();
       alert('erreur');
@@ -94,6 +89,16 @@ export class OrderDeliverComponent implements OnInit {
     this.cardBool = false;
   }
 
+  openDialog(data): void {
+    const dialogRef = this.dialog.open(SuccessModalComponent, {
+      width: '85%',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialog.closeAll();
+    });
+  }
   openLoadDialog(message?): void {
     this.dialog.open(LoadingComponent, {
     });

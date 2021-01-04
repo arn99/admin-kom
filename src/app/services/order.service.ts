@@ -10,8 +10,8 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 
-const apiUrl = 'http://localhost:4545/api/';
-
+const apiUrl = 'https://mgtetaxn12.execute-api.us-east-1.amazonaws.com/dev/api/';
+// const apiUrl = 'http://localhost:4545/api/';
 @Injectable({
   providedIn: 'root'
 })
@@ -72,39 +72,54 @@ export class OrderService {
   }
 
   /**create order data */
-  createCNOrder(orderData): Observable<Order> {
-    return this.http.post<Order>(apiUrl + 'order', orderData).pipe(
+  createCNOrder(orderData): Observable<any> {
+    return this.http.post<any>(apiUrl + 'order', orderData).pipe(
+      tap(order => console.log(`Order`)),
+      catchError(this.handleError<Order>('order'))
+    );
+  }
+  /**create delivery */
+  createCNDelivery(orderData): Observable<any> {
+    return this.http.post<any>(apiUrl + 'deliveries', orderData).pipe(
       tap(order => console.log(`Order`)),
       catchError(this.handleError<Order>('order'))
     );
   }
   /* uapdate order */
-  updateCNOrder (orderData: Order): Observable<Order> {
+  updateCNOrder (orderData: Order): Observable<any> {
     const url = `${apiUrl}order/${orderData.id}`;
     return this.http.put<Order>(url, orderData, httpOptions).pipe(
       tap(operation => console.log(`order-update`)),
       catchError(this.handleError<Order>('order-update'))
     );
   }
+  /* uapdate delivery */
+  updateCNDelivery (orderData: Order): Observable<any> {
+    const url = `${apiUrl}deliveries/${orderData.id}`;
+    return this.http.put<Order>(url, orderData, httpOptions).pipe(
+      tap(operation => console.log(`order-update`)),
+      catchError(this.handleError<Order>('error'))
+    );
+  }
   /** get orders */
-  getCNOrder (): Observable<Order[]> {
-    return this.http.get<Order[]>(apiUrl + 'order')
+  getCNOrder (): Observable<any> {
+    return this.http.get<any>(apiUrl + 'order')
       .pipe(
         tap(heroes => console.log('fetched order')),
         catchError(this.handleError('getOrder', []))
       );
   }
   /** get admin order */
-  getAdminCNOrder (): Observable<Order[]> {
-    return this.http.get<Order[]>(apiUrl + 'admin/order')
+  getAdminCNOrder (): Observable<any> {
+    return this.http.get<any>(apiUrl + 'admin/order')
       .pipe(
         tap(heroes => console.log('fetched order')),
         catchError(this.handleError('getOrder', []))
       );
   }
   /** get delivery order */
-  getDeliveryCNOrder (): Observable<Order[]> {
-    return this.http.get<Order[]>(apiUrl + 'deliveries/order')
+  getDeliveryCNOrder (): Observable<any> {
+    return this.http.get<any>(apiUrl + 'deliveries')
       .pipe(
         tap(heroes => console.log('fetched order')),
         catchError(this.handleError('getOrder', []))
@@ -119,7 +134,7 @@ export class OrderService {
       catchError(this.handleError<Order>(`getOrder id=${id}`))
     );
   }
-  getCNOrderById(id: string): Observable<Order> {
+  getCNOrderById(id: string): Observable<any> {
     const url = `${apiUrl}order/${id}`;
     return this.http.get<Order>(url).pipe(
       tap(_ => console.log(`fetched Order id=${id}`)),

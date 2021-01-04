@@ -1,4 +1,3 @@
-import { AppComponent } from './../app.component';
 import { UserInterface } from './../models/user.model';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';

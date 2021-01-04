@@ -43,16 +43,15 @@ export class BackorderComponent implements OnInit {
   getOrders() {
     this.openLoadDialog('Chargement des commandes');
     if (this.currentUser !== null) {
-      this.ordersService.getOrders(this.currentUser.uid).subscribe((data) => {
-      this.orders = [];
-      data.forEach((element) => {
-        // tslint:disable-next-line:no-shadowed-variable
-        const data = element.payload.doc.data();
-        data['docId'] = element.payload.doc.id;
-        // data.customer.number = data['customer']['number'].toSting();
-        console.log(data);
-        this.orders.push(data);
-      });
+      this.ordersService.getCNOrderById(this.currentUser.uid).subscribe((data) => {
+        this.orders = [];
+        data.orders.forEach((element) => {
+          const order = element;
+          order['id'] = element.id;
+          order.customer.number = order['customer']['numero'];
+          console.log(element);
+          this.orders.push(order);
+        });
       this.dataSource = new MatTableDataSource(this.orders);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -67,10 +66,23 @@ export class BackorderComponent implements OnInit {
     this.cardBool = true;
   }
   finish(order, index) {
-    order['state'] = 'ready';
+    order['etat'] = 'ready';
     try {
       this.openLoadDialog();
-      this.ordersService.updateOrder(order).then((result) => {
+      this.ordersService.createCNDelivery(order).subscribe((result) => {
+        if (result.success) {
+          this.ordersService.updateCNOrder(order).subscribe((rest) => {
+            if (rest.success) {
+              this.dialog.closeAll();
+              this.openDialog( {message: 'Commande validés avec succes! L\'identifiant de votre commande: ',
+                  key: '',
+                  thanks: 'Merci pour la confiance'});
+            }
+          }, err => {
+            this.dialog.closeAll();
+            alert('erreur yoo');
+          });
+        }
         if (order.customer.token) {
           const customer = {
                 body: 'Votre commande a été validé par le restaurant',
@@ -83,27 +95,11 @@ export class BackorderComponent implements OnInit {
             body: 'Une commande a été validé veuillez verifier pour la livraison',
             token: ''
         };
-        // send notification to admin
-        const azisToken = deliver;
-        const ramsToken = deliver;
-        const canutToken = deliver;
-        const josias = deliver;
-        // this.notificationService.sendHttpNotificationTelegramGroup();
-        this.notificationService.sendHttpNotificationToDevice(deliver);
-                      ramsToken.token = 'fjdQUWvjsUh93klCaLDcJ1:APA91bEhSboGx30THZoe-9htnY42LJa4RQaWZkqolVMcWkVGkTeskkbgpnAq_Z5lD7CYS-hVAZMcrizgpJP-mDplVoDcyz9jxPfsJHQlOugZBzAlk65fHJrqiKiFfHYzUJ9ILYVd-lVX';
-                      this.notificationService.sendHttpNotificationToDevice(ramsToken);
-                      azisToken.token = 'f1j1iQ312w5uMvfGUp6Ap_:APA91bFWvdZOqQlfRm95uckMBwj826pSrj4rILe5RxcozwyNVlDW-fuukM6RDCi-1FXSANf7-woEtcBsLozF8vckCA0x05yrvGt1e3k2Q2rZ1ySW11WElbpkpeJ_lMzm0VfA59svIdb9';
-                      this.notificationService.sendHttpNotificationToDevice(azisToken);
-                      canutToken.token = 'efmprM4Q_rIwJInTpEpxlE:APA91bE86G8PvuP9lSuagRNpd4YVlLIH0YYvwEcqWD8mELrZuztoO8OfWb0Xoib_zxMQEaNsr2Kw_5AF2EKeRadkAib4_DQUIKspI4dWIdCq4WrzIRwf5iurukOq4HZMYob6mQecOloX';
-                      this.notificationService.sendHttpNotificationToDevice(canutToken);
-                      josias.token = 'cbEtTnVurbBc61WVeitNuE:APA91bFF9XiJjUd8YcTs3iZ1ah1-y83Ax-6wmWHCc6TY0G_8mPVvSPQ5NhlQT8RpN0KYOX4yhl9ggOSi-_8C4hrDw1A5uFexLezYMM3Yx5snZlLDM0z3Gtuks9fhK6JEexuVrA1wvysA';
-                      this.notificationService.sendHttpNotificationToDevice(josias);
 
-
-      }).catch(() => {
+      }, err => {
         this.dialog.closeAll();
         alert('erreur yoo');
-      }) ;
+      });
     } catch (error) {
       this.dialog.closeAll();
       alert('erreur');
@@ -123,6 +119,16 @@ export class BackorderComponent implements OnInit {
 
   openLoadDialog(message?): void {
     this.dialog.open(LoadingComponent, {
+    });
+  }
+  openDialog(data): void {
+    const dialogRef = this.dialog.open(SuccessModalComponent, {
+      width: '85%',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialog.closeAll();
     });
   }
   applyFilter(event: Event) {
