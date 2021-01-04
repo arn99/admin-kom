@@ -98,7 +98,7 @@ export class AuthService {
     return this.afAuth.signInWithPopup(provider)
     .then((result) => {
        this.ngZone.run(() => {
-          this.router.navigate(['back-order']);
+          this.router.navigate(['food']);
         });
       this.SetUserData(result.user);
       if (result.user['token'] === undefined) {
@@ -160,7 +160,7 @@ export class AuthService {
         if (user.roles.includes('resto')) {
           self.ngZone.run(() => {
             self.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
-            self.router.navigate(['/back-order']));
+            self.router.navigate(['/food']));
           });
         } else {
             self.ngZone.run(() => {
